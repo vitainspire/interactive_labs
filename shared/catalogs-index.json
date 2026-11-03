@@ -1,0 +1,11 @@
+{
+  "_comment": "Discovery index of all content catalogs this service hosts. Fetch this first, find the catalog matching the class/subject you need, then fetch its 'url'. New classes/subjects get appended here over time without breaking existing consumers.",
+  "catalogs": [
+    {
+      "class": 10,
+      "subject": "Physical Science",
+      "curriculum": "NCERT",
+      "url": "shared/catalog.physical-science-10.json"
+    }
+  ]
+}

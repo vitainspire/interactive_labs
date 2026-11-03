@@ -1,0 +1,382 @@
+{
+  "class": 10,
+  "subject": "Physical Science",
+  "curriculum": "NCERT",
+  "base_url": "https://interactive-labs.onrender.com",
+  "chapters": [
+    {
+      "chapter": 1,
+      "title": "Chemical Reactions and Equations",
+      "topic_group": "Chemistry",
+      "emoji": "⚗️",
+      "overview_path": "Lesson-01-Chemical-Reactions/index.html",
+      "lab": {
+        "path": "Lesson-01-Chemical-Reactions/lab.html",
+        "experiments": null
+      },
+      "games": {
+        "path": "Lesson-01-Chemical-Reactions/games.html",
+        "list": [
+          {
+            "id": "typ",
+            "title": "Reaction Type"
+          },
+          {
+            "id": "bal",
+            "title": "Balance It"
+          },
+          {
+            "id": "rdx",
+            "title": "Redox"
+          },
+          {
+            "id": "heat",
+            "title": "Exo / Endo"
+          },
+          {
+            "id": "obs",
+            "title": "Observations"
+          }
+        ]
+      }
+    },
+    {
+      "chapter": 2,
+      "title": "Acids, Bases and Salts",
+      "topic_group": "Chemistry",
+      "emoji": "🧪",
+      "overview_path": "Lesson-02-Acids-Bases-Salts/index.html",
+      "lab": {
+        "path": "Lesson-02-Acids-Bases-Salts/lab.html",
+        "experiments": null
+      },
+      "games": {
+        "path": "Lesson-02-Acids-Bases-Salts/games.html",
+        "list": [
+          {
+            "id": "ind",
+            "title": "Indicators"
+          },
+          {
+            "id": "rx",
+            "title": "Reactions"
+          },
+          {
+            "id": "ph",
+            "title": "Ions & pH"
+          },
+          {
+            "id": "sf",
+            "title": "Salt Family"
+          },
+          {
+            "id": "su",
+            "title": "Salts We Use"
+          }
+        ]
+      }
+    },
+    {
+      "chapter": 3,
+      "title": "Metals and Non-metals",
+      "topic_group": "Chemistry",
+      "emoji": "🔩",
+      "overview_path": "Lesson-03-Metals-NonMetals/index.html",
+      "lab": {
+        "path": "Lesson-03-Metals-NonMetals/lab.html",
+        "experiments": [
+          {
+            "id": "pickA",
+            "title": "Rusting of iron"
+          },
+          {
+            "id": "pickB",
+            "title": "Nail in copper sulphate"
+          }
+        ]
+      },
+      "games": {
+        "path": "Lesson-03-Metals-NonMetals/games.html",
+        "list": [
+          {
+            "id": "pr",
+            "title": "Properties"
+          },
+          {
+            "id": "ox",
+            "title": "Oxide Lab"
+          },
+          {
+            "id": "rv",
+            "title": "Reactivity"
+          },
+          {
+            "id": "ib",
+            "title": "Ionic Bonds"
+          },
+          {
+            "id": "ex",
+            "title": "Extraction & Corrosion"
+          }
+        ]
+      }
+    },
+    {
+      "chapter": 4,
+      "title": "Carbon and its Compounds",
+      "topic_group": "Chemistry",
+      "emoji": "⬡",
+      "overview_path": "Lesson-04-Carbon-Compounds/index.html",
+      "lab": {
+        "path": "Lesson-04-Carbon-Compounds/lab.html",
+        "experiments": [
+          {
+            "id": "pickM",
+            "title": "Micelle formation"
+          },
+          {
+            "id": "pickO",
+            "title": "Oxidation of ethanol"
+          },
+          {
+            "id": "pickE",
+            "title": "Esterification"
+          },
+          {
+            "id": "pickC",
+            "title": "Acid + carbonate"
+          }
+        ]
+      },
+      "games": {
+        "path": "Lesson-04-Carbon-Compounds/games.html",
+        "list": [
+          {
+            "id": "hc",
+            "title": "Hydrocarbon Hunt"
+          },
+          {
+            "id": "fg",
+            "title": "Functional Groups"
+          },
+          {
+            "id": "pr",
+            "title": "Covalent Bonds"
+          },
+          {
+            "id": "ox",
+            "title": "Versatile Carbon"
+          },
+          {
+            "id": "rv",
+            "title": "Homologous Series"
+          },
+          {
+            "id": "ib",
+            "title": "Chemical Properties"
+          },
+          {
+            "id": "ex",
+            "title": "Ethanol & Soaps"
+          }
+        ]
+      }
+    },
+    {
+      "chapter": 9,
+      "title": "Light – Reflection and Refraction",
+      "topic_group": "Physics",
+      "emoji": "🔦",
+      "overview_path": "Lesson-09-Light/index.html",
+      "lab": {
+        "path": "Lesson-09-Light/lab.html",
+        "experiments": [
+          {
+            "id": "pickK",
+            "title": "Concave mirror images"
+          },
+          {
+            "id": "pickV",
+            "title": "Convex lens images"
+          },
+          {
+            "id": "pickS",
+            "title": "Refraction through a glass slab"
+          }
+        ]
+      },
+      "games": {
+        "path": "Lesson-09-Light/games.html",
+        "list": [
+          {
+            "id": "mir",
+            "title": "Mirror World"
+          },
+          {
+            "id": "len",
+            "title": "Lens World"
+          },
+          {
+            "id": "img",
+            "title": "Image Finder"
+          },
+          {
+            "id": "frm",
+            "title": "Formula Solver"
+          },
+          {
+            "id": "bend",
+            "title": "Bend It"
+          }
+        ]
+      }
+    },
+    {
+      "chapter": 10,
+      "title": "The Human Eye and the Colourful World",
+      "topic_group": "Physics",
+      "emoji": "👁️",
+      "overview_path": "Lesson-10-Human-Eye/index.html",
+      "lab": {
+        "path": "Lesson-10-Human-Eye/lab.html",
+        "experiments": [
+          {
+            "id": "pickP",
+            "title": "Refraction through a prism"
+          },
+          {
+            "id": "pickD",
+            "title": "Dispersion of white light"
+          },
+          {
+            "id": "pickE",
+            "title": "Correcting eye defects"
+          },
+          {
+            "id": "pickB",
+            "title": "Blue sky and red sunset"
+          }
+        ]
+      },
+      "games": {
+        "path": "Lesson-10-Human-Eye/games.html",
+        "list": [
+          {
+            "id": "eye",
+            "title": "Eye Parts"
+          },
+          {
+            "id": "fix",
+            "title": "Vision Fix"
+          },
+          {
+            "id": "prism",
+            "title": "Prism & Rainbow"
+          },
+          {
+            "id": "atm",
+            "title": "Twinkle & Sunrise"
+          },
+          {
+            "id": "sky",
+            "title": "Blue Sky"
+          }
+        ]
+      }
+    },
+    {
+      "chapter": 11,
+      "title": "Electricity",
+      "topic_group": "Physics",
+      "emoji": "⚡",
+      "overview_path": "Lesson-11-Electricity/index.html",
+      "lab": {
+        "path": "Lesson-11-Electricity/lab.html",
+        "experiments": [
+          {
+            "id": "pickO",
+            "title": "Ohm's law"
+          },
+          {
+            "id": "pickR",
+            "title": "What resistance depends on"
+          },
+          {
+            "id": "pickS",
+            "title": "Series vs parallel"
+          }
+        ]
+      },
+      "games": {
+        "path": "Lesson-11-Electricity/games.html",
+        "list": [
+          {
+            "id": "cur",
+            "title": "Current & Charge"
+          },
+          {
+            "id": "ohm",
+            "title": "Ohm's Law"
+          },
+          {
+            "id": "res",
+            "title": "Resistance Lab"
+          },
+          {
+            "id": "comb",
+            "title": "Series & Parallel"
+          },
+          {
+            "id": "heat",
+            "title": "Heat & Power"
+          }
+        ]
+      }
+    },
+    {
+      "chapter": 12,
+      "title": "Magnetic Effects of Electric Current",
+      "topic_group": "Physics",
+      "emoji": "🧲",
+      "overview_path": "Lesson-12-Magnetic-Effects/index.html",
+      "lab": {
+        "path": "Lesson-12-Magnetic-Effects/lab.html",
+        "experiments": [
+          {
+            "id": "pickC",
+            "title": "Oersted's experiment"
+          },
+          {
+            "id": "pickF",
+            "title": "Force on a current-carrying rod"
+          }
+        ]
+      },
+      "games": {
+        "path": "Lesson-12-Magnetic-Effects/games.html",
+        "list": [
+          {
+            "id": "field",
+            "title": "Magnetic Field"
+          },
+          {
+            "id": "wire",
+            "title": "Current Makes Fields"
+          },
+          {
+            "id": "sol",
+            "title": "Solenoid & Electromagnet"
+          },
+          {
+            "id": "force",
+            "title": "Force & Fleming"
+          },
+          {
+            "id": "home",
+            "title": "Home Wiring"
+          }
+        ]
+      }
+    }
+  ]
+}
