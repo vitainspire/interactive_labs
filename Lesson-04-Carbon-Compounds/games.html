@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Play and Learn – Carbon and its Compounds</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/theme.css">
+<link rel="stylesheet" href="games.css">
+</head>
+<body>
+<div class="app">
+  <header>
+    <div>
+      <div class="school"><a href="index.html" class="homeL">🏠 Home</a><span aria-hidden="true">🏫</span> ZPHS, Gurajanapalli</div>
+      <h1>Carbon &amp; its Compounds<span>Class X</span></h1>
+    </div>
+    <div class="hr"><button class="mus" id="mus" type="button" aria-pressed="true" aria-label="Music on or off" title="Music on / off">🎵</button><div class="score" id="score">Score 0 / 0</div></div>
+  </header>
+  <nav role="tablist">
+    <button role="tab" aria-selected="true" data-g="hc">Hydrocarbon Hunt</button>
+    <button role="tab" aria-selected="false" data-g="fg">Functional Groups</button>
+    <button role="tab" aria-selected="false" data-g="pr">Covalent Bonds</button>
+    <button role="tab" aria-selected="false" data-g="ox">Versatile Carbon</button>
+    <button role="tab" aria-selected="false" data-g="rv">Homologous Series</button>
+    <button role="tab" aria-selected="false" data-g="ib">Chemical Properties</button>
+    <button role="tab" aria-selected="false" data-g="ex">Ethanol &amp; Soaps</button>
+  </nav>
+  <main>
+    <section class="game on" id="hc"></section>
+    <section class="game" id="fg"></section>
+    <section class="game" id="pr"></section>
+    <section class="game" id="ox"></section>
+    <section class="game" id="rv"></section>
+    <section class="game" id="ib"></section>
+    <section class="game" id="ex"></section>
+  </main>
+</div>
+<script src="games.js"></script>
+<script src="../shared/deeplink.js"></script>
+</body>
+</html>

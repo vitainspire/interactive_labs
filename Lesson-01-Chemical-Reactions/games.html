@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Play and Learn – Chemical Reactions and Equations</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/theme.css">
+<link rel="stylesheet" href="games.css">
+</head>
+<body data-g="typ">
+<div class="app">
+  <header>
+    <div>
+      <div class="school" style="white-space:nowrap"><a href="index.html" class="homeL">🏠 Home</a><span aria-hidden="true">🏫</span> ZPHS, Gurajanapalli</div>
+      <h1>Chemical Reactions<span>Class X</span></h1>
+    </div>
+    <div class="hr"><button class="mus" id="mus" type="button" aria-pressed="true" aria-label="Music on or off" title="Music on / off">🎵</button><div class="score" id="score">Score 0 / 0</div></div>
+  </header>
+  <nav role="tablist">
+    <button role="tab" aria-selected="true" data-g="typ">Reaction Type</button>
+    <button role="tab" aria-selected="false" data-g="bal">Balance It</button>
+    <button role="tab" aria-selected="false" data-g="rdx">Redox</button>
+    <button role="tab" aria-selected="false" data-g="heat">Exo / Endo</button>
+    <button role="tab" aria-selected="false" data-g="obs">Observations</button>
+  </nav>
+  <main>
+    <section class="game" id="bal">
+      <div class="tag" id="balTag"></div>
+      <p class="q" id="balQ"></p>
+      <p class="hint" id="balH"></p>
+      <div class="stage"><div class="eqrow" id="eqRow"></div></div>
+      <div class="panel" id="balPanel"></div>
+      <div class="atoms" id="atoms"></div>
+      <div class="foot">
+        <div class="msg" id="balMsg"></div>
+        <button class="next soft" id="balShow" hidden>Show answer</button>
+        <button class="next" id="balCheck" hidden>Check</button>
+        <button class="next" id="balNext" hidden>Next equation</button>
+      </div>
+    </section>
+
+    <section class="game on" id="typ">
+      <div class="tag" id="typTag"></div>
+      <p class="q" id="typQ"></p>
+      <p class="eqshow" id="typEq"></p>
+      <div class="pic" id="typPic" hidden><svg viewBox="0 0 640 240" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Lab picture"></svg></div>
+      <div class="opts" id="typOpts"></div>
+      <div class="foot"><div class="msg" id="typMsg"></div><button class="next" id="typNext" hidden>Next question</button></div>
+    </section>
+
+    <section class="game" id="rdx">
+      <div class="tag" id="rdxTag"></div>
+      <p class="q" id="rdxQ"></p>
+      <p class="eqshow" id="rdxEq"></p>
+      <div class="pic" id="rdxPic" hidden><svg viewBox="0 0 640 240" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Lab picture"></svg></div>
+      <div class="opts" id="rdxOpts"></div>
+      <div class="foot"><div class="msg" id="rdxMsg"></div><button class="next" id="rdxNext" hidden>Next question</button></div>
+    </section>
+
+    <section class="game" id="heat">
+      <div class="tag" id="heatTag">📘 Textbook examples</div>
+      <p class="q">Drag each reaction into the right box</p>
+      <div class="tray" id="tray"></div>
+      <div class="bins">
+        <div class="bin x" data-bin="x"><h3>Exothermic</h3><p>Gives out heat</p><div class="in"></div></div>
+        <div class="bin n" data-bin="n"><h3>Endothermic</h3><p>Takes in energy</p><div class="in"></div></div>
+      </div>
+      <div class="foot"><div class="msg" id="heatMsg"></div><button class="next" id="heatNext" hidden>New set</button></div>
+    </section>
+    <section class="game" id="obs">
+      <div class="tag" id="obsTag"></div>
+      <p class="q" id="obsQ"></p>
+      <p class="eqshow" id="obsEq"></p>
+      <div class="pic" id="obsPic" hidden><svg viewBox="0 0 640 240" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Lab picture"></svg></div>
+      <div class="opts" id="obsOpts"></div>
+      <div class="foot"><div class="msg" id="obsMsg"></div><button class="next" id="obsNext" hidden>Next question</button></div>
+    </section>
+  </main>
+</div>
+<script src="../shared/app.js"></script>
+<script src="games.js"></script>
+<script src="../shared/deeplink.js"></script>
+</body>
+</html>

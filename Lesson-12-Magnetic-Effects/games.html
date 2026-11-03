@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Play and Learn – Magnetic Effects of Electric Current</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/theme.css">
+<link rel="stylesheet" href="games.css">
+</head>
+<body>
+<div class="app">
+  <header>
+    <div>
+      <div class="school"><a href="index.html" class="homeL">🏠 Home</a><span aria-hidden="true">🏫</span> ZPHS, Gurajanapalli</div>
+      <h1>Magnetic Effects<span>Class X</span></h1>
+    </div>
+    <div class="hr"><button class="mus" id="mus" type="button" aria-pressed="true" aria-label="Music on or off" title="Music on / off">🎵</button><div class="score" id="score">Score 0 / 0</div></div>
+  </header>
+  <nav role="tablist">
+    <button role="tab" aria-selected="true" data-g="field">Magnetic Field</button>
+    <button role="tab" aria-selected="false" data-g="wire">Current Makes Fields</button>
+    <button role="tab" aria-selected="false" data-g="sol">Solenoid &amp; Electromagnet</button>
+    <button role="tab" aria-selected="false" data-g="force">Force &amp; Fleming</button>
+    <button role="tab" aria-selected="false" data-g="home">Home Wiring</button>
+  </nav>
+  <main>
+    <section class="game on" id="field"></section>
+    <section class="game" id="wire"></section>
+    <section class="game" id="sol"></section>
+    <section class="game" id="force"></section>
+    <section class="game" id="home"></section>
+  </main>
+</div>
+<script src="../shared/app.js"></script>
+<script src="games.js"></script>
+<script src="../shared/deeplink.js"></script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Play and Learn – Electricity</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/theme.css">
+<link rel="stylesheet" href="games.css">
+</head>
+<body>
+<div class="app">
+  <header>
+    <div>
+      <div class="school"><a href="index.html" class="homeL">🏠 Home</a><span aria-hidden="true">🏫</span> ZPHS, Gurajanapalli</div>
+      <h1>Electricity<span>Class X</span></h1>
+    </div>
+    <div class="hr"><button class="mus" id="mus" type="button" aria-pressed="true" aria-label="Music on or off" title="Music on / off">🎵</button><div class="score" id="score">Score 0 / 0</div></div>
+  </header>
+  <nav role="tablist">
+    <button role="tab" aria-selected="true" data-g="cur">Current &amp; Charge</button>
+    <button role="tab" aria-selected="false" data-g="ohm">Ohm's Law</button>
+    <button role="tab" aria-selected="false" data-g="res">Resistance Lab</button>
+    <button role="tab" aria-selected="false" data-g="comb">Series &amp; Parallel</button>
+    <button role="tab" aria-selected="false" data-g="heat">Heat &amp; Power</button>
+  </nav>
+  <main>
+    <section class="game on" id="cur"></section>
+    <section class="game" id="ohm"></section>
+    <section class="game" id="res"></section>
+    <section class="game" id="comb"></section>
+    <section class="game" id="heat"></section>
+  </main>
+</div>
+<script src="games.js"></script>
+<script src="../shared/deeplink.js"></script>
+</body>
+</html>

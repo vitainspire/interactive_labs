@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Digital Lab – Light: Reflection and Refraction</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/theme.css">
+<link rel="stylesheet" href="lab.css">
+</head>
+<body>
+<div class="app">
+  <header>
+    <div>
+      <div class="school"><a href="index.html" class="homeL">🏠 Home</a>🏫 ZPHS, Gurajanapalli</div>
+      <h1>🔬 Digital Lab<span id="hsub">Light: Reflection and Refraction</span></h1>
+    </div>
+    <div class="hr">
+      <div class="pill" id="pill">Choose</div>
+      <button class="swap" id="swap" title="Choose the other experiment">⇄ Change</button>
+      <button class="ib" id="voice" aria-pressed="true" title="Voice on/off" aria-label="Voice on or off">🗣️</button>
+      <button class="ib" id="mus" aria-pressed="false" title="Music on/off" aria-label="Music on or off">🎵</button>
+      <button class="ib" id="snd" aria-pressed="true" title="Sound on/off" aria-label="Sound on or off">🔊</button>
+      <button class="ib" id="rst" title="Start again" aria-label="Start again">↺</button>
+    </div>
+  </header>
+
+  <div class="lab" id="lab">
+    <div class="stage">
+      <div class="task" id="task"><span class="n" id="tn">1</span><span class="t" id="tt">Choose an experiment to begin.</span><button class="go" id="chk" hidden>📝 Check yourself</button></div>
+      <div class="scene" id="scene">
+        <svg id="sc" viewBox="0 0 700 620" preserveAspectRatio="xMidYMid meet" aria-label="Optics bench with mirror, lens, candle and glass slab">
+<defs>
+  <linearGradient id="gBench" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#5A6478"/><stop offset="1" stop-color="#2E3544"/>
+  </linearGradient>
+  <radialGradient id="gShadow"><stop offset="0" stop-color="rgba(0,0,0,.42)"/><stop offset="1" stop-color="rgba(0,0,0,0)"/></radialGradient>
+  <linearGradient id="gTube" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="rgba(255,255,255,.50)"/><stop offset=".45" stop-color="rgba(255,255,255,.14)"/><stop offset="1" stop-color="rgba(255,255,255,.42)"/>
+  </linearGradient>
+  <linearGradient id="gWater" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#9ED6F2"/><stop offset=".5" stop-color="#6FBEE8"/><stop offset="1" stop-color="#9ED6F2"/>
+  </linearGradient>
+  <linearGradient id="gWaterB" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#BFE3F4"/><stop offset=".5" stop-color="#93CDE8"/><stop offset="1" stop-color="#BFE3F4"/>
+  </linearGradient>
+  <linearGradient id="gOil" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#F6D978"/><stop offset=".5" stop-color="#E0B445"/><stop offset="1" stop-color="#F6D978"/>
+  </linearGradient>
+  <linearGradient id="gSalt" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#F3F5F9"/><stop offset=".5" stop-color="#D9DFE8"/><stop offset="1" stop-color="#F3F5F9"/>
+  </linearGradient>
+  <linearGradient id="gCork" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#C98A52"/><stop offset="1" stop-color="#9A6233"/>
+  </linearGradient>
+  <linearGradient id="gIron" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#C3CBD6"/><stop offset=".4" stop-color="#8A94A4"/><stop offset="1" stop-color="#B4BDCA"/>
+  </linearGradient>
+  <linearGradient id="gRust" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#C96A33"/><stop offset=".45" stop-color="#9A4A1E"/><stop offset="1" stop-color="#C06231"/>
+  </linearGradient>
+  <linearGradient id="gCopper" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#E09A62"/><stop offset=".45" stop-color="#B5652C"/><stop offset="1" stop-color="#D98F55"/>
+  </linearGradient>
+  <linearGradient id="gBlue" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#5B9BE8"/><stop offset=".5" stop-color="#2C62C4"/><stop offset="1" stop-color="#5B9BE8"/>
+  </linearGradient>
+  <linearGradient id="gPale" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#A8D8BC"/><stop offset=".5" stop-color="#7FC39C"/><stop offset="1" stop-color="#A8D8BC"/>
+  </linearGradient>
+  <linearGradient id="gGreen" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#AEDCC2"/><stop offset=".5" stop-color="#86C5A3"/><stop offset="1" stop-color="#AEDCC2"/>
+  </linearGradient>
+  <linearGradient id="gMilk" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#F5EED8"/><stop offset=".5" stop-color="#E9DDB8"/><stop offset="1" stop-color="#F5EED8"/>
+  </linearGradient>
+  <linearGradient id="gSoap" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#F5D0FE"/><stop offset=".5" stop-color="#E9A8F5"/><stop offset="1" stop-color="#F5D0FE"/>
+  </linearGradient>
+  <linearGradient id="gEth" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#F1F5F9"/><stop offset=".5" stop-color="#DCE6EF"/><stop offset="1" stop-color="#F1F5F9"/>
+  </linearGradient>
+  <linearGradient id="gPurple" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#A855F7"/><stop offset=".5" stop-color="#7E22CE"/><stop offset="1" stop-color="#A855F7"/>
+  </linearGradient>
+  <linearGradient id="gPink" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#E9A5F1"/><stop offset=".5" stop-color="#C55BD6"/><stop offset="1" stop-color="#E9A5F1"/>
+  </linearGradient>
+  <linearGradient id="gLime" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#F0F9FF"/><stop offset=".5" stop-color="#DBEEF8"/><stop offset="1" stop-color="#F0F9FF"/>
+  </linearGradient>
+  <linearGradient id="gChalk" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#FFFFFF"/><stop offset=".5" stop-color="#E5E9EF"/><stop offset="1" stop-color="#FFFFFF"/>
+  </linearGradient>
+</defs>
+
+<g id="scK" style="display:none">
+  <rect x="0" y="0" width="700" height="470" fill="var(--wall)"/>
+  <g opacity=".5" stroke="var(--tile)" stroke-width="2"><path d="M0 110H700M0 220H700M0 330H700M150 0V470M330 0V470M510 0V470"/></g>
+  <rect x="0" y="470" width="700" height="150" fill="url(#gBench)"/>
+  <rect x="0" y="466" width="700" height="8" rx="4" fill="var(--glass)" opacity=".45"/>
+  <g id="kBoard" opacity="0" pointer-events="none">
+    <rect x="150" y="160" width="400" height="66" rx="14" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="3"/>
+    <text id="kB1" x="350" y="188" text-anchor="middle" class="lblD" style="font-size:19px;fill:#1E293B">Image</text>
+    <text id="kB2" x="350" y="214" text-anchor="middle" class="lblD sm" style="fill:#475569"> </text>
+  </g>
+  <rect x="60" y="466" width="506" height="20" rx="4" fill="#CBD5E1" stroke="#64748B" stroke-width="2"/>
+  <line x1="560" y1="470" x2="560" y2="484" stroke="#475569" stroke-width="1.5"/><line x1="545" y1="470" x2="545" y2="478" stroke="#475569" stroke-width="1.5"/><line x1="530" y1="470" x2="530" y2="484" stroke="#475569" stroke-width="1.5"/><line x1="515" y1="470" x2="515" y2="478" stroke="#475569" stroke-width="1.5"/><line x1="500" y1="470" x2="500" y2="484" stroke="#475569" stroke-width="1.5"/><line x1="485" y1="470" x2="485" y2="478" stroke="#475569" stroke-width="1.5"/><line x1="470" y1="470" x2="470" y2="484" stroke="#475569" stroke-width="1.5"/><line x1="455" y1="470" x2="455" y2="478" stroke="#475569" stroke-width="1.5"/><line x1="440" y1="470" x2="440" y2="484" stroke="#475569" stroke-width="1.5"/><line x1="425" y1="470" x2="425" y2="478" stroke="#475569" stroke-width="1.5"/><line x1="410" y1="470" x2="410" y2="484" stroke="#475569" stroke-width="1.5"/><line x1="395" y1="470" x2="395" y2="478" stroke="#475569" stroke-width="1.5"/><line x1="380" y1="470" x2="380" y2="484" stroke="#475569" stroke-width="1.5"/><line x1="365" y1="470" x2="365" y2="478" stroke="#475569" stroke-width="1.5"/><line x1="350" y1="470" x2="350" y2="484" stroke="#475569" stroke-width="1.5"/><line x1="335" y1="470" x2="335" y2="478" stroke="#475569" stroke-width="1.5"/><line x1="320" y1="470" x2="320" y2="484" stroke="#475569" stroke-width="1.5"/><line x1="305" y1="470" x2="305" y2="478" stroke="#475569" stroke-width="1.5"/><line x1="290" y1="470" x2="290" y2="484" stroke="#475569" stroke-width="1.5"/><line x1="275" y1="470" x2="275" y2="478" stroke="#475569" stroke-width="1.5"/><line x1="260" y1="470" x2="260" y2="484" stroke="#475569" stroke-width="1.5"/><line x1="245" y1="470" x2="245" y2="478" stroke="#475569" stroke-width="1.5"/><line x1="230" y1="470" x2="230" y2="484" stroke="#475569" stroke-width="1.5"/><line x1="215" y1="470" x2="215" y2="478" stroke="#475569" stroke-width="1.5"/><line x1="200" y1="470" x2="200" y2="484" stroke="#475569" stroke-width="1.5"/><line x1="185" y1="470" x2="185" y2="478" stroke="#475569" stroke-width="1.5"/><line x1="170" y1="470" x2="170" y2="484" stroke="#475569" stroke-width="1.5"/><line x1="155" y1="470" x2="155" y2="478" stroke="#475569" stroke-width="1.5"/><line x1="140" y1="470" x2="140" y2="484" stroke="#475569" stroke-width="1.5"/><line x1="125" y1="470" x2="125" y2="478" stroke="#475569" stroke-width="1.5"/><line x1="110" y1="470" x2="110" y2="484" stroke="#475569" stroke-width="1.5"/><line x1="95" y1="470" x2="95" y2="478" stroke="#475569" stroke-width="1.5"/><line x1="80" y1="470" x2="80" y2="484" stroke="#475569" stroke-width="1.5"/><line x1="65" y1="470" x2="65" y2="478" stroke="#475569" stroke-width="1.5"/><text x="560" y="500" class="lbl" style="font-size:13px">0</text><text x="530" y="500" class="lbl" style="font-size:13px">5</text><text x="500" y="500" class="lbl" style="font-size:13px">10</text><text x="470" y="500" class="lbl" style="font-size:13px">15</text><text x="440" y="500" class="lbl" style="font-size:13px">20</text><text x="410" y="500" class="lbl" style="font-size:13px">25</text><text x="380" y="500" class="lbl" style="font-size:13px">30</text><text x="350" y="500" class="lbl" style="font-size:13px">35</text><text x="320" y="500" class="lbl" style="font-size:13px">40</text><text x="290" y="500" class="lbl" style="font-size:13px">45</text><text x="260" y="500" class="lbl" style="font-size:13px">50</text><text x="230" y="500" class="lbl" style="font-size:13px">55</text><text x="200" y="500" class="lbl" style="font-size:13px">60</text><text x="170" y="500" class="lbl" style="font-size:13px">65</text><text x="140" y="500" class="lbl" style="font-size:13px">70</text><text x="110" y="500" class="lbl" style="font-size:13px">75</text><text x="80" y="500" class="lbl" style="font-size:13px">80</text>
+  <text x="313" y="528" class="lbl" style="font-size:14px">Scale in cm (from the mirror)</text>
+  <line x1="40" y1="330" x2="600" y2="330" stroke="#94A3B8" stroke-width="2" stroke-dasharray="8 6"/>
+  <g id="kMir" data-t="mirror" tabindex="0" role="button" aria-label="Concave mirror">
+    <rect class="hit" x="530" y="256" width="70" height="214" fill="transparent"/>
+    <rect x="556" y="390" width="8" height="78" fill="#64748B"/><rect x="542" y="462" width="36" height="8" rx="3" fill="#475569"/>
+    <path d="M545 270 Q575 330 545 390" fill="none" stroke="#CBD5E1" stroke-width="9" stroke-linecap="round"/>
+    <path d="M545 270 Q575 330 545 390" fill="none" stroke="#0F172A" stroke-width="4" stroke-linecap="round"/>
+    <text x="468" y="248" class="lblD" style="font-size:16px;fill:#1E293B">Concave mirror</text>
+    
+  </g>
+  <g id="kCand" data-t="candle" tabindex="0" role="button" aria-label="Candle" transform="translate(110 0)">
+    <rect class="hit" x="-26" y="270" width="52" height="204" fill="transparent"/>
+    <rect x="-3" y="330" width="6" height="138" fill="#64748B"/>
+    <rect x="-14" y="462" width="28" height="8" rx="3" fill="#475569"/>
+    <rect x="-9" y="300" width="18" height="30" rx="2" fill="#FDE68A" stroke="#D97706" stroke-width="1.5"/>
+    <path d="M0 280 C10 290 9 300 0 300 C-9 300 -10 290 0 280Z" fill="#FB923C"/>
+    <path d="M0 288 C5 293 4 298 0 298 C-4 298 -5 293 0 288Z" fill="#FEF08A"/>
+  </g>
+  <g id="kMarks" opacity="0" pointer-events="none"><circle cx="380" cy="330" r="6.5" fill="#DC2626" stroke="#FFFFFF" stroke-width="2"/><text x="380" y="360" text-anchor="middle" style="font:800 21px \'Baloo 2\',sans-serif;fill:#B91C1C;paint-order:stroke;stroke:#FFFFFF;stroke-width:5px">C</text><circle cx="470" cy="330" r="6.5" fill="#DC2626" stroke="#FFFFFF" stroke-width="2"/><text x="470" y="360" text-anchor="middle" style="font:800 21px \'Baloo 2\',sans-serif;fill:#B91C1C;paint-order:stroke;stroke:#FFFFFF;stroke-width:5px">F</text><circle cx="560" cy="330" r="6.5" fill="#DC2626" stroke="#FFFFFF" stroke-width="2"/><text x="584" y="360" text-anchor="middle" style="font:800 21px 'Baloo 2',sans-serif;fill:#B91C1C;paint-order:stroke;stroke:#FFFFFF;stroke-width:5px">P</text><text x="160" y="318" style="font:700 15px 'Baloo 2',sans-serif;fill:#475569;paint-order:stroke;stroke:#FFFFFF;stroke-width:4px">Principal axis</text></g>
+  <g id="kDyn" pointer-events="none"></g>
+</g>
+<g id="scV" style="display:none">
+  <rect x="0" y="0" width="700" height="470" fill="var(--wall)"/>
+  <g opacity=".5" stroke="var(--tile)" stroke-width="2"><path d="M0 110H700M0 220H700M0 330H700M150 0V470M330 0V470M510 0V470"/></g>
+  <rect x="0" y="470" width="700" height="150" fill="url(#gBench)"/>
+  <rect x="0" y="466" width="700" height="8" rx="4" fill="var(--glass)" opacity=".45"/>
+  <g id="vBoard" opacity="0" pointer-events="none">
+    <rect x="150" y="160" width="400" height="66" rx="14" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="3"/>
+    <text id="vB1" x="350" y="188" text-anchor="middle" class="lblD" style="font-size:19px;fill:#1E293B">Image</text>
+    <text id="vB2" x="350" y="214" text-anchor="middle" class="lblD sm" style="fill:#475569"> </text>
+  </g>
+  <rect x="60" y="466" width="580" height="20" rx="4" fill="#CBD5E1" stroke="#64748B" stroke-width="2"/>
+  <line x1="335" y1="470" x2="335" y2="478" stroke="#475569" stroke-width="1.5"/><line x1="320" y1="470" x2="320" y2="484" stroke="#475569" stroke-width="1.5"/><line x1="305" y1="470" x2="305" y2="478" stroke="#475569" stroke-width="1.5"/><line x1="290" y1="470" x2="290" y2="484" stroke="#475569" stroke-width="1.5"/><line x1="275" y1="470" x2="275" y2="478" stroke="#475569" stroke-width="1.5"/><line x1="260" y1="470" x2="260" y2="484" stroke="#475569" stroke-width="1.5"/><line x1="245" y1="470" x2="245" y2="478" stroke="#475569" stroke-width="1.5"/><line x1="230" y1="470" x2="230" y2="484" stroke="#475569" stroke-width="1.5"/><line x1="215" y1="470" x2="215" y2="478" stroke="#475569" stroke-width="1.5"/><line x1="200" y1="470" x2="200" y2="484" stroke="#475569" stroke-width="1.5"/><line x1="185" y1="470" x2="185" y2="478" stroke="#475569" stroke-width="1.5"/><line x1="170" y1="470" x2="170" y2="484" stroke="#475569" stroke-width="1.5"/><line x1="155" y1="470" x2="155" y2="478" stroke="#475569" stroke-width="1.5"/><line x1="140" y1="470" x2="140" y2="484" stroke="#475569" stroke-width="1.5"/><line x1="125" y1="470" x2="125" y2="478" stroke="#475569" stroke-width="1.5"/><line x1="110" y1="470" x2="110" y2="484" stroke="#475569" stroke-width="1.5"/><line x1="95" y1="470" x2="95" y2="478" stroke="#475569" stroke-width="1.5"/><line x1="80" y1="470" x2="80" y2="484" stroke="#475569" stroke-width="1.5"/><line x1="65" y1="470" x2="65" y2="478" stroke="#475569" stroke-width="1.5"/><line x1="350" y1="470" x2="350" y2="484" stroke="#475569" stroke-width="1.5"/><line x1="365" y1="470" x2="365" y2="478" stroke="#475569" stroke-width="1.5"/><line x1="380" y1="470" x2="380" y2="484" stroke="#475569" stroke-width="1.5"/><line x1="395" y1="470" x2="395" y2="478" stroke="#475569" stroke-width="1.5"/><line x1="410" y1="470" x2="410" y2="484" stroke="#475569" stroke-width="1.5"/><line x1="425" y1="470" x2="425" y2="478" stroke="#475569" stroke-width="1.5"/><line x1="440" y1="470" x2="440" y2="484" stroke="#475569" stroke-width="1.5"/><line x1="455" y1="470" x2="455" y2="478" stroke="#475569" stroke-width="1.5"/><line x1="470" y1="470" x2="470" y2="484" stroke="#475569" stroke-width="1.5"/><line x1="485" y1="470" x2="485" y2="478" stroke="#475569" stroke-width="1.5"/><line x1="500" y1="470" x2="500" y2="484" stroke="#475569" stroke-width="1.5"/><line x1="515" y1="470" x2="515" y2="478" stroke="#475569" stroke-width="1.5"/><line x1="530" y1="470" x2="530" y2="484" stroke="#475569" stroke-width="1.5"/><line x1="545" y1="470" x2="545" y2="478" stroke="#475569" stroke-width="1.5"/><line x1="560" y1="470" x2="560" y2="484" stroke="#475569" stroke-width="1.5"/><line x1="575" y1="470" x2="575" y2="478" stroke="#475569" stroke-width="1.5"/><line x1="590" y1="470" x2="590" y2="484" stroke="#475569" stroke-width="1.5"/><line x1="605" y1="470" x2="605" y2="478" stroke="#475569" stroke-width="1.5"/><line x1="620" y1="470" x2="620" y2="484" stroke="#475569" stroke-width="1.5"/><line x1="635" y1="470" x2="635" y2="478" stroke="#475569" stroke-width="1.5"/><text x="320" y="500" class="lbl" style="font-size:13px">5</text><text x="290" y="500" class="lbl" style="font-size:13px">10</text><text x="260" y="500" class="lbl" style="font-size:13px">15</text><text x="230" y="500" class="lbl" style="font-size:13px">20</text><text x="200" y="500" class="lbl" style="font-size:13px">25</text><text x="170" y="500" class="lbl" style="font-size:13px">30</text><text x="140" y="500" class="lbl" style="font-size:13px">35</text><text x="110" y="500" class="lbl" style="font-size:13px">40</text><text x="80" y="500" class="lbl" style="font-size:13px">45</text><text x="350" y="500" class="lbl" style="font-size:13px">0</text><text x="380" y="500" class="lbl" style="font-size:13px">5</text><text x="410" y="500" class="lbl" style="font-size:13px">10</text><text x="440" y="500" class="lbl" style="font-size:13px">15</text><text x="470" y="500" class="lbl" style="font-size:13px">20</text><text x="500" y="500" class="lbl" style="font-size:13px">25</text><text x="530" y="500" class="lbl" style="font-size:13px">30</text><text x="560" y="500" class="lbl" style="font-size:13px">35</text><text x="590" y="500" class="lbl" style="font-size:13px">40</text><text x="620" y="500" class="lbl" style="font-size:13px">45</text>
+  <text x="350" y="528" class="lbl" style="font-size:14px">Scale in cm (from the lens)</text>
+  <g pointer-events="none"><rect x="60" y="466" width="290" height="20" fill="transparent"/></g>
+  <line x1="40" y1="330" x2="660" y2="330" stroke="#94A3B8" stroke-width="2" stroke-dasharray="8 6"/>
+  <g id="vLens" data-t="lens" tabindex="0" role="button" aria-label="Convex lens">
+    <rect class="hit" x="320" y="258" width="60" height="214" fill="transparent"/>
+    <rect x="346" y="392" width="8" height="76" fill="#64748B"/><rect x="332" y="462" width="36" height="8" rx="3" fill="#475569"/>
+    <ellipse cx="350" cy="330" rx="12" ry="62" fill="rgba(186,230,253,.75)" stroke="#0284C7" stroke-width="3"/>
+    <text x="350" y="258" class="lblD" style="font-size:16px;fill:#1E293B">Convex lens</text>
+  </g>
+  <g id="vCand" data-t="candle" tabindex="0" role="button" aria-label="Candle" transform="translate(90 0)">
+    <rect class="hit" x="-26" y="270" width="52" height="204" fill="transparent"/>
+    <rect x="-3" y="330" width="6" height="138" fill="#64748B"/>
+    <rect x="-14" y="462" width="28" height="8" rx="3" fill="#475569"/>
+    <rect x="-9" y="300" width="18" height="30" rx="2" fill="#FDE68A" stroke="#D97706" stroke-width="1.5"/>
+    <path d="M0 280 C10 290 9 300 0 300 C-9 300 -10 290 0 280Z" fill="#FB923C"/>
+    <path d="M0 288 C5 293 4 298 0 298 C-4 298 -5 293 0 288Z" fill="#FEF08A"/>
+  </g>
+  <g id="vMarks" opacity="0" pointer-events="none"><circle cx="206" cy="330" r="6.5" fill="#DC2626" stroke="#FFFFFF" stroke-width="2"/><text x="206" y="360" text-anchor="middle" style="font:800 21px \'Baloo 2\',sans-serif;fill:#B91C1C;paint-order:stroke;stroke:#FFFFFF;stroke-width:5px">2F₁</text><circle cx="278" cy="330" r="6.5" fill="#DC2626" stroke="#FFFFFF" stroke-width="2"/><text x="278" y="360" text-anchor="middle" style="font:800 21px \'Baloo 2\',sans-serif;fill:#B91C1C;paint-order:stroke;stroke:#FFFFFF;stroke-width:5px">F₁</text><circle cx="350" cy="330" r="6.5" fill="#DC2626" stroke="#FFFFFF" stroke-width="2"/><text x="350" y="360" text-anchor="middle" style="font:800 21px \'Baloo 2\',sans-serif;fill:#B91C1C;paint-order:stroke;stroke:#FFFFFF;stroke-width:5px">O</text><circle cx="422" cy="330" r="6.5" fill="#DC2626" stroke="#FFFFFF" stroke-width="2"/><text x="422" y="360" text-anchor="middle" style="font:800 21px \'Baloo 2\',sans-serif;fill:#B91C1C;paint-order:stroke;stroke:#FFFFFF;stroke-width:5px">F₂</text><circle cx="494" cy="330" r="6.5" fill="#DC2626" stroke="#FFFFFF" stroke-width="2"/><text x="494" y="360" text-anchor="middle" style="font:800 21px \'Baloo 2\',sans-serif;fill:#B91C1C;paint-order:stroke;stroke:#FFFFFF;stroke-width:5px">2F₂</text><text x="530" y="318" style="font:700 15px 'Baloo 2',sans-serif;fill:#475569;paint-order:stroke;stroke:#FFFFFF;stroke-width:4px">Principal axis</text></g>
+  <g id="vDyn" pointer-events="none"></g>
+</g>
+<g id="scS" style="display:none">
+  <rect x="0" y="0" width="700" height="470" fill="var(--wall)"/>
+  <g opacity=".5" stroke="var(--tile)" stroke-width="2"><path d="M0 110H700M0 220H700M0 330H700M150 0V470M330 0V470M510 0V470"/></g>
+  <rect x="0" y="470" width="700" height="150" fill="url(#gBench)"/>
+  <rect x="0" y="466" width="700" height="8" rx="4" fill="var(--glass)" opacity=".45"/>
+  <rect x="110" y="156" width="480" height="304" rx="8" fill="#F8FAFC" stroke="#94A3B8" stroke-width="3"/>
+  <g fill="#DC2626"><circle cx="124" cy="170" r="6"/><circle cx="576" cy="170" r="6"/><circle cx="124" cy="446" r="6"/><circle cx="576" cy="446" r="6"/></g>
+  <text x="350" y="180" class="lblD" style="font-size:15px;fill:#64748B">White paper on a drawing board</text>
+  <g id="sGlass" opacity="0" pointer-events="none">
+    <rect x="230" y="250" width="240" height="100" fill="rgba(125,211,252,.45)" stroke="#0369A1" stroke-width="3"/>
+    <text x="520" y="306" class="lblD" style="font-size:15px;fill:#0369A1">Glass slab</text>
+  </g>
+  <g id="sDyn" pointer-events="none"></g>
+  <g id="sSlab" data-t="slab" tabindex="0" role="button" aria-label="Glass slab">
+    <rect class="hit" x="60" y="490" width="140" height="70" fill="transparent"/>
+    <rect x="70" y="500" width="120" height="44" rx="4" fill="rgba(125,211,252,.6)" stroke="#BAE6FD" stroke-width="3"/>
+    <text x="130" y="572" class="lbl">Glass slab</text>
+  </g>
+  <g id="sPins" data-t="pins" tabindex="0" role="button" aria-label="Pins">
+    <rect class="hit" x="212" y="490" width="86" height="70" fill="transparent"/>
+    <rect x="220" y="510" width="70" height="34" rx="6" fill="#F1F5F9" stroke="#94A3B8" stroke-width="2"/>
+    <g fill="#DC2626"><circle cx="232" cy="520" r="4.5"/><circle cx="247" cy="520" r="4.5"/><circle cx="262" cy="520" r="4.5"/><circle cx="277" cy="520" r="4.5"/></g>
+    <text x="255" y="572" class="lbl">Pins</text>
+  </g>
+  <g id="sEye" data-t="eye" tabindex="0" role="button" aria-label="Look through the slab">
+    <rect class="hit" x="316" y="490" width="80" height="70" fill="transparent"/>
+    <ellipse cx="356" cy="522" rx="30" ry="17" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="3"/>
+    <circle cx="356" cy="522" r="11" fill="#2563EB"/><circle cx="356" cy="522" r="5" fill="#0F172A"/>
+    <text x="356" y="572" class="lbl">Look</text>
+  </g>
+  <g id="sRuler" data-t="ruler" tabindex="0" role="button" aria-label="Ruler">
+    <rect class="hit" x="412" y="490" width="140" height="70" fill="transparent"/>
+    <rect x="420" y="510" width="124" height="22" rx="3" fill="#FDE68A" stroke="#B45309" stroke-width="2"/>
+    <line x1="428" y1="510" x2="428" y2="523" stroke="#92400E" stroke-width="1.5"/><line x1="438" y1="510" x2="438" y2="518" stroke="#92400E" stroke-width="1.5"/><line x1="448" y1="510" x2="448" y2="523" stroke="#92400E" stroke-width="1.5"/><line x1="458" y1="510" x2="458" y2="518" stroke="#92400E" stroke-width="1.5"/><line x1="468" y1="510" x2="468" y2="523" stroke="#92400E" stroke-width="1.5"/><line x1="478" y1="510" x2="478" y2="518" stroke="#92400E" stroke-width="1.5"/><line x1="488" y1="510" x2="488" y2="523" stroke="#92400E" stroke-width="1.5"/><line x1="498" y1="510" x2="498" y2="518" stroke="#92400E" stroke-width="1.5"/><line x1="508" y1="510" x2="508" y2="523" stroke="#92400E" stroke-width="1.5"/><line x1="518" y1="510" x2="518" y2="518" stroke="#92400E" stroke-width="1.5"/><line x1="528" y1="510" x2="528" y2="523" stroke="#92400E" stroke-width="1.5"/><line x1="538" y1="510" x2="538" y2="518" stroke="#92400E" stroke-width="1.5"/>
+    <text x="482" y="572" class="lbl">Ruler</text>
+  </g>
+  <g id="sProt" data-t="prot" tabindex="0" role="button" aria-label="Protractor">
+    <rect class="hit" x="566" y="486" width="94" height="74" fill="transparent"/>
+    <path d="M572 540 A40 40 0 0 1 652 540 Z" fill="rgba(254,240,138,.8)" stroke="#B45309" stroke-width="2"/>
+    <text x="612" y="572" class="lbl">Protractor</text>
+  </g>
+</g>
+
+          <g id="fx"></g>
+          <g id="Ltop"></g>
+        </svg>
+        <div class="toast" id="toast"></div>
+      </div>
+    </div>
+
+    <aside class="note" id="note">
+      <h2>📒 My lab record</h2>
+      <p class="aim" id="aim"><b>Aim:</b> Choose an experiment to begin.</p>
+      <ol class="steps" id="steps"></ol>
+      <h3>What I saw</h3>
+      <ul class="obs" id="obs"><li class="empty">Your observations will appear here.</li></ul>
+      <div class="concl" id="concl" hidden>
+        <div class="w" id="cw1"></div>
+        <div class="eq" id="ceq"></div>
+        <div class="w" id="cw2"></div>
+      </div>
+    </aside>
+
+    <div class="ov" id="ov">
+      <div class="card" id="card"></div>
+    </div>
+  </div>
+</div>
+
+<script src="lab.js"></script>
+<script src="../shared/deeplink.js"></script>
+</body></html>

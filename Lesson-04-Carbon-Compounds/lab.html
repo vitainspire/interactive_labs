@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Digital Lab – Carbon and its Compounds</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/theme.css">
+<link rel="stylesheet" href="lab.css">
+</head>
+<body>
+<div class="app">
+  <header>
+    <div>
+      <div class="school"><a href="index.html" class="homeL">🏠 Home</a>🏫 ZPHS, Gurajanapalli</div>
+      <h1>🔬 Digital Lab<span id="hsub">Carbon and its Compounds</span></h1>
+    </div>
+    <div class="hr">
+      <div class="pill" id="pill">Choose</div>
+      <button class="swap" id="swap" title="Choose the other experiment">⇄ Change</button>
+      <button class="ib" id="voice" aria-pressed="true" title="Voice on/off" aria-label="Voice on or off">🗣️</button>
+      <button class="ib" id="mus" aria-pressed="false" title="Music on/off" aria-label="Music on or off">🎵</button>
+      <button class="ib" id="snd" aria-pressed="true" title="Sound on/off" aria-label="Sound on or off">🔊</button>
+      <button class="ib" id="rst" title="Start again" aria-label="Start again">↺</button>
+    </div>
+  </header>
+
+  <div class="lab" id="lab">
+    <div class="stage">
+      <div class="task" id="task"><span class="n" id="tn">1</span><span class="t" id="tt">Choose an experiment to begin.</span><button class="go" id="chk" hidden>📝 Check yourself</button></div>
+      <div class="scene" id="scene">
+        <svg id="sc" viewBox="0 0 700 620" preserveAspectRatio="xMidYMid meet" aria-label="Laboratory bench with test tubes and bottles">
+<defs>
+  <linearGradient id="gBench" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#5A6478"/><stop offset="1" stop-color="#2E3544"/>
+  </linearGradient>
+  <radialGradient id="gShadow"><stop offset="0" stop-color="rgba(0,0,0,.42)"/><stop offset="1" stop-color="rgba(0,0,0,0)"/></radialGradient>
+  <linearGradient id="gTube" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="rgba(255,255,255,.50)"/><stop offset=".45" stop-color="rgba(255,255,255,.14)"/><stop offset="1" stop-color="rgba(255,255,255,.42)"/>
+  </linearGradient>
+  <linearGradient id="gWater" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#9ED6F2"/><stop offset=".5" stop-color="#6FBEE8"/><stop offset="1" stop-color="#9ED6F2"/>
+  </linearGradient>
+  <linearGradient id="gWaterB" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#BFE3F4"/><stop offset=".5" stop-color="#93CDE8"/><stop offset="1" stop-color="#BFE3F4"/>
+  </linearGradient>
+  <linearGradient id="gOil" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#F6D978"/><stop offset=".5" stop-color="#E0B445"/><stop offset="1" stop-color="#F6D978"/>
+  </linearGradient>
+  <linearGradient id="gSalt" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#F3F5F9"/><stop offset=".5" stop-color="#D9DFE8"/><stop offset="1" stop-color="#F3F5F9"/>
+  </linearGradient>
+  <linearGradient id="gCork" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#C98A52"/><stop offset="1" stop-color="#9A6233"/>
+  </linearGradient>
+  <linearGradient id="gIron" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#C3CBD6"/><stop offset=".4" stop-color="#8A94A4"/><stop offset="1" stop-color="#B4BDCA"/>
+  </linearGradient>
+  <linearGradient id="gRust" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#C96A33"/><stop offset=".45" stop-color="#9A4A1E"/><stop offset="1" stop-color="#C06231"/>
+  </linearGradient>
+  <linearGradient id="gCopper" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#E09A62"/><stop offset=".45" stop-color="#B5652C"/><stop offset="1" stop-color="#D98F55"/>
+  </linearGradient>
+  <linearGradient id="gBlue" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#5B9BE8"/><stop offset=".5" stop-color="#2C62C4"/><stop offset="1" stop-color="#5B9BE8"/>
+  </linearGradient>
+  <linearGradient id="gPale" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#A8D8BC"/><stop offset=".5" stop-color="#7FC39C"/><stop offset="1" stop-color="#A8D8BC"/>
+  </linearGradient>
+  <linearGradient id="gGreen" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#AEDCC2"/><stop offset=".5" stop-color="#86C5A3"/><stop offset="1" stop-color="#AEDCC2"/>
+  </linearGradient>
+  <linearGradient id="gMilk" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#F5EED8"/><stop offset=".5" stop-color="#E9DDB8"/><stop offset="1" stop-color="#F5EED8"/>
+  </linearGradient>
+  <linearGradient id="gSoap" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#F5D0FE"/><stop offset=".5" stop-color="#E9A8F5"/><stop offset="1" stop-color="#F5D0FE"/>
+  </linearGradient>
+  <linearGradient id="gEth" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#F1F5F9"/><stop offset=".5" stop-color="#DCE6EF"/><stop offset="1" stop-color="#F1F5F9"/>
+  </linearGradient>
+  <linearGradient id="gPurple" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#A855F7"/><stop offset=".5" stop-color="#7E22CE"/><stop offset="1" stop-color="#A855F7"/>
+  </linearGradient>
+  <linearGradient id="gPink" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#E9A5F1"/><stop offset=".5" stop-color="#C55BD6"/><stop offset="1" stop-color="#E9A5F1"/>
+  </linearGradient>
+  <linearGradient id="gLime" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#F0F9FF"/><stop offset=".5" stop-color="#DBEEF8"/><stop offset="1" stop-color="#F0F9FF"/>
+  </linearGradient>
+  <linearGradient id="gChalk" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#FFFFFF"/><stop offset=".5" stop-color="#E5E9EF"/><stop offset="1" stop-color="#FFFFFF"/>
+  </linearGradient>
+</defs>
+
+<g id="scM" >
+  <rect x="0" y="0" width="700" height="470" fill="var(--wall)"/>
+  <g opacity=".5" stroke="var(--tile)" stroke-width="2"><path d="M0 110H700M0 220H700M0 330H700M150 0V470M330 0V470M510 0V470"/></g>
+  <rect x="0" y="470" width="700" height="150" fill="url(#gBench)"/>
+  <rect x="0" y="466" width="700" height="8" rx="4" fill="var(--glass)" opacity=".45"/>
+
+  <g id="mA" class="tube" data-t="tube" tabindex="0" role="button" aria-label="Test tube A">
+    <rect class="hit" x="222" y="165" width="56" height="300" fill="transparent"/>
+    <ellipse cx="250" cy="472" rx="44" ry="8" fill="url(#gShadow)"/>
+    <path d="M226 200 v194 a24 24 0 0 0 48 0 V200 Z" fill="url(#gTube)" stroke="var(--glass)" stroke-width="4"/>
+    <path id="mAw" d="M230 300 V394 a20 20 0 0 0 40 0 V300 Z" fill="url(#gWater)" opacity="0"/>
+    <rect id="mAo" x="230" y="286" width="40" height="15" rx="3" fill="url(#gOil)" opacity="0"/>
+    <path id="mAc" d="M230 286 V394 a20 20 0 0 0 40 0 V286 Z" fill="url(#gMilk)" opacity="0"/>
+    <text x="250" y="178" text-anchor="middle" class="lbl big">A</text>
+    <text id="mAcap" x="250" y="438" text-anchor="middle" class="lblD sm">Water</text>
+  </g>
+  <g id="mB" class="tube" data-t="tube" tabindex="0" role="button" aria-label="Test tube B">
+    <rect class="hit" x="422" y="165" width="56" height="300" fill="transparent"/>
+    <ellipse cx="450" cy="472" rx="44" ry="8" fill="url(#gShadow)"/>
+    <path d="M426 200 v194 a24 24 0 0 0 48 0 V200 Z" fill="url(#gTube)" stroke="var(--glass)" stroke-width="4"/>
+    <path id="mBw" d="M430 300 V394 a20 20 0 0 0 40 0 V300 Z" fill="url(#gWater)" opacity="0"/>
+    <rect id="mBo" x="430" y="286" width="40" height="15" rx="3" fill="url(#gOil)" opacity="0"/>
+    <path id="mBc" d="M430 286 V394 a20 20 0 0 0 40 0 V286 Z" fill="url(#gMilk)" opacity="0"/>
+    <text x="450" y="178" text-anchor="middle" class="lbl big">B</text>
+    <text id="mBcap" x="450" y="438" text-anchor="middle" class="lblD sm">Water</text>
+  </g>
+  <g id="mJug" class="item" data-t="water" tabindex="0" role="button" aria-label="Jug of water">
+    <rect class="hit" x="56" y="486" width="88" height="112" fill="transparent"/>
+    <ellipse cx="100" cy="560" rx="34" ry="8" fill="url(#gShadow)"/>
+    <rect x="74" y="500" width="52" height="56" rx="8" fill="url(#gWater)" stroke="var(--glass)" stroke-width="3"/>
+    <rect x="89" y="486" width="22" height="16" rx="3" fill="var(--glass)"/>
+    <rect x="82" y="516" width="36" height="18" rx="3" fill="#fff" opacity=".75"/>
+    <text x="100" y="588" text-anchor="middle" class="lbl sm">Water</text>
+  </g>
+  <g id="mOil" class="item" data-t="oil" tabindex="0" role="button" aria-label="Bottle of cooking oil">
+    <rect class="hit" x="206" y="486" width="88" height="112" fill="transparent"/>
+    <ellipse cx="250" cy="560" rx="34" ry="8" fill="url(#gShadow)"/>
+    <rect x="224" y="500" width="52" height="56" rx="8" fill="url(#gOil)" stroke="var(--glass)" stroke-width="3"/>
+    <rect x="239" y="486" width="22" height="16" rx="3" fill="var(--glass)"/>
+    <rect x="232" y="516" width="36" height="18" rx="3" fill="#fff" opacity=".75"/>
+    <text x="250" y="588" text-anchor="middle" class="lbl sm">Cooking oil</text>
+  </g>
+  <g id="mSoap" class="item" data-t="soap" tabindex="0" role="button" aria-label="Bottle of soap solution">
+    <rect class="hit" x="356" y="486" width="88" height="112" fill="transparent"/>
+    <ellipse cx="400" cy="560" rx="34" ry="8" fill="url(#gShadow)"/>
+    <rect x="374" y="500" width="52" height="56" rx="8" fill="url(#gSoap)" stroke="var(--glass)" stroke-width="3"/>
+    <rect x="389" y="486" width="22" height="16" rx="3" fill="var(--glass)"/>
+    <rect x="382" y="516" width="36" height="18" rx="3" fill="#fff" opacity=".75"/>
+    <text x="400" y="588" text-anchor="middle" class="lbl sm">Soap solution</text>
+  </g>
+  <g id="mMag" class="item" data-t="zoom" tabindex="0" role="button" aria-label="Magnifier to look inside test tube B">
+    <rect class="hit" x="540" y="480" width="110" height="118" fill="transparent"/>
+    <ellipse cx="596" cy="562" rx="36" ry="8" fill="url(#gShadow)"/>
+    <circle cx="588" cy="516" r="26" fill="rgba(186,230,253,.45)" stroke="#334155" stroke-width="7"/>
+    <path d="M607 535 L630 558" stroke="#334155" stroke-width="10" stroke-linecap="round"/>
+    <text x="596" y="590" text-anchor="middle" class="lbl sm">Look inside B</text>
+  </g>
+  <g id="mClk" opacity="0"><rect x="40" y="520" width="200" height="58" rx="29" fill="var(--panel)" stroke="var(--line)" stroke-width="3"/>
+    <text id="mClkTx" x="140" y="559" text-anchor="middle" class="dayPill" font-size="28">Waiting…</text></g>
+  <g id="mZoom" opacity="0" style="display:none">
+    <rect x="60" y="156" width="580" height="300" rx="24" fill="var(--panel)" stroke="var(--line)" stroke-width="4"/>
+    <rect x="74" y="170" width="552" height="272" rx="16" fill="url(#gWater)" opacity=".35"/>
+    <text id="mTitle" x="84" y="194" class="zt">Micelle (Fig. 4.12)</text>
+    <circle id="mDrop" cx="350" cy="316" r="52" fill="url(#gOil)" opacity=".95"/>
+    <text x="350" y="322" text-anchor="middle" class="zt sm">Oil drop</text>
+    <g id="mMols"></g>
+    <g id="mLbls" opacity="0">
+      <path d="M466 212 L414 225" stroke="var(--ink)" stroke-width="2"/>
+      <text x="470" y="206" class="zt sm">Ionic end</text>
+      <text x="470" y="226" class="zt xs">(head) faces water</text>
+      <path d="M238 398 L292 352" stroke="var(--ink)" stroke-width="2"/>
+      <text x="84" y="404" class="zt sm">Carbon chain</text>
+      <text x="84" y="424" class="zt xs">(tail) goes into oil</text>
+    </g>
+    <g id="mLblsT" opacity="0" style="display:none">
+      <text x="350" y="172" text-anchor="middle" class="zt sm">Micelle (Fig. 4.12)</text>
+      <text x="350" y="196" text-anchor="middle" class="zt xs">Head (ionic end) in water</text>
+      <text x="350" y="448" text-anchor="middle" class="zt xs">Tail (carbon chain) in oil</text>
+    </g>
+  </g>
+  <g id="bubM" aria-hidden="true"></g>
+</g>
+<g id="scO" opacity="0" style="display:none">
+  <rect x="0" y="0" width="700" height="470" fill="var(--wall)"/>
+  <g opacity=".5" stroke="var(--tile)" stroke-width="2"><path d="M0 110H700M0 220H700M0 330H700M150 0V470M330 0V470M510 0V470"/></g>
+  <rect x="0" y="470" width="700" height="150" fill="url(#gBench)"/>
+  <rect x="0" y="466" width="700" height="8" rx="4" fill="var(--glass)" opacity=".45"/>
+
+  <g id="oTube" class="tube" data-t="tube" tabindex="0" role="button" aria-label="Test tube of ethanol in a water bath">
+    <rect class="hit" x="250" y="170" width="160" height="262" fill="transparent"/>
+    <path d="M238 296 V418 a12 12 0 0 0 12 12 H410 a12 12 0 0 0 12 -12 V296" fill="url(#gTube)" stroke="var(--glass)" stroke-width="5"/>
+    <path d="M243 326 V416 a9 9 0 0 0 9 9 H408 a9 9 0 0 0 9 -9 V326 Z" fill="url(#gWater)" opacity=".55"/>
+    <path d="M306 190 v214 a24 24 0 0 0 48 0 V190 Z" fill="url(#gTube)" stroke="var(--glass)" stroke-width="4"/>
+    <path id="oLiq" d="M310 350 V404 a20 20 0 0 0 40 0 V350 Z" fill="url(#gEth)" opacity="0"/>
+    <path id="oPur" d="M310 350 V404 a20 20 0 0 0 40 0 V350 Z" fill="url(#gPurple)" opacity="0"/>
+    <text x="330" y="176" text-anchor="middle" class="lblD">Ethanol in a water bath</text>
+  </g>
+  <g id="oHot" class="item" data-t="heat" tabindex="0" role="button" aria-label="Hot plate to warm the water bath">
+    <rect class="hit" x="230" y="428" width="200" height="46" fill="transparent"/>
+    <rect x="234" y="432" width="192" height="36" rx="8" fill="#475569"/>
+    <rect id="oHotGlow" x="246" y="430" width="168" height="8" rx="4" fill="#F97316" opacity="0"/>
+    <circle cx="404" cy="452" r="8" fill="#CBD5E1"/>
+    <text x="300" y="456" text-anchor="middle" class="lbl sm">Hot plate</text>
+  </g>
+  <g id="oEth" class="item" data-t="ethanol" tabindex="0" role="button" aria-label="Bottle of ethanol">
+    <rect class="hit" x="66" y="486" width="88" height="112" fill="transparent"/>
+    <ellipse cx="110" cy="560" rx="34" ry="8" fill="url(#gShadow)"/>
+    <rect x="84" y="500" width="52" height="56" rx="8" fill="url(#gEth)" stroke="var(--glass)" stroke-width="3"/>
+    <rect x="99" y="486" width="22" height="16" rx="3" fill="var(--glass)"/>
+    <rect x="92" y="516" width="36" height="18" rx="3" fill="#fff" opacity=".75"/>
+    <text x="110" y="588" text-anchor="middle" class="lbl sm">Ethanol</text>
+  </g>
+  <g id="oKmn" class="item" data-t="kmno4" tabindex="0" role="button" aria-label="Dropper bottle of alkaline potassium permanganate">
+    <rect class="hit" x="526" y="470" width="88" height="128" fill="transparent"/>
+    <ellipse cx="570" cy="560" rx="32" ry="8" fill="url(#gShadow)"/>
+    <rect x="548" y="508" width="44" height="48" rx="8" fill="url(#gPurple)" stroke="var(--glass)" stroke-width="3"/>
+    <rect x="564" y="482" width="12" height="28" rx="3" fill="var(--glass)"/>
+    <ellipse cx="570" cy="480" rx="11" ry="8" fill="#334155"/>
+    <text x="570" y="588" text-anchor="middle" class="lbl sm">Alkaline KMnO₄</text>
+  </g>
+  <circle id="oDrop" cx="330" cy="200" r="7" fill="#7E22CE" opacity="0"/>
+  <g id="steamO" aria-hidden="true"></g>
+  <g id="bubO" aria-hidden="true"></g>
+</g>
+<g id="scE" opacity="0" style="display:none">
+  <rect x="0" y="0" width="700" height="470" fill="var(--wall)"/>
+  <g opacity=".5" stroke="var(--tile)" stroke-width="2"><path d="M0 110H700M0 220H700M0 330H700M150 0V470M330 0V470M510 0V470"/></g>
+  <rect x="0" y="470" width="700" height="150" fill="url(#gBench)"/>
+  <rect x="0" y="466" width="700" height="8" rx="4" fill="var(--glass)" opacity=".45"/>
+
+  <g id="eTube" class="tube" data-t="tube" tabindex="0" role="button" aria-label="Test tube in a water bath">
+    <rect class="hit" x="170" y="170" width="160" height="262" fill="transparent"/>
+    <path d="M158 296 V418 a12 12 0 0 0 12 12 H330 a12 12 0 0 0 12 -12 V296" fill="url(#gTube)" stroke="var(--glass)" stroke-width="5"/>
+    <path d="M163 326 V416 a9 9 0 0 0 9 9 H328 a9 9 0 0 0 9 -9 V326 Z" fill="url(#gWater)" opacity=".55"/>
+    <path d="M226 190 v214 a24 24 0 0 0 48 0 V190 Z" fill="url(#gTube)" stroke="var(--glass)" stroke-width="4"/>
+    <path id="eLiq1" d="M230 372 V404 a20 20 0 0 0 40 0 V372 Z" fill="url(#gEth)" opacity="0"/>
+    <path id="eLiq2" d="M230 344 V404 a20 20 0 0 0 40 0 V344 Z" fill="url(#gEth)" opacity="0"/>
+    <text x="250" y="176" text-anchor="middle" class="lblD">Test tube in a water bath</text>
+  </g>
+  <g id="eHot" class="item" data-t="heat" tabindex="0" role="button" aria-label="Hot plate to warm the water bath">
+    <rect class="hit" x="150" y="428" width="200" height="46" fill="transparent"/>
+    <rect x="154" y="432" width="192" height="36" rx="8" fill="#475569"/>
+    <rect id="eHotGlow" x="166" y="430" width="168" height="8" rx="4" fill="#F97316" opacity="0"/>
+    <circle cx="324" cy="452" r="8" fill="#CBD5E1"/>
+    <text x="220" y="456" text-anchor="middle" class="lbl sm">Hot plate</text>
+  </g>
+  <g id="eBk" class="tube" data-t="beaker" tabindex="0" role="button" aria-label="Beaker with water">
+    <rect class="hit" x="456" y="280" width="170" height="190" fill="transparent"/>
+    <ellipse cx="540" cy="472" rx="74" ry="9" fill="url(#gShadow)"/>
+    <path d="M470 300 V452 a12 12 0 0 0 12 12 H598 a12 12 0 0 0 12 -12 V300" fill="url(#gTube)" stroke="var(--glass)" stroke-width="5"/>
+    <path d="M475 352 V450 a9 9 0 0 0 9 9 H596 a9 9 0 0 0 9 -9 V352 Z" fill="url(#gWater)" opacity=".75"/>
+    <rect id="eEst" x="475" y="344" width="130" height="12" rx="4" fill="url(#gOil)" opacity="0"/>
+    <text x="540" y="290" text-anchor="middle" class="lblD">Beaker of water</text>
+  </g>
+  <g id="eEth" class="item" data-t="ethanol" tabindex="0" role="button" aria-label="Bottle of absolute ethanol">
+    <rect class="hit" x="56" y="486" width="88" height="112" fill="transparent"/>
+    <ellipse cx="100" cy="560" rx="34" ry="8" fill="url(#gShadow)"/>
+    <rect x="74" y="500" width="52" height="56" rx="8" fill="url(#gEth)" stroke="var(--glass)" stroke-width="3"/>
+    <rect x="89" y="486" width="22" height="16" rx="3" fill="var(--glass)"/>
+    <rect x="82" y="516" width="36" height="18" rx="3" fill="#fff" opacity=".75"/>
+    <text x="100" y="588" text-anchor="middle" class="lbl sm">Ethanol</text>
+  </g>
+  <g id="eAce" class="item" data-t="acid" tabindex="0" role="button" aria-label="Bottle of glacial acetic acid">
+    <rect class="hit" x="186" y="486" width="88" height="112" fill="transparent"/>
+    <ellipse cx="230" cy="560" rx="34" ry="8" fill="url(#gShadow)"/>
+    <rect x="204" y="500" width="52" height="56" rx="8" fill="url(#gEth)" stroke="var(--glass)" stroke-width="3"/>
+    <rect x="219" y="486" width="22" height="16" rx="3" fill="var(--glass)"/>
+    <rect x="212" y="516" width="36" height="18" rx="3" fill="#fff" opacity=".75"/>
+    <text x="230" y="588" text-anchor="middle" class="lbl sm">Glacial acetic acid</text>
+  </g>
+  <g id="eH2" class="item" data-t="h2so4" tabindex="0" role="button" aria-label="Dropper bottle of concentrated sulphuric acid">
+    <rect class="hit" x="336" y="470" width="88" height="128" fill="transparent"/>
+    <ellipse cx="380" cy="560" rx="32" ry="8" fill="url(#gShadow)"/>
+    <rect x="358" y="508" width="44" height="48" rx="8" fill="url(#gEth)" stroke="var(--glass)" stroke-width="3"/>
+    <rect x="374" y="482" width="12" height="28" rx="3" fill="var(--glass)"/>
+    <ellipse cx="380" cy="480" rx="11" ry="8" fill="#334155"/>
+    <text x="380" y="588" text-anchor="middle" class="lbl sm">Conc. H₂SO₄</text>
+  </g>
+  <circle id="eDrop" cx="250" cy="200" r="6" fill="#E2E8F0" stroke="var(--glass)" opacity="0"/>
+  <g id="eClk" opacity="0"><rect x="40" y="520" width="200" height="58" rx="29" fill="var(--panel)" stroke="var(--line)" stroke-width="3"/>
+    <text id="eClkTx" x="140" y="559" text-anchor="middle" class="dayPill" font-size="28">0 minutes</text></g>
+  <g id="smellE" aria-hidden="true" opacity="0">
+    <path d="M512 290 q-12 -18 0 -36 q12 -18 0 -36" stroke="#DB2777" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <path d="M540 286 q-12 -18 0 -36 q12 -18 0 -36" stroke="#F97316" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <path d="M568 290 q-12 -18 0 -36 q12 -18 0 -36" stroke="#DB2777" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <rect x="452" y="160" width="176" height="40" rx="20" fill="var(--panel)" stroke="#DB2777" stroke-width="3"/>
+    <text x="540" y="187" text-anchor="middle" class="zt sm">🍎 Sweet, fruity smell</text>
+  </g>
+  <g id="steamE" aria-hidden="true"></g>
+</g>
+<g id="scC" opacity="0" style="display:none">
+  <rect x="0" y="0" width="700" height="470" fill="var(--wall)"/>
+  <g opacity=".5" stroke="var(--tile)" stroke-width="2"><path d="M0 110H700M0 220H700M0 330H700M150 0V470M330 0V470M510 0V470"/></g>
+  <rect x="0" y="470" width="700" height="150" fill="url(#gBench)"/>
+  <rect x="0" y="466" width="700" height="8" rx="4" fill="var(--glass)" opacity=".45"/>
+
+  <path d="M220 192 V168 H470 V384" fill="none" stroke="var(--glass)" stroke-width="8" stroke-linejoin="round" opacity=".85"/>
+  <path d="M220 192 V168 H470 V384" fill="none" stroke="rgba(255,255,255,.6)" stroke-width="3" stroke-linejoin="round"/>
+  <g id="cT1" class="tube" data-t="tube" tabindex="0" role="button" aria-label="Test tube for the reaction">
+    <rect class="hit" x="192" y="170" width="56" height="300" fill="transparent"/>
+    <ellipse cx="220" cy="472" rx="44" ry="8" fill="url(#gShadow)"/>
+    <path d="M196 200 v194 a24 24 0 0 0 48 0 V200 Z" fill="url(#gTube)" stroke="var(--glass)" stroke-width="4"/>
+    <ellipse id="cPow" cx="220" cy="404" rx="17" ry="8" fill="#F8FAFC" stroke="#CBD5E1" opacity="0"/>
+    <path id="cAcid" d="M200 338 V394 a20 20 0 0 0 40 0 V338 Z" fill="url(#gEth)" opacity="0"/>
+    <rect x="194" y="186" width="52" height="24" rx="6" fill="url(#gCork)"/>
+    <text id="cT1cap" x="220" y="438" text-anchor="middle" class="lblD sm">Reaction tube</text>
+  </g>
+  <g id="cT2" class="tube" data-t="lime" tabindex="0" role="button" aria-label="Test tube of lime water">
+    <rect class="hit" x="442" y="200" width="56" height="270" fill="transparent"/>
+    <ellipse cx="470" cy="472" rx="44" ry="8" fill="url(#gShadow)"/>
+    <path d="M446 214 v180 a24 24 0 0 0 48 0 V214 Z" fill="url(#gTube)" stroke="var(--glass)" stroke-width="4"/>
+    <path id="cLime" d="M450 300 V394 a20 20 0 0 0 40 0 V300 Z" fill="url(#gLime)" opacity="1"/>
+    <path id="cMilk" d="M450 300 V394 a20 20 0 0 0 40 0 V300 Z" fill="url(#gChalk)" opacity="0"/>
+    <text x="470" y="438" text-anchor="middle" class="lblD sm">Lime water</text>
+  </g>
+  <g id="cNa2" class="item" data-t="na2co3" tabindex="0" role="button" aria-label="Jar of sodium carbonate">
+    <rect class="hit" x="56" y="486" width="88" height="112" fill="transparent"/>
+    <ellipse cx="100" cy="560" rx="34" ry="8" fill="url(#gShadow)"/>
+    <rect x="74" y="500" width="52" height="56" rx="8" fill="url(#gSalt)" stroke="var(--glass)" stroke-width="3"/>
+    <rect x="89" y="486" width="22" height="16" rx="3" fill="var(--glass)"/>
+    <rect x="82" y="516" width="36" height="18" rx="3" fill="#fff" opacity=".75"/>
+    <text x="100" y="588" text-anchor="middle" class="lbl sm">Na₂CO₃</text>
+  </g>
+  <g id="cAce" class="item" data-t="acid" tabindex="0" role="button" aria-label="Bottle of dilute ethanoic acid">
+    <rect class="hit" x="286" y="486" width="88" height="112" fill="transparent"/>
+    <ellipse cx="330" cy="560" rx="34" ry="8" fill="url(#gShadow)"/>
+    <rect x="304" y="500" width="52" height="56" rx="8" fill="url(#gEth)" stroke="var(--glass)" stroke-width="3"/>
+    <rect x="319" y="486" width="22" height="16" rx="3" fill="var(--glass)"/>
+    <rect x="312" y="516" width="36" height="18" rx="3" fill="#fff" opacity=".75"/>
+    <text x="330" y="588" text-anchor="middle" class="lbl sm">Dilute ethanoic acid</text>
+  </g>
+  <g id="cNaH" class="item" data-t="nahco3" tabindex="0" role="button" aria-label="Jar of sodium hydrogencarbonate">
+    <rect class="hit" x="546" y="486" width="88" height="112" fill="transparent"/>
+    <ellipse cx="590" cy="560" rx="34" ry="8" fill="url(#gShadow)"/>
+    <rect x="564" y="500" width="52" height="56" rx="8" fill="url(#gSalt)" stroke="var(--glass)" stroke-width="3"/>
+    <rect x="579" y="486" width="22" height="16" rx="3" fill="var(--glass)"/>
+    <rect x="572" y="516" width="36" height="18" rx="3" fill="#fff" opacity=".75"/>
+    <text x="590" y="588" text-anchor="middle" class="lbl sm">NaHCO₃</text>
+  </g>
+  <g id="bubC1" aria-hidden="true"></g>
+  <g id="bubC2" aria-hidden="true"></g>
+</g>
+
+          <g id="fx"></g>
+          <g id="Ltop"></g>
+        </svg>
+        <div class="toast" id="toast"></div>
+      </div>
+    </div>
+
+    <aside class="note" id="note">
+      <h2>📒 My lab record</h2>
+      <p class="aim" id="aim"><b>Aim:</b> Choose an experiment to begin.</p>
+      <ol class="steps" id="steps"></ol>
+      <h3>What I saw</h3>
+      <ul class="obs" id="obs"><li class="empty">Your observations will appear here.</li></ul>
+      <div class="concl" id="concl" hidden>
+        <div class="w" id="cw1"></div>
+        <div class="eq" id="ceq"></div>
+        <div class="w" id="cw2"></div>
+      </div>
+    </aside>
+
+    <div class="ov" id="ov">
+      <div class="card" id="card"></div>
+    </div>
+  </div>
+</div>
+
+<script src="lab.js"></script>
+<script src="../shared/deeplink.js"></script>
+</body>
+</html>

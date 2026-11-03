@@ -1,0 +1,40 @@
+/* Lesson 4: Carbon and its Compounds — index.html (lesson landing page) styling.
+   Base theme (color tokens, dark mode, reset) lives in ../shared/theme.css,
+   loaded before this file. --tag is only used on this page. */
+:root{--tag:#FDE68A}
+.app{height:100%;max-width:1500px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(8px,2vmin,22px);padding:clamp(10px,2.2vmin,28px)}
+.school{font-size:clamp(13px,2.2vmin,22px);font-weight:700;color:var(--muted);line-height:1}
+.banner{position:relative;overflow:hidden;border-radius:clamp(16px,3vmin,34px);color:#fff;padding:clamp(14px,3.2vmin,40px) clamp(16px,4vmin,52px);
+  background:linear-gradient(100deg,#F97316 0%,#DB2777 52%,#2563EB 100%)}
+.banner::before,.banner::after{content:"";position:absolute;border-radius:50%;background:rgba(255,255,255,.13)}
+.banner::before{width:38vmin;height:38vmin;right:-9vmin;top:-17vmin}
+.banner::after{width:22vmin;height:22vmin;right:26vmin;bottom:-13vmin}
+.banner>*{position:relative}
+h1{margin:0;font-weight:800;line-height:1;font-size:clamp(30px,min(8vw,9vmin),104px);letter-spacing:-.01em}
+.tagline{margin:.25em 0 0;font-weight:800;color:var(--tag);line-height:1.15;font-size:clamp(17px,min(3.6vw,4.6vmin),54px);text-shadow:0 2px 0 rgba(0,0,0,.18)}
+.lesson{margin-top:clamp(8px,1.8vmin,22px);padding-top:clamp(8px,1.6vmin,18px);border-top:2px dashed rgba(255,255,255,.6);font-weight:700;font-size:clamp(14px,2.4vmin,28px);line-height:1.2}
+.lesson b{display:block;font-size:1.45em;font-weight:800}
+.go{flex:1;min-height:0;display:grid;grid-template-columns:1fr 1fr;gap:clamp(10px,2.2vmin,26px)}
+.door{display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:clamp(4px,1vmin,12px);text-decoration:none;color:#fff;
+  border-radius:clamp(16px,3vmin,34px);padding:clamp(10px,2.4vmin,30px);min-height:0;transition:transform .15s ease;position:relative}
+.door:hover{transform:translateY(-3px)}
+.door:active{transform:scale(.98)}
+.door:focus-visible{outline:4px solid var(--ink);outline-offset:4px}
+.lab{background:linear-gradient(135deg,#0D9488,#16A34A)}
+.play{background:linear-gradient(135deg,#2563EB,#7C3AED)}
+.door .ic{font-size:clamp(34px,9vmin,120px);line-height:1}
+.door h2{margin:0;font-size:clamp(24px,5.4vmin,68px);font-weight:800;line-height:1}
+.door p{margin:0;font-weight:700;font-size:clamp(14px,2.6vmin,32px);line-height:1.2;opacity:.95}
+.door .btn{margin-top:clamp(4px,1vmin,12px);background:#fff;font-weight:800;font-size:clamp(15px,2.8vmin,34px);border-radius:999px;padding:.2em 1.1em;white-space:nowrap}
+.lab .btn{color:#0F766E}.play .btn{color:#4338CA}
+.foot{text-align:center;color:var(--muted);font-weight:600;font-size:clamp(11px,1.8vmin,19px);line-height:1.2}
+@media (max-aspect-ratio:4/5){
+  .go{grid-template-columns:1fr;grid-template-rows:1fr 1fr}
+  .door .ic{font-size:clamp(30px,6.5vh,90px)}
+}
+@media (max-height:480px) and (min-aspect-ratio:4/5){
+  .banner{display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .lesson{margin:0;padding:0 0 0 16px;border-top:0;border-left:2px dashed rgba(255,255,255,.6);text-align:right}
+  .door .ic{display:none}
+}
+@media (prefers-reduced-motion:reduce){.door{transition:none}}
