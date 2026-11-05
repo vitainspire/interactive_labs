@@ -12,7 +12,20 @@
       "overview_path": "Lesson-01-Chemical-Reactions/index.html",
       "lab": {
         "path": "Lesson-01-Chemical-Reactions/lab.html",
-        "experiments": null
+        "experiments": [
+          {
+            "id": "pickZ",
+            "title": "Zinc + dilute acid"
+          },
+          {
+            "id": "pickP",
+            "title": "Lead nitrate + potassium iodide"
+          },
+          {
+            "id": "pickN",
+            "title": "Heating lead nitrate"
+          }
+        ]
       },
       "games": {
         "path": "Lesson-01-Chemical-Reactions/games.html",

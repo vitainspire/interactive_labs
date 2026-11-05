@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Digital Lab – Zinc and Dilute HCl</title>
+<title>Digital Lab – Chemical Reactions and Equations</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../shared/theme.css">
@@ -14,10 +14,11 @@
   <header>
     <div>
       <div class="school"><a href="index.html" class="homeL">🏠 Home</a>🏫 ZPHS, Gurajanapalli</div>
-      <h1>🔬 Digital Lab<span>Zinc + dilute HCl</span></h1>
+      <h1>🔬 Digital Lab<span id="hsub">Chemical Reactions and Equations</span></h1>
     </div>
     <div class="hr">
-      <div class="pill" id="pill">Step 1 / 5</div>
+      <div class="pill" id="pill">Choose</div>
+      <button class="swap" id="swap" title="Choose the other experiment">⇄ Change</button>
       <button class="ib" id="voice" aria-pressed="true" title="Voice on/off" aria-label="Voice on or off">🗣️</button>
       <button class="ib" id="mus" aria-pressed="false" title="Music on/off" aria-label="Music on or off">🎵</button>
       <button class="ib" id="snd" aria-pressed="true" title="Sound on/off" aria-label="Sound on or off">🔊</button>
@@ -27,149 +28,178 @@
 
   <div class="lab" id="lab">
     <div class="stage">
-      <div class="task" id="task"><span class="n" id="tn">1</span><span class="t" id="tt">Drag the zinc granules into the test tube.</span><button class="go" id="chk" hidden>📝 Check yourself</button></div>
+      <div class="task" id="task"><span class="n" id="tn">1</span><span class="t" id="tt">Choose an experiment to begin.</span><button class="go" id="chk" hidden>📝 Check yourself</button></div>
       <div class="scene" id="scene">
-        <svg id="sc" viewBox="0 0 700 620" preserveAspectRatio="xMidYMid meet" aria-label="Lab table with a test tube, zinc granules, dilute hydrochloric acid, a thermometer, a matchbox and a splinter">
-          <defs>
-            <pattern id="tiles" width="46" height="46" patternUnits="userSpaceOnUse"><rect width="46" height="46" fill="none" class="tile" stroke-width="1.5"/></pattern>
-            <linearGradient id="gBench" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5B6572"/><stop offset=".12" stop-color="#47505C"/><stop offset="1" stop-color="#262C35"/></linearGradient>
-            <linearGradient id="gGlass" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity=".6"/><stop offset=".22" stop-color="#fff" stop-opacity=".1"/><stop offset=".7" stop-color="#fff" stop-opacity=".04"/><stop offset="1" stop-color="#fff" stop-opacity=".45"/></linearGradient>
-            <linearGradient id="gLiq" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#BFE3F5" stop-opacity=".55"/><stop offset="1" stop-color="#8CC4E3" stop-opacity=".72"/></linearGradient>
-            <linearGradient id="gMetal" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6B7280"/><stop offset=".4" stop-color="#E5E7EB"/><stop offset="1" stop-color="#4B5563"/></linearGradient>
-            <linearGradient id="gMetalD" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4B5563"/><stop offset="1" stop-color="#1F2937"/></linearGradient>
-            <linearGradient id="gZn" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F1F4F6"/><stop offset=".45" stop-color="#B4BCC3"/><stop offset="1" stop-color="#6E7780"/></linearGradient>
-            <linearGradient id="gWood" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F3D9A4"/><stop offset="1" stop-color="#C9995A"/></linearGradient>
-            <radialGradient id="gFlame" cx=".5" cy=".75" r=".6"><stop offset="0" stop-color="#FFFBEB"/><stop offset=".35" stop-color="#FDE047"/><stop offset=".75" stop-color="#F97316"/><stop offset="1" stop-color="#DC2626" stop-opacity=".2"/></radialGradient>
-            <radialGradient id="gGlow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#FDBA74" stop-opacity=".6"/><stop offset="1" stop-color="#FDBA74" stop-opacity="0"/></radialGradient>
-            <radialGradient id="gFlash" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fff"/><stop offset=".35" stop-color="#FEF08A"/><stop offset=".7" stop-color="#FB923C" stop-opacity=".6"/><stop offset="1" stop-color="#FB923C" stop-opacity="0"/></radialGradient>
-            <radialGradient id="gShadow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#000" stop-opacity=".45"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
-            <clipPath id="tubeClip"><path d="M311,141 L311,383 A19,19 0 0 0 349,383 L349,141 Z"/></clipPath>
-            <clipPath id="botClip"><path d="M-37,-8 Q-37,-3 -31,-3 L31,-3 Q37,-3 37,-8 L37,-95 Q37,-108 23,-114 L-23,-114 Q-37,-108 -37,-95 Z"/></clipPath>
-          </defs>
+        <svg id="sc" viewBox="0 0 700 620" preserveAspectRatio="xMidYMid meet" aria-label="Lab bench with test tubes, a burner and chemicals">
+<defs>
+  <linearGradient id="gBench" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#5A6478"/><stop offset="1" stop-color="#2E3544"/>
+  </linearGradient>
+  <radialGradient id="gShadow"><stop offset="0" stop-color="rgba(0,0,0,.42)"/><stop offset="1" stop-color="rgba(0,0,0,0)"/></radialGradient>
+  <linearGradient id="gTube" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="rgba(255,255,255,.50)"/><stop offset=".45" stop-color="rgba(255,255,255,.14)"/><stop offset="1" stop-color="rgba(255,255,255,.42)"/>
+  </linearGradient>
+  <linearGradient id="gWater" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#9ED6F2"/><stop offset=".5" stop-color="#6FBEE8"/><stop offset="1" stop-color="#9ED6F2"/>
+  </linearGradient>
+  <linearGradient id="gWaterB" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#BFE3F4"/><stop offset=".5" stop-color="#93CDE8"/><stop offset="1" stop-color="#BFE3F4"/>
+  </linearGradient>
+  <linearGradient id="gOil" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#F6D978"/><stop offset=".5" stop-color="#E0B445"/><stop offset="1" stop-color="#F6D978"/>
+  </linearGradient>
+  <linearGradient id="gSalt" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#F3F5F9"/><stop offset=".5" stop-color="#D9DFE8"/><stop offset="1" stop-color="#F3F5F9"/>
+  </linearGradient>
+  <linearGradient id="gCork" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#C98A52"/><stop offset="1" stop-color="#9A6233"/>
+  </linearGradient>
+  <linearGradient id="gIron" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#C3CBD6"/><stop offset=".4" stop-color="#8A94A4"/><stop offset="1" stop-color="#B4BDCA"/>
+  </linearGradient>
+  <linearGradient id="gRust" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#C96A33"/><stop offset=".45" stop-color="#9A4A1E"/><stop offset="1" stop-color="#C06231"/>
+  </linearGradient>
+  <linearGradient id="gCopper" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#E09A62"/><stop offset=".45" stop-color="#B5652C"/><stop offset="1" stop-color="#D98F55"/>
+  </linearGradient>
+  <linearGradient id="gBlue" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#5B9BE8"/><stop offset=".5" stop-color="#2C62C4"/><stop offset="1" stop-color="#5B9BE8"/>
+  </linearGradient>
+  <linearGradient id="gPale" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#A8D8BC"/><stop offset=".5" stop-color="#7FC39C"/><stop offset="1" stop-color="#A8D8BC"/>
+  </linearGradient>
+  <linearGradient id="gGreen" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#AEDCC2"/><stop offset=".5" stop-color="#86C5A3"/><stop offset="1" stop-color="#AEDCC2"/>
+  </linearGradient>
+  <linearGradient id="gMilk" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#F5EED8"/><stop offset=".5" stop-color="#E9DDB8"/><stop offset="1" stop-color="#F5EED8"/>
+  </linearGradient>
+  <linearGradient id="gSoap" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#F5D0FE"/><stop offset=".5" stop-color="#E9A8F5"/><stop offset="1" stop-color="#F5D0FE"/>
+  </linearGradient>
+  <linearGradient id="gEth" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#F1F5F9"/><stop offset=".5" stop-color="#DCE6EF"/><stop offset="1" stop-color="#F1F5F9"/>
+  </linearGradient>
+  <linearGradient id="gPurple" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#A855F7"/><stop offset=".5" stop-color="#7E22CE"/><stop offset="1" stop-color="#A855F7"/>
+  </linearGradient>
+  <linearGradient id="gPink" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#E9A5F1"/><stop offset=".5" stop-color="#C55BD6"/><stop offset="1" stop-color="#E9A5F1"/>
+  </linearGradient>
+  <linearGradient id="gLime" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#F0F9FF"/><stop offset=".5" stop-color="#DBEEF8"/><stop offset="1" stop-color="#F0F9FF"/>
+  </linearGradient>
+  <linearGradient id="gChalk" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#FFFFFF"/><stop offset=".5" stop-color="#E5E9EF"/><stop offset="1" stop-color="#FFFFFF"/>
+  </linearGradient>
+</defs>
 
-          <g id="bg">
-            <rect class="wall" x="-1200" y="-900" width="3100" height="1301"/>
-            <rect x="-1200" y="-900" width="3100" height="1301" fill="url(#tiles)"/>
-            <g class="decor" transform="translate(28 36)">
-              <rect width="158" height="96" rx="8" fill="#FEF3C7" stroke="#F59E0B" stroke-width="2.5"/>
-              <text x="79" y="28" text-anchor="middle" font-family="Baloo 2,sans-serif" font-weight="800" font-size="19" fill="#92400E">Safety first</text>
-              <text x="79" y="54" text-anchor="middle" font-family="Baloo 2,sans-serif" font-weight="700" font-size="14" fill="#78350F">🥽 Wear goggles</text>
-              <text x="79" y="78" text-anchor="middle" font-family="Baloo 2,sans-serif" font-weight="700" font-size="14" fill="#78350F">Work with your teacher</text>
-            </g>
-            <g class="decor" opacity=".9">
-              <rect x="478" y="70" width="12" height="38" rx="3" fill="#B45309"/><rect x="481" y="62" width="6" height="9" fill="#78350F"/>
-              <rect x="505" y="78" width="20" height="30" rx="4" fill="#15803D" opacity=".85"/><rect x="511" y="70" width="8" height="9" fill="#14532D"/>
-              <rect x="540" y="66" width="16" height="42" rx="4" fill="#1D4ED8" opacity=".8"/><rect x="544" y="58" width="8" height="9" fill="#1E3A8A"/>
-              <rect x="572" y="74" width="24" height="34" rx="5" fill="#E2E8F0" opacity=".75" stroke="#94A3B8"/><rect x="579" y="66" width="10" height="9" fill="#64748B"/>
-              <rect x="611" y="80" width="14" height="28" rx="3" fill="#BE123C" opacity=".8"/><rect x="614" y="73" width="8" height="8" fill="#881337"/>
-              <rect x="640" y="70" width="18" height="38" rx="4" fill="#B45309" opacity=".85"/><rect x="645" y="62" width="8" height="9" fill="#78350F"/>
-              <rect x="466" y="108" width="210" height="9" rx="2" fill="#A47148"/>
-              <rect x="480" y="117" width="6" height="16" fill="#7C5434"/><rect x="656" y="117" width="6" height="16" fill="#7C5434"/>
-            </g>
-            <rect x="-1200" y="400" width="3100" height="900" fill="url(#gBench)"/>
-            <rect x="-1200" y="400" width="3100" height="3" fill="#fff" opacity=".14"/>
-            <ellipse cx="230" cy="436" rx="86" ry="9" fill="url(#gShadow)"/>
-            <ellipse cx="445" cy="433" rx="40" ry="7" fill="url(#gShadow)"/>
-            <ellipse id="botSh" cx="560" cy="432" rx="50" ry="8" fill="url(#gShadow)"/>
-            <text class="lbl" x="445" y="455">Thermometer</text>
-            <text class="lbl" x="560" y="455">Dilute HCl</text>
-            <text class="lbl" x="330" y="455">Test tube</text>
-          </g>
-
-          <g id="stand">
-            <rect x="150" y="418" width="160" height="16" rx="4" fill="url(#gMetalD)"/>
-            <rect x="216" y="66" width="9" height="354" rx="3" fill="url(#gMetal)"/>
-            <rect x="209" y="196" width="24" height="22" rx="4" fill="url(#gMetalD)"/>
-            <rect x="230" y="202" width="78" height="9" rx="3" fill="url(#gMetal)"/>
-          </g>
-
-          <g id="Lthermo">
-            <g id="thermo" data-m="thermo" tabindex="0" role="button" aria-label="Thermometer">
-              <circle class="halo" cx="0" cy="-140" r="30"/>
-              <rect x="-6.5" y="-238" width="13" height="236" rx="6.5" fill="url(#gGlass)" class="gl" stroke-width="1.6"/>
-              <circle cx="0" cy="0" r="8" fill="#DC2626" class="gl" stroke-width="1.6"/>
-              <rect id="tcol" x="-2" y="-80" width="4" height="80" fill="#DC2626"/>
-              <g id="ticks" stroke="#64748B" stroke-width="1"></g>
-              <g id="tlab" transform="translate(0 -262)">
-                <rect x="-36" y="-17" width="72" height="32" rx="12" fill="#FFFFFF" stroke="#DC2626" stroke-width="2"/>
-                <text id="tread" x="0" y="7" text-anchor="middle" font-family="Baloo 2,sans-serif" font-weight="800" font-size="20" fill="#B91C1C">30 °C</text>
-              </g>
-              <rect x="-24" y="-250" width="48" height="262" fill="transparent"/>
-            </g>
-          </g>
-
-          <g id="Ltube">
-            <g clip-path="url(#tubeClip)">
-              <rect id="liq" x="300" y="405" width="60" height="20" fill="url(#gLiq)" opacity="0"/>
-              <ellipse id="surf" cx="330" cy="405" rx="19" ry="3" fill="#fff" opacity="0"/>
-              <g id="tgran"></g>
-              <g id="bubs"></g>
-            </g>
-            <path id="stream" d="M345,130 Q341,250 337,400" fill="none" stroke="#A5D4EE" stroke-width="5" stroke-linecap="round" class="flow" opacity="0"/>
-            <path d="M308,140 L308,383 A22,22 0 0 0 352,383 L352,140" fill="url(#gGlass)" class="gl" stroke-width="2.2"/>
-            <rect x="314" y="152" width="4" height="226" rx="2" fill="#fff" opacity=".55"/>
-            <ellipse cx="330" cy="140" rx="25" ry="5" fill="none" class="gl" stroke-width="2.6"/>
-            <rect x="304" y="198" width="9" height="22" rx="3" fill="url(#gMetalD)"/>
-            <rect x="347" y="198" width="9" height="22" rx="3" fill="url(#gMetalD)"/>
-            <rect x="304" y="204" width="52" height="7" rx="3" fill="#374151" opacity=".85"/>
-            <circle class="tubeHalo" cx="330" cy="140" r="34" fill="none" stroke="#22C55E" stroke-width="3" stroke-dasharray="6 6" opacity="0"/>
-          </g>
-
-          <g id="Lbeaker">
-            <path d="M414,370 L416,426 Q416,432 422,432 L468,432 Q474,432 474,426 L476,370" fill="url(#gGlass)" class="gl" stroke-width="2"/>
-            <path d="M410,368 L480,368" class="gl" stroke-width="3" stroke-linecap="round"/>
-            <rect x="420" y="378" width="3" height="46" rx="1.5" fill="#fff" opacity=".5"/>
-          </g>
-
-          <g id="Lbottle">
-            <g id="bottle" data-m="bottle" tabindex="0" role="button" aria-label="Bottle of dilute hydrochloric acid">
-              <circle class="halo" cx="0" cy="-72" r="76"/>
-              <g clip-path="url(#botClip)"><rect id="bliq" x="-40" y="-80" width="80" height="80" fill="url(#gLiq)"/></g>
-              <path d="M-40,-8 Q-40,0 -32,0 L32,0 Q40,0 40,-8 L40,-96 Q40,-112 24,-118 L14,-122 L14,-138 L-14,-138 L-14,-122 L-24,-118 Q-40,-112 -40,-96 Z" fill="url(#gGlass)" class="gl" stroke-width="2.2"/>
-              <rect x="-17" y="-146" width="34" height="9" rx="3" fill="url(#gGlass)" class="gl" stroke-width="2"/>
-              <g id="stopper"><rect x="-10" y="-160" width="20" height="16" rx="3" fill="#CBD5E1" stroke="#64748B" stroke-width="1.5"/><ellipse cx="0" cy="-161" rx="16" ry="6" fill="#E2E8F0" stroke="#64748B" stroke-width="1.5"/></g>
-              <rect x="-31" y="-94" width="62" height="56" rx="5" fill="#FFFDF5" stroke="#CBD5E1" stroke-width="1.5"/>
-              <text x="0" y="-77" text-anchor="middle" font-family="Baloo 2,sans-serif" font-weight="700" font-size="12" fill="#334155">Dilute</text>
-              <text x="0" y="-55" text-anchor="middle" font-family="Baloo 2,sans-serif" font-weight="800" font-size="22" fill="#B91C1C">HCl</text>
-              <path d="M22,-50 l6,6 -6,6 -6,-6z" fill="#F97316"/>
-              <rect x="-29" y="-104" width="4" height="92" rx="2" fill="#fff" opacity=".5"/>
-            </g>
-          </g>
-
-          <g id="Lfront">
-            <g id="fDish">
-              <ellipse cx="120" cy="558" rx="88" ry="14" fill="url(#gShadow)"/>
-              <ellipse cx="120" cy="548" rx="80" ry="20" fill="url(#gGlass)" class="gl" stroke-width="2"/>
-              <ellipse cx="120" cy="544" rx="80" ry="18" fill="none" class="gl" stroke-width="2.2"/>
-              <text class="lbl" x="120" y="600">Zinc granules</text>
-            </g>
-            <text class="lbl" id="splLbl" x="500" y="592">Splinter</text>
-            <g id="fMatch"><ellipse cx="625" cy="574" rx="48" ry="8" fill="url(#gShadow)"/><text class="lbl" x="625" y="600">Matchbox</text>
-            <g id="match" data-t="match" tabindex="0" role="button" aria-label="Matchbox">
-              <circle class="halo" cx="625" cy="552" r="52"/>
-              <path d="M585,540 L657,540 L667,530 L595,530 Z" fill="#FDBA74"/>
-              <rect x="585" y="540" width="72" height="30" rx="2" fill="#C2410C"/>
-              <path d="M657,540 L667,530 L667,560 L657,570 Z" fill="#7C2D12"/>
-              <rect x="593" y="546" width="56" height="18" rx="2" fill="#FACC15"/>
-              <text x="621" y="560" text-anchor="middle" font-family="Baloo 2,sans-serif" font-weight="800" font-size="12" fill="#7C2D12">SAFETY</text>
-              <rect x="575" y="520" width="100" height="60" fill="transparent"/>
-            </g></g>
-          </g>
-
-          <g id="Lzinc"><g id="zinc" data-m="zinc" tabindex="0" role="button" aria-label="Zinc granules"><circle class="halo" cx="0" cy="-4" r="54"/><rect x="-55" y="-30" width="110" height="50" fill="transparent"/></g></g>
-
-          <g id="Lspl">
-            <g id="spl" data-m="spl" tabindex="0" role="button" aria-label="Wooden splinter">
-              <circle class="halo" cx="10" cy="-6" r="28"/>
-              <rect x="0" y="-3.5" width="150" height="7" rx="3.5" fill="url(#gWood)" stroke="#A16207" stroke-width="1"/>
-              <circle id="char" cx="2" cy="0" r="3.4" fill="#292524" opacity="0"/>
-              <g id="flame" opacity="0">
-                <circle cx="0" cy="-14" r="26" fill="url(#gGlow)"/>
-                <g class="flick"><path d="M0,-40 C11,-24 12,-8 0,0 C-12,-8 -11,-24 0,-40 Z" fill="url(#gFlame)"/><path d="M0,-22 C5,-14 5,-5 0,-1 C-5,-5 -5,-14 0,-22 Z" fill="#FFFBEB"/></g>
-              </g>
-              <rect x="-20" y="-25" width="180" height="40" fill="transparent"/>
-            </g>
-          </g>
+  <defs>
+    <linearGradient id="g3Glass" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FFFFFF" stop-opacity=".55"/><stop offset=".18" stop-color="#FFFFFF" stop-opacity=".12"/><stop offset=".55" stop-color="#E0F2FE" stop-opacity=".06"/><stop offset=".82" stop-color="#FFFFFF" stop-opacity=".4"/><stop offset="1" stop-color="#CBD5E1" stop-opacity=".35"/></linearGradient>
+    <linearGradient id="g3Liq" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#BFDBFE" stop-opacity=".55"/><stop offset=".5" stop-color="#EFF6FF" stop-opacity=".35"/><stop offset="1" stop-color="#93C5FD" stop-opacity=".55"/></linearGradient>
+    <radialGradient id="g3Yel"><stop offset="0" stop-color="#FDE047" stop-opacity=".95"/><stop offset=".55" stop-color="#FACC15" stop-opacity=".7"/><stop offset="1" stop-color="#EAB308" stop-opacity="0"/></radialGradient>
+    <linearGradient id="g3Set" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FDE047"/><stop offset="1" stop-color="#CA8A04"/></linearGradient>
+    <linearGradient id="g3Brown" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#92400E" stop-opacity=".75"/><stop offset=".6" stop-color="#B45309" stop-opacity=".5"/><stop offset="1" stop-color="#D97706" stop-opacity=".15"/></linearGradient>
+    <linearGradient id="g3Wood" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D6A15F"/><stop offset="1" stop-color="#9A6431"/></linearGradient>
+    <linearGradient id="g3Metal" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#475569"/><stop offset=".45" stop-color="#CBD5E1"/><stop offset="1" stop-color="#334155"/></linearGradient>
+    <clipPath id="c3Tube"><path d="M323 236 V420 A27 27 0 0 0 377 420 V236 Z"/></clipPath>
+    <clipPath id="c3Boil"><path d="M327 206 V354 A23 23 0 0 0 373 354 V206 Z"/></clipPath>
+    <filter id="f3Blur" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="1.6"/></filter>
+  </defs>
+<g id="scP" style="display:none">
+  <rect x="0" y="0" width="700" height="470" fill="var(--wall)"/>
+  <g opacity=".5" stroke="var(--tile)" stroke-width="2"><path d="M0 110H700M0 220H700M0 330H700M150 0V470M330 0V470M510 0V470"/></g>
+  <rect x="0" y="470" width="700" height="150" fill="url(#gBench)"/>
+  <rect x="0" y="466" width="700" height="8" rx="4" fill="var(--glass)" opacity=".45"/>
+  <g id="pBoard" opacity="0" pointer-events="none">
+    <rect id="pBR" x="150" y="148" width="400" height="64" rx="14" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="3"/>
+    <text id="pB1" x="350.0" y="175" text-anchor="middle" class="lblD" style="font-size:19px;fill:#1E293B"> </text>
+    <text id="pB2" x="350.0" y="200" text-anchor="middle" class="lblD sm" style="fill:#475569"> </text>
+  </g>
+  <g pointer-events="none">
+    <ellipse cx="350" cy="466" rx="120" ry="7" fill="#0F172A" opacity=".25"/>
+    <rect x="236" y="452" width="228" height="14" rx="4" fill="url(#g3Wood)"/>
+    <rect x="246" y="392" width="12" height="62" fill="url(#g3Wood)"/><rect x="442" y="392" width="12" height="62" fill="url(#g3Wood)"/>
+  </g>
+  <g id="pTube" data-t="tube" tabindex="0" role="button" aria-label="Test tube">
+    <rect class="hit" x="300" y="210" width="100" height="250" fill="transparent"/>
+    <g clip-path="url(#c3Tube)">
+      <rect id="pLiq" x="318" y="452" width="64" height="20" fill="url(#g3Liq)"/>
+      <rect id="pTint" x="318" y="452" width="64" height="20" fill="#FACC15" opacity="0"/>
+      <ellipse id="pSurf" cx="350" cy="452" rx="27" ry="5" fill="#FFFFFF" opacity="0"/>
+      <rect id="pSet" x="318" y="452" width="64" height="0" fill="url(#g3Set)"/>
+      <g id="pSwirl" filter="url(#f3Blur)"></g>
+    </g>
+    <path d="M320 236 V420 A30 30 0 0 0 380 420 V236" fill="url(#g3Glass)" stroke="#94A3B8" stroke-width="2.5"/>
+    <ellipse cx="350.0" cy="236" rx="31.0" ry="6" fill="none" stroke="#94A3B8" stroke-width="2.5"/>
+    <line x1="328" y1="248" x2="328" y2="424" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" opacity=".8"/>
+    <line x1="373" y1="256" x2="373" y2="410" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" opacity=".55"/>
+    <text x="410" y="300" class="lblD" style="font-size:15px">Test tube</text>
+  </g>
+  <rect x="236" y="380" width="228" height="18" rx="4" fill="url(#g3Wood)" pointer-events="none"/>
+  <rect x="318" y="378" width="64" height="22" rx="3" fill="#7C4A1E" opacity=".35" pointer-events="none"/>
+  <g id="pDyn" pointer-events="none"></g>
+  <g id="pPb" data-t="pb" tabindex="0" role="button" aria-label="Lead nitrate">
+    <rect class="hit" x="150" y="486" width="130" height="74" fill="transparent"/>
+    <rect x="182" y="500" width="56" height="52" rx="8" fill="rgba(219,234,254,.75)" stroke="#94A3B8" stroke-width="2.5"/>
+    <rect x="196" y="488" width="28" height="14" rx="3" fill="#475569"/><rect x="188" y="514" width="44" height="22" rx="3" fill="#FFFFFF"/>
+    <text x="210" y="530" text-anchor="middle" style="font:800 11px 'Baloo 2',sans-serif;fill:#1E293B">Pb(NO₃)₂</text>
+    <text x="210" y="574" class="lbl">Lead nitrate</text>
+  </g>
+  <g id="pKI" data-t="ki" tabindex="0" role="button" aria-label="Potassium iodide">
+    <rect class="hit" x="420" y="486" width="140" height="74" fill="transparent"/>
+    <rect x="462" y="506" width="56" height="46" rx="8" fill="rgba(219,234,254,.75)" stroke="#94A3B8" stroke-width="2.5"/>
+    <rect x="483" y="470" width="14" height="38" rx="3" fill="rgba(255,255,255,.8)" stroke="#94A3B8" stroke-width="2"/><ellipse cx="490" cy="468" rx="11" ry="9" fill="#DC2626"/>
+    <rect x="468" y="520" width="44" height="20" rx="3" fill="#FFFFFF"/><text x="490" y="535" text-anchor="middle" style="font:800 12px 'Baloo 2',sans-serif;fill:#1E293B">KI</text>
+    <text x="490" y="574" class="lbl">Potassium iodide</text>
+  </g>
+</g>
+<g id="scN" style="display:none">
+  <rect x="0" y="0" width="700" height="470" fill="var(--wall)"/>
+  <g opacity=".5" stroke="var(--tile)" stroke-width="2"><path d="M0 110H700M0 220H700M0 330H700M150 0V470M330 0V470M510 0V470"/></g>
+  <rect x="0" y="470" width="700" height="150" fill="url(#gBench)"/>
+  <rect x="0" y="466" width="700" height="8" rx="4" fill="var(--glass)" opacity=".45"/>
+  <g id="nBoard" opacity="0" pointer-events="none">
+    <rect id="nBR" x="16" y="148" width="300" height="64" rx="14" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="3"/>
+    <text id="nB1" x="166.0" y="175" text-anchor="middle" class="lblD" style="font-size:19px;fill:#1E293B"> </text>
+    <text id="nB2" x="166.0" y="200" text-anchor="middle" class="lblD sm" style="fill:#475569"> </text>
+  </g>
+  <g pointer-events="none">
+    <rect x="196" y="230" width="12" height="236" fill="url(#g3Metal)"/><rect x="170" y="456" width="64" height="12" rx="3" fill="#475569"/>
+    <rect x="202" y="262" width="120" height="9" rx="3" fill="url(#g3Metal)"/>
+    <rect x="316" y="252" width="12" height="28" rx="3" fill="#64748B"/><rect x="372" y="252" width="12" height="28" rx="3" fill="#64748B"/>
+  </g>
+  <g id="nTube" data-t="tube" tabindex="0" role="button" aria-label="Boiling tube">
+    <rect class="hit" x="306" y="186" width="88" height="200" fill="transparent"/>
+    <g clip-path="url(#c3Boil)">
+      <rect id="nGas" x="320" y="380" width="60" height="0" fill="url(#g3Brown)"/>
+      <path id="nPow" d="M327 380 Q350 352 373 380 Z" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5" opacity="0"/>
+      <g id="nSpecks"></g>
+    </g>
+    <path d="M324 206 V354 A26 26 0 0 0 376 354 V206" fill="url(#g3Glass)" stroke="#94A3B8" stroke-width="2.5"/>
+    <ellipse cx="350.0" cy="206" rx="27.0" ry="6" fill="none" stroke="#94A3B8" stroke-width="2.5"/>
+    <line x1="332" y1="218" x2="332" y2="358" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" opacity=".8"/>
+    <line x1="369" y1="226" x2="369" y2="344" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" opacity=".55"/>
+    <text x="404" y="236" class="lblD" style="font-size:15px">Boiling tube</text>
+  </g>
+  <rect x="314" y="262" width="72" height="12" rx="3" fill="url(#g3Metal)" pointer-events="none"/>
+  <g id="nBurner" data-t="burner" tabindex="0" role="button" aria-label="Burner">
+    <rect class="hit" x="300" y="380" width="100" height="90" fill="transparent"/>
+    <g id="nFlame" opacity="0"></g>
+    <rect x="336" y="404" width="28" height="56" rx="4" fill="url(#g3Metal)"/><rect x="316" y="456" width="68" height="12" rx="4" fill="#334155"/>
+    <rect x="364" y="440" width="22" height="7" rx="3" fill="#64748B"/>
+    <text x="420" y="446" class="lblD" style="font-size:15px">Burner</text>
+  </g>
+  <g id="nDyn" pointer-events="none"></g>
+  <g id="nPb" data-t="powder" tabindex="0" role="button" aria-label="Lead nitrate powder">
+    <rect class="hit" x="140" y="486" width="170" height="74" fill="transparent"/>
+    <rect x="190" y="504" width="70" height="48" rx="8" fill="rgba(241,245,249,.9)" stroke="#94A3B8" stroke-width="2.5"/>
+    <rect x="200" y="492" width="50" height="14" rx="3" fill="#475569"/><path d="M196 548 Q225 520 254 548Z" fill="#FFFFFF" stroke="#CBD5E1"/>
+    <rect x="203" y="510" width="44" height="18" rx="3" fill="#FFFFFF"/><text x="225" y="524" text-anchor="middle" style="font:800 11px 'Baloo 2',sans-serif;fill:#1E293B">Pb(NO₃)₂</text>
+    <text x="225" y="574" class="lbl">Lead nitrate powder</text>
+  </g>
+</g>
 
           <g id="fx"></g>
           <g id="Ltop"></g>
@@ -180,36 +210,25 @@
 
     <aside class="note" id="note">
       <h2>📒 My lab record</h2>
-      <p class="aim"><b>Aim:</b> To see what happens when zinc reacts with dilute hydrochloric acid.</p>
-      <ol class="steps" id="steps">
-        <li class="now">Add zinc granules</li>
-        <li>Pour dilute HCl</li>
-        <li>Check the temperature</li>
-        <li>Light the splinter</li>
-        <li>Test the gas</li>
-      </ol>
+      <p class="aim" id="aim"><b>Aim:</b> Choose an experiment to begin.</p>
+      <ol class="steps" id="steps"></ol>
       <h3>What I saw</h3>
       <ul class="obs" id="obs"><li class="empty">Your observations will appear here.</li></ul>
       <div class="concl" id="concl" hidden>
-        <div class="w">Zinc + Hydrochloric acid → Zinc chloride + Hydrogen</div>
-        <div class="eq">Zn + 2HCl → ZnCl₂ + H₂↑</div>
-        <div class="w">Displacement reaction. Heat is given out (exothermic).</div>
+        <div class="w" id="cw1"></div>
+        <div class="eq" id="ceq"></div>
+        <div class="w" id="cw2"></div>
       </div>
     </aside>
 
     <div class="ov" id="ov">
-      <div class="card" id="card">
-        <span class="tag">📘 Textbook Activity 1.3</span>
-        <h2>Zinc and dilute hydrochloric acid</h2>
-        <p class="sub"><b>Aim:</b> To see what happens when zinc reacts with dilute hydrochloric acid.</p>
-        <p>You will use zinc granules, dilute HCl, a test tube, a thermometer, a matchbox and a splinter. Drag each thing, or just tap it.</p>
-        <p class="safe">🥽 In a real lab, wear goggles. Handle acid with care. Do this only with your teacher.</p>
-        <button class="next big" id="start">▶ Start experiment</button>
-      </div>
+      <div class="card" id="card"></div>
     </div>
   </div>
 </div>
+<script src="../shared/fx.js"></script>
 <script src="lab.js"></script>
 <script src="../shared/deeplink.js"></script>
+<script src="../shared/compat.js"></script>
 </body>
 </html>

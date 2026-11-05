@@ -1,7 +1,10 @@
-/* Lesson 1: Chemical Reactions and Equations — lab.html (Digital Lab) logic.
-   This lab is a bespoke SVG rig (zinc + dilute HCl), not shared with other
-   lessons' labs, so its full engine (sound, voice-over, animation, drag/tap
-   input, the end quiz) and content live together in this one file. */
+/* Lesson 1: Chemical Reactions and Equations — lab.html (Digital Lab)
+   experiment-picker logic. Three experiments: zinc + dilute acid (opens its
+   own page, zinc.html, since that rig predates this picker and is too
+   bespoke to merge in), lead nitrate + potassium iodide, and heating lead
+   nitrate — the last two share this one generic test-tube/boiling-tube
+   rig and engine. Particle effects (flame, steam/smoke streams) come from
+   ../shared/fx.js. */
 (()=>{
   const $=id=>document.getElementById(id);
   const NS="http://www.w3.org/2000/svg";
@@ -95,13 +98,15 @@
     const ss=window.speechSynthesis;let on=true,v=null,dT=null;
     try{on=localStorage.getItem("zphsLabVoice")!=="off";}catch(e){}
     function pick(){if(!ss)return;const vs=ss.getVoices().filter(x=>/^en/i.test(x.lang));
-      v=vs.find(x=>/en[-_]IN/i.test(x.lang))||vs.find(x=>/google/i.test(x.name)&&/en[-_](GB|US)/i.test(x.lang))||vs.find(x=>/en[-_](GB|US)/i.test(x.lang))||vs[0]||null;}
+      const sc=x=>{let s=0;const n=x.name||"",l=x.lang||"";if(/en[-_]IN/i.test(l))s+=6;if(/natural|neural|online|premium|enhanced/i.test(n))s+=5;if(/google/i.test(n))s+=4;
+        if(/neerja|heera|veena|raveena|aditi|kajal|swara|female|zira|samantha|sonia|libby|aria|jenny/i.test(n))s+=2;if(/en[-_](GB|US)/i.test(l))s+=1;if(/espeak|robot|compact/i.test(n))s-=6;if(x.localService===false)s+=1;return s;};
+      v=vs.slice().sort((a,b)=>sc(b)-sc(a))[0]||null;}
     if(ss){pick();try{ss.addEventListener("voiceschanged",pick);}catch(e){ss.onvoiceschanged=pick;}}
     function stop(){if(ss)ss.cancel();Snd.duck(false);}
     function say(text,queue){
       if(!ss||!on||!text)return;if(!queue)ss.cancel();
       text.split(/(?<=[.!?])\s+/).forEach(s=>{if(!s.trim())return;
-        const u=new SpeechSynthesisUtterance(s);u.lang=v?v.lang:"en-IN";if(v)u.voice=v;u.rate=.9;u.pitch=1.05;
+        const u=new SpeechSynthesisUtterance(s);u.lang=v?v.lang:"en-IN";if(v)u.voice=v;u.rate=.86;u.pitch=1;u.volume=.95;
         u.onstart=()=>{clearTimeout(dT);Snd.duck(true);};
         u.onend=u.onerror=()=>{clearTimeout(dT);dT=setTimeout(()=>{if(!ss.speaking)Snd.duck(false);},300);};
         ss.speak(u);});
@@ -116,344 +121,330 @@
   mB.addEventListener("click",()=>{musOn=!musOn;try{localStorage.setItem("zphsLabMusic",musOn?"on":"off");}catch(e){}mSync();Snd.init();Snd.music(musOn);});
   document.addEventListener("visibilitychange",()=>{if(document.hidden){Snd.pause();Say.stop();}else Snd.resume();});
 
-  /* ---------- build static bits ---------- */
-  const tk=$("ticks");
-  for(let T=0;T<=100;T+=10){const y=-20-T*2,w=T%50===0?6:3.5;mk("line",{x1:6.5-w,y1:y,x2:6.5,y2:y},tk);}
-  function rnd(seed){let s=seed;return()=>{s=(s*9301+49297)%233280;return s/233280;};}
-  function granule(cx,cy,r,seed,par){
-    const R=rnd(seed),n=7,pts=[];
-    for(let i=0;i<n;i++){const a=i/n*Math.PI*2+R()*.5,rr=r*(.72+R()*.42);pts.push((cx+Math.cos(a)*rr).toFixed(1)+","+(cy+Math.sin(a)*rr*.85).toFixed(1));}
-    const g=mk("g",{},par);
-    mk("polygon",{points:pts.join(" "),fill:"url(#gZn)",stroke:"#5F676E","stroke-width":1.1,"stroke-linejoin":"round"},g);
-    mk("circle",{cx:cx-r*.3,cy:cy-r*.3,r:r*.22,fill:"#fff",opacity:.7},g);
-    return g;
-  }
-  const zinc=$("zinc");
-  [[-34,0,10],[-14,5,9.5],[6,-1,10.5],[26,4,9],[-4,-12,8.5],[16,-13,8]].forEach((p,i)=>granule(p[0],p[1],p[2],11+i*7,zinc));
-  const TG=[[324,395],[337,395],[319,384],[341,384],[330,375]];
-  const tg=$("tgran");const tgEls=TG.map((p,i)=>{const g=granule(0,0,6.2,31+i*5,tg);g.setAttribute("opacity",0);return g;});
-
-  /* ---------- movable things ---------- */
-  const M={
-    zinc:{g:zinc,layer:$("Lzinc"),home:{x:120,y:542,r:0},hot:[0,0],target:[330,140],rad:85,step:1},
-    bottle:{g:$("bottle"),layer:$("Lbottle"),home:{x:560,y:430,r:0},hot:[0,-146],target:[330,140],rad:95,step:2},
-    thermo:{g:$("thermo"),layer:$("Lthermo"),home:{x:445,y:414,r:6},hot:[0,0],target:[330,330],rad:110,step:3},
-    spl:{g:$("spl"),layer:$("Lspl"),home:{x:430,y:566,r:-5},hot:[0,0],target:[330,136],rad:75,step:5}
-  };
-  for(const k in M){M[k].name=k;M[k].pose={...M[k].home};setPose(M[k]);}
-  /* phone portrait: rearrange the bench so things look bigger */
-  const LAY={
-    wide:{vb:"0 0 700 620",dish:[0,0],match:[0,0],zinc:{x:120,y:542,r:0},spl:{x:430,y:566,r:-5},sl:[500,592]},
-    tall:{vb:"140 96 480 584",dish:[110,-30],match:[-82,-34],zinc:{x:230,y:512,r:0},spl:{x:300,y:622,r:-5},sl:[375,660]}
-  };
-  let mode="";
-  function applyLayout(){
-    const r=$("scene").getBoundingClientRect();if(!r.width)return;
-    const nm=r.width/r.height<0.95?"tall":"wide";if(nm===mode)return;mode=nm;const L=LAY[nm];
-    svg.setAttribute("viewBox",L.vb);svg.classList.toggle("tall",nm==="tall");
-    $("fDish").setAttribute("transform",`translate(${L.dish})`);$("fMatch").setAttribute("transform",`translate(${L.match})`);
-    $("splLbl").setAttribute("x",L.sl[0]);$("splLbl").setAttribute("y",L.sl[1]);
-    M.zinc.home={...L.zinc};M.spl.home={...L.spl};
-    if(!busy&&!drag){[M.zinc,M.spl].forEach(m=>{m.pose={...m.home};setPose(m);});}
-  }
-  new ResizeObserver(applyLayout).observe($("scene"));
-  function setPose(m){
-    const p=m.pose;m.g.setAttribute("transform",`translate(${p.x.toFixed(1)} ${p.y.toFixed(1)}) rotate(${p.r.toFixed(1)})`);
-    if(m.name==="bottle"){const d=Math.hypot(p.x-m.home.x,p.y-m.home.y);$("botSh").setAttribute("opacity",Math.max(0,1-d/60));$("bliq").parentNode.setAttribute("opacity",Math.max(0,1-Math.abs(p.r)/35));}
-  }
-  function hotW(m){const p=m.pose,a=p.r*Math.PI/180,[hx,hy]=m.hot;return[p.x+hx*Math.cos(a)-hy*Math.sin(a),p.y+hx*Math.sin(a)+hy*Math.cos(a)];}
-  function moveTo(m,to,ms,ez){const from={...m.pose};return tween(ms,t=>{m.pose={x:lerp(from.x,to.x,t),y:lerp(from.y,to.y,t),r:lerp(from.r,to.r,t)};setPose(m);},ez);}
-  const raise=m=>$("Ltop").appendChild(m.g);
-  const lower=m=>m.layer.appendChild(m.g);
-
-  /* ---------- state ---------- */
-  let drag=null,step=0,busy=true,level=405,temp=30,reacting=false,rate=0,lit=false,started=false;
-  const TASK=["","Drag the zinc granules into the test tube.","Drag the dilute HCl bottle to the test tube.","Drag the thermometer into the test tube.","Tap the matchbox to light the splinter.","Bring the burning splinter to the mouth of the test tube."];
-  const HINT=["","First, put the zinc granules in the test tube.","Next, pour the dilute HCl into the test tube.","Next, put the thermometer in the test tube.","Next, tap the matchbox to light the splinter.","Now bring the burning splinter to the test tube."];
-
-  function setStep(n,pre,queue){
-    step=n;
-    if(n<=5&&started)Say.say((pre||"")+"Step "+n+". "+TASK[n],queue);
-    for(const k in M)M[k].g.classList.toggle("hint",M[k].step===n);
-    $("match").classList.toggle("hint",n===4);
-    [...$("steps").children].forEach((li,i)=>{li.className=i+1<n?"done":i+1===n?"now":"";});
-    if(n<=5){$("tn").textContent=n;$("tt").textContent=TASK[n];$("pill").textContent=`Step ${n} / 5`;}
-  }
-  function addObs(t){
-    const ul=$("obs");const e=ul.querySelector(".empty");if(e)e.remove();
-    const li=document.createElement("li");li.textContent=t;ul.appendChild(li);
-  }
-  let toastT=null;
-  function toast(t,quiet){if(!quiet)Say.say(t);const e=$("toast");e.textContent=t;e.classList.add("on");clearTimeout(toastT);toastT=setTimeout(()=>e.classList.remove("on"),2600);}
-
-  function setLevel(y){
-    level=y;const L=$("liq"),S=$("surf");
-    L.setAttribute("y",y);L.setAttribute("height",Math.max(0,425-y));L.setAttribute("opacity",y<403?1:0);
-    S.setAttribute("cy",y);S.setAttribute("opacity",y<403?.4:0);
-  }
-  function setTemp(T){temp=T;const y=-20-T*2;const c=$("tcol");c.setAttribute("y",y);c.setAttribute("height",-y);$("tread").textContent=Math.round(T)+" °C";}
-
-  /* ---------- bubbles and gas ---------- */
-  const bubs=[];const bubG=$("bubs");let lastT=performance.now(),spawnAcc=0,h2Acc=0,reactT0=0,shrink=1;
-  function loop(now){
-    const dt=Math.min(.05,(now-lastT)/1000);lastT=now;
-    if(reacting&&level<392){
-      const age=(now-reactT0)/1000;
-      rate=(RM?8:26)*Math.max(.45,1-age/90);
-      Snd.fizzLevel(.07*Math.max(.4,1-age/90));
-      shrink=Math.max(.8,1-age/240);
-      tgEls.forEach((g,i)=>g.setAttribute("transform",`translate(${TG[i][0]} ${TG[i][1]}) scale(${shrink.toFixed(3)})`));
-      spawnAcc+=rate*dt;
-      while(spawnAcc>=1){
-        spawnAcc--;const p=TG[(Math.random()*TG.length)|0];
-        const r=1.2+Math.random()*2.6;
-        const c=mk("circle",{r:r,fill:"rgba(255,255,255,.35)",stroke:"rgba(255,255,255,.9)","stroke-width":.8},bubG);
-        bubs.push({c,x0:p[0]+(Math.random()-.5)*10,y:p[1]-4,v:55+Math.random()*70+r*12,ph:Math.random()*6,f:5+Math.random()*5,r});
-      }
-      h2Acc+=dt;if(h2Acc>3.2&&step<6){h2Acc=0;floatH2();}
+  // ======================= helpers =======================
+  const $$=s=>Array.from(document.querySelectorAll(s));
+  const setOp=(el,v)=>{if(el)el.setAttribute("opacity",v);};
+  const toast=$("toast");let toastT=null;
+  function say(t,ms=2400){toast.textContent=t;toast.classList.add("on");clearTimeout(toastT);toastT=setTimeout(()=>toast.classList.remove("on"),ms);}
+  function obs(t){const ul=$("obs"),e=ul.querySelector(".empty");if(e)e.remove();
+    const li=document.createElement("li");li.textContent=t;li.className="new";ul.appendChild(li);setTimeout(()=>li.classList.remove("new"),900);}
+  function halo(el){if(el)el.classList.add("cueG");}
+  function clearHalos(){$$(".cueG").forEach(e=>e.classList.remove("cueG"));}
+  async function hideItem(id){const e=$(id);if(!e)return;await tween(360,t=>setOp(e,1-t));e.style.display="none";}
+  function showItem(id){const e=$(id);if(e){e.style.display="";setOp(e,1);}}
+  // rising bubbles / steam, drawn with CSS animation
+  function startBub(gid,x,w,y,h,n,r,col){
+    const g=$(gid);if(!g)return;g.innerHTML="";
+    for(let i=0;i<n;i++){
+      const c=mk("circle",{cx:(x-w/2+Math.random()*w).toFixed(1),cy:y,r:(r*(.6+Math.random()*.8)).toFixed(1),
+        fill:col||"rgba(255,255,255,.85)",stroke:col?"none":"rgba(100,116,139,.6)","stroke-width":1,class:"bb"},g);
+      c.style.setProperty("--d",(0.9+Math.random()*0.9).toFixed(2)+"s");
+      c.style.setProperty("--dl",(Math.random()*1.2).toFixed(2)+"s");
+      c.style.setProperty("--h",h+"px");
     }
-    for(let i=bubs.length-1;i>=0;i--){
-      const b=bubs[i];b.y-=b.v*dt;b.v+=30*dt;
-      const x=b.x0+Math.sin(now/1000*b.f+b.ph)*1.6;
-      if(b.y<level+b.r){b.c.remove();bubs.splice(i,1);continue;}
-      b.c.setAttribute("cx",x.toFixed(1));b.c.setAttribute("cy",b.y.toFixed(1));
+  }
+  function stopBub(gid){const g=$(gid);if(g)g.innerHTML="";}
+  async function dropInto(id,y0,y1,n=3){
+    const d=$(id);
+    for(let i=0;i<n;i++){
+      setOp(d,1);await tween(RM?60:420,t=>d.setAttribute("cy",lerp(y0,y1,t)),t=>t*t);
+      setOp(d,0);d.setAttribute("cy",y0);Snd.clink&&Snd.clink();await wait(RM?20:140);
     }
-    requestAnimationFrame(loop);
   }
-  requestAnimationFrame(loop);
-  function floatH2(){
-    const t=mk("text",{x:330,y:126,"text-anchor":"middle","font-family":"Baloo 2,sans-serif","font-weight":800,"font-size":18,fill:"#7DD3FC",opacity:0},$("fx"));
-    t.textContent="H₂";const dx=(Math.random()-.5)*50;
-    tween(2600,(e,t0)=>{t.setAttribute("y",126-e*70);t.setAttribute("x",330+dx*e);t.setAttribute("opacity",t0<.2?t0*4:Math.max(0,.8*(1-(t0-.2)/.8)));},x=>x).then(()=>t.remove());
-  }
+  function fitText(el){if(!el)return;el.style.fontSize="";let fs=parseFloat(getComputedStyle(el).fontSize);
+    let k=0;while(el.scrollWidth>el.clientWidth+1&&fs>11&&k<60){fs-=1;el.style.fontSize=fs+"px";k++;}}
 
-  /* ---------- the five steps ---------- */
-  async function doZinc(){
-    const m=M.zinc;busy=true;m.g.classList.remove("hint");raise(m);
-    await moveTo(m,{x:330,y:112,r:0},650,easeOut);
-    await tween(350,t=>{m.pose.r=t*25;setPose(m);m.g.setAttribute("opacity",1-t);});
-    for(let i=0;i<TG.length;i++){
-      const g=tgEls[i],[x,y]=TG[i];g.setAttribute("opacity",1);
-      tween(520,t=>g.setAttribute("transform",`translate(${x} ${lerp(118,y,t).toFixed(1)}) rotate(${(1-t)*90*(i%2?1:-1)})`),bounce);
-      setTimeout(()=>Snd.clink(),300+Math.random()*80);
-      await wait(160);
-    }
-    await wait(500);
-    m.pose={...m.home};setPose(m);lower(m);
-    addObs("I put 5 grey zinc granules in the test tube.");Snd.ok();
-    setStep(2,"Good! The zinc granules are in the test tube. ");busy=false;
-  }
-  async function doBottle(){
-    const m=M.bottle;busy=true;m.g.classList.remove("hint");raise(m);
-    const st=$("stopper");
-    await tween(250,t=>st.setAttribute("transform",`translate(${t*30} ${-t*40})`));st.setAttribute("opacity",0);
-    await moveTo(m,{x:520,y:230,r:-10},600,easeOut);
-    await moveTo(m,{x:477,y:62,r:-115},750);
-    const sp=$("stream");sp.setAttribute("opacity",1);
-    const D=RM?1600:2600;Snd.pour(D/1000);
-    await tween(D,t=>{
-      const y=lerp(404,300,t);setLevel(y);
-      sp.setAttribute("d",`M344,128 Q341,${((128+y)/2).toFixed(1)} 337,${y.toFixed(1)}`);
-      $("bliq").setAttribute("y",lerp(-80,-60,t));
-      if(!reacting&&y<388){reacting=true;reactT0=performance.now();Snd.fizzStart();}
-    },x=>x);
-    sp.setAttribute("opacity",0);
-    await moveTo(m,{x:520,y:230,r:-10},650);
-    await moveTo(m,{...m.home},600,easeOut);
-    st.setAttribute("opacity",1);await tween(250,t=>st.setAttribute("transform",`translate(${(1-t)*30} ${-(1-t)*40})`));
-    lower(m);
-    await wait(700);
-    addObs("Bubbles of gas form around the zinc granules.");Snd.ok();
-    setStep(3,"Look! Bubbles of gas form around the zinc granules. ");busy=false;
-  }
-  async function doThermo(){
-    const m=M.thermo;busy=true;m.g.classList.remove("hint");lower(m);
-    await moveTo(m,{x:330,y:236,r:0},700,easeOut);
-    await moveTo(m,{x:330,y:390,r:0},800);
-    await wait(300);
-    await tween(RM?1500:2800,t=>setTemp(lerp(30,38,t)),easeOut);
-    addObs("The temperature rose from 30 °C to 38 °C. The test tube became warm.");Snd.ok();
-    Say.say("The temperature rose from 30 to 38 degrees Celsius. The test tube became warm. So heat is given out.");
-    await wait(1100);
-    await moveTo(m,{x:330,y:236,r:0},700);
-    await moveTo(m,{...m.home},700,easeOut);
-    tween(2500,t=>setTemp(lerp(38,30,t)));
-    setStep(4,"",true);busy=false;
-  }
-  async function doLight(){
-    busy=true;$("match").classList.remove("hint");Snd.strike();
-    spark(660+(mode==="tall"?-82:0),548+(mode==="tall"?-34:0));await wait(220);
-    lit=true;const f=$("flame");tween(300,t=>f.setAttribute("opacity",t));
-    $("char").setAttribute("opacity",.6);
-    await wait(400);setStep(5,"The splinter is burning. ");busy=false;
-  }
-  async function doSplinter(){
-    const m=M.spl;busy=true;m.g.classList.remove("hint");raise(m);
-    await moveTo(m,{x:334,y:122,r:-5},800,easeOut);
-    await wait(150);
-    Snd.pop();flash(332,118);Say.say("Pop! The gas burns with a pop sound. So the gas is hydrogen.");
-    lit=false;$("flame").setAttribute("opacity",0);$("char").setAttribute("opacity",1);smoke(334,116);
-    addObs("The gas burns with a pop sound. So the gas is hydrogen.");
-    await wait(1200);
-    await moveTo(m,{...m.home},800,easeOut);lower(m);
-    finish();
-  }
-  function finish(){
-    setStep(6);busy=false;
-    const tk=$("task");tk.classList.add("done");$("tn").textContent="✓";$("tt").textContent="Well done! The experiment is complete.";$("chk").hidden=false;
-    $("pill").textContent="Step 5 / 5";
-    $("concl").hidden=false;
-    Snd.fizzLevel(.03);setTimeout(()=>{if(step===6)Snd.fizzStop();},6000);
-    const g0=gen;setTimeout(()=>{if(g0===gen&&step===6&&ov.hidden){Snd.fan();showResult();}},RM?600:5000);
-  }
-  function showResult(){
-    card.innerHTML=`<div class="res" style="display:flex;flex-direction:column;gap:inherit">
-      <span class="tag">🔬 What we found</span>
-      <div class="eqbig">Zn + 2HCl → ZnCl₂ + H₂↑</div>
-      <div class="word">Zinc + Hydrochloric acid → Zinc chloride + Hydrogen</div>
-      <ul>
-        <li><span>💨</span><span><b>Hydrogen gas</b> is formed.</span></li>
-        <li><span>💥</span><span>It burns with a <b>pop sound</b>. So we can identify it.</span></li>
-        <li><span>🔥</span><span>Heat is given out. So it is an <b>exothermic</b> reaction.</span></li>
-        <li><span>🔄</span><span>Zinc pushes out hydrogen. So it is a <b>displacement</b> reaction.</span></li>
-      </ul>
-      <div class="row"><button class="next big" id="rq">📝 Check yourself</button><button class="alt" id="rl">👀 See the lab</button></div>
-    </div>`;
-    ov.hidden=false;card.classList.add("resc");
-    Say.say("Well done! The experiment is complete. Zinc plus hydrochloric acid gives zinc chloride and hydrogen. Hydrogen gas is formed. It burns with a pop sound. So we can identify it. Heat is given out. So it is an exothermic reaction. Zinc pushes out hydrogen. So it is a displacement reaction.",true);const eb=card.querySelector(".eqbig");let fs=parseFloat(getComputedStyle(eb).fontSize);
-    while(eb.scrollWidth>eb.clientWidth+1&&fs>12){fs-=1;eb.style.fontSize=fs+"px";}
-    $("rq").addEventListener("click",()=>$("chk").click());
-    $("rl").addEventListener("click",()=>{ov.hidden=true;Say.stop();});
-  }
-
-  /* ---------- effects ---------- */
-  function spark(x,y){
-    const fx=$("fx");
-    for(let i=0;i<10;i++){const a=Math.random()*Math.PI*2,d=14+Math.random()*22;
-      const c=mk("circle",{cx:x,cy:y,r:2,fill:i%2?"#FDE047":"#FB923C"},fx);
-      tween(380,t=>{c.setAttribute("cx",x+Math.cos(a)*d*t);c.setAttribute("cy",y+Math.sin(a)*d*t);c.setAttribute("opacity",1-t);},easeOut).then(()=>c.remove());}
-  }
-  function flash(x,y){
-    const fx=$("fx");
-    const c=mk("circle",{cx:x,cy:y,r:6,fill:"url(#gFlash)"},fx);
-    tween(500,t=>{c.setAttribute("r",6+t*90);c.setAttribute("opacity",1-t);},easeOut).then(()=>c.remove());
-    for(let i=0;i<12;i++){const a=i/12*Math.PI*2,l=mk("line",{stroke:"#FDE047","stroke-width":4,"stroke-linecap":"round"},fx);
-      tween(420,t=>{const r1=20+t*50,r2=30+t*70;l.setAttribute("x1",x+Math.cos(a)*r1);l.setAttribute("y1",y+Math.sin(a)*r1);l.setAttribute("x2",x+Math.cos(a)*r2);l.setAttribute("y2",y+Math.sin(a)*r2);l.setAttribute("opacity",1-t);},easeOut).then(()=>l.remove());}
-    const tx=mk("text",{x:x+78,y:y+14,"text-anchor":"middle","font-family":"Baloo 2,sans-serif","font-weight":800,"font-size":44,fill:"#F97316",stroke:"#fff","stroke-width":2,"paint-order":"stroke"},fx);
-    tx.textContent="POP!";
-    tween(1300,(t,raw)=>{const s=raw<.25?lerp(.4,1.25,raw/.25):1.25-(raw-.25)*.2;tx.setAttribute("transform",`translate(${x+78} ${y+14}) scale(${s}) translate(${-(x+78)} ${-(y+14)})`);tx.setAttribute("opacity",raw<.7?1:1-(raw-.7)/.3);},x=>x).then(()=>tx.remove());
-  }
-  function smoke(x,y){
-    const fx=$("fx");
-    for(let i=0;i<7;i++){const c=mk("circle",{cx:x,cy:y,r:4,fill:"#94A3B8",opacity:0},fx);const dx=(Math.random()-.5)*30;
-      setTimeout(()=>tween(1600,t=>{c.setAttribute("cy",y-t*80);c.setAttribute("cx",x+dx*t);c.setAttribute("r",4+t*12);c.setAttribute("opacity",.55*(1-t));},x=>x).then(()=>c.remove()),i*110);}
-  }
-
-  /* ---------- input: drag or tap ---------- */
-  function pt(e){const p=svg.createSVGPoint();p.x=e.clientX;p.y=e.clientY;return p.matrixTransform(svg.getScreenCTM().inverse());}
-  svg.addEventListener("pointerdown",e=>{
-    if(!started||busy)return;
-    const t=e.target.closest("[data-m],[data-t]");if(!t)return;
-    e.preventDefault();
-    if(t.dataset.t==="match"){tapThing("match");return;}
-    const m=M[t.dataset.m];
-    const p=pt(e);drag={m,sx:p.x,sy:p.y,p0:{...m.pose},moved:false,id:e.pointerId};
-    try{svg.setPointerCapture(e.pointerId);}catch(_){}
-  });
-  svg.addEventListener("pointermove",e=>{
-    if(!drag||e.pointerId!==drag.id)return;
-    const p=pt(e),dx=p.x-drag.sx,dy=p.y-drag.sy;
-    if(!drag.moved&&Math.hypot(dx,dy)>8){drag.moved=true;raise(drag.m);}
-    if(drag.moved){drag.m.pose={x:drag.p0.x+dx,y:drag.p0.y+dy,r:drag.p0.r};setPose(drag.m);}
-  });
-  const endDrag=e=>{
-    if(!drag||e.pointerId!==drag.id)return;
-    const d=drag;drag=null;
-    if(!d.moved){tapThing(d.m.name);return;}
-    const m=d.m,[hx,hy]=hotW(m),near=Math.hypot(hx-m.target[0],hy-m.target[1])<m.rad;
-    if(m.name==="spl"&&step===4){toast("First tap the matchbox to light the splinter.");back(m);return;}
-    if(m.step===step&&near){run(m.name);return;}
-    if(m.step===step)toast("Bring it closer to the test tube.");else{toast(HINT[step]||"The experiment is complete.");Snd.bad();}
-    back(m);
-  };
-  svg.addEventListener("pointerup",endDrag);svg.addEventListener("pointercancel",endDrag);
-  async function back(m){busy=true;await moveTo(m,{...m.home},420,easeOut);lower(m);busy=false;}
-  function tapThing(name){
-    if(busy)return;
-    if(step===6){toast("The experiment is complete. Tap “Check yourself”.");return;}
-    if(name==="match"||(name==="spl"&&step===4)){if(step===4)run("light");else{toast(HINT[step]);Snd.bad();}return;}
-    const m=M[name];
-    if(m.step===step)run(name);else{toast(HINT[step]);Snd.bad();}
-  }
-  function run(name){
-    const f={zinc:doZinc,bottle:doBottle,thermo:doThermo,light:doLight,spl:doSplinter}[name];
-    f().catch(()=>{});
-  }
-  svg.addEventListener("keydown",e=>{
-    if(e.key!=="Enter"&&e.key!==" ")return;const t=e.target.closest("[data-m],[data-t]");if(!t||!started)return;
-    e.preventDefault();tapThing(t.dataset.t||t.dataset.m);
-  });
-
-  /* ---------- quiz ---------- */
-  const QZ=[
-    {q:"Which gas is formed when zinc reacts with dilute HCl?",o:["Hydrogen","Oxygen","Carbon dioxide","Chlorine"],r:"Zinc pushes hydrogen out of the acid. So hydrogen gas is formed."},
-    {q:"How did we test the gas?",o:["It burns with a pop sound","It turns lime water milky","It makes a glowing splinter burn brightly","It smells like rotten eggs"],r:"Hydrogen gas burns with a pop sound near a flame."},
-    {q:"The temperature rose from 30 °C to 38 °C. So this reaction is:",s:"The temperature rose from 30 to 38 degrees Celsius. Is this reaction exothermic or endothermic?",o:["Exothermic","Endothermic"],r:"Heat is given out, so the reaction is exothermic."},
-    {q:"Zn + 2HCl → ZnCl₂ + H₂ is which type of reaction?",s:"Zinc plus hydrochloric acid gives zinc chloride and hydrogen. Which type of reaction is this?",o:["Displacement reaction","Decomposition reaction","Combination reaction","Double displacement reaction"],r:"Zinc displaces hydrogen from hydrochloric acid."}
+  // ======================= experiments =======================
+  const EXPS=[
+  {key:"Z",ic:"🫧",tag:"📘 Activity 1.3",name:"Zinc + dilute acid",sub:"Hydrogen gas",link:"zinc.html",
+   blurb:"Watch bubbles of hydrogen form and test the gas with a burning splinter.",
+   intro:"This experiment opens on its own lab page. Tap Start to go there.",
+   safe:"🥽 Handle the acid with care.",
+   aim:"To see what happens when zinc reacts with dilute hydrochloric acid.",
+   steps:["Open the zinc lab"],stepTasks:["Open the zinc lab."],conc:{w1:"",eq:"",w2:""},quiz:[]},
+  {key:"P",ic:"🟡",tag:"📘 Activity 1.2",name:"Lead nitrate + potassium iodide",sub:"A yellow precipitate",
+   blurb:"Mix two clear solutions and watch a bright yellow solid appear.",
+   intro:"You will take colourless lead nitrate solution in a test tube and add potassium iodide solution drop by drop. Watch the colour, then let the tube stand.",
+   safe:"🥽 Lead compounds are poisonous. In a real lab, wear gloves, never taste, and wash your hands after the activity.",
+   aim:"To observe the reaction between lead nitrate and potassium iodide solutions.",
+   steps:["Take lead nitrate solution","Add a few drops of potassium iodide","Add more potassium iodide","Let the test tube stand"],
+   stepTasks:["Tap the lead nitrate bottle. Pour its solution into the test tube.",
+     "Tap the potassium iodide dropper. Add a few drops.",
+     "Tap the dropper again. Add more potassium iodide.",
+     "Tap the test tube. Let it stand and watch."],
+   conc:{w1:"A bright yellow solid formed as soon as the two clear solutions mixed. It slowly settled at the bottom of the test tube.",
+     eq:"Pb(NO₃)₂ + 2KI → PbI₂↓ + 2KNO₃",
+     w2:"The yellow solid is lead iodide. A solid that forms in a solution is a precipitate. The two compounds exchange their ions, so this is a double displacement reaction."},
+   quiz:[
+    {q:"What did you see when potassium iodide was added?",a:"A yellow precipitate formed",t:["A white gas came out","The solution turned blue","Nothing happened"],w:"Lead iodide is a yellow solid.",lay:"col"},
+    {q:"The yellow precipitate is",a:"Lead iodide (PbI₂)",t:["Potassium nitrate","Lead nitrate","Potassium iodide"],w:"Lead ions join with iodide ions to form PbI₂."},
+    {q:"What kind of reaction is this?",a:"Double displacement",t:["Combination","Decomposition","Displacement"],w:"The two compounds exchange their ions."},
+    {q:"A solid that forms and settles in a solution is called a",a:"Precipitate",t:["Solvent","Residue","Crystal"],w:"Reactions that make a precipitate are precipitation reactions."},
+    {q:"Which product stays dissolved in the solution?",a:"Potassium nitrate (KNO₃)",t:["Lead iodide (PbI₂)","Lead (Pb)","Iodine gas"],w:"KNO₃ is soluble, so it stays in the solution."}]},
+  {key:"N",ic:"🟤",tag:"📘 Activity 1.6",name:"Heating lead nitrate",sub:"Brown fumes",
+   blurb:"Heat lead nitrate powder and watch brown fumes rise.",
+   intro:"You will take lead nitrate powder in a boiling tube and heat it over a flame. Watch the powder and the gas that comes out.",
+   safe:"🥽 The brown gas (nitrogen dioxide) is poisonous. In a real lab, heat only a little powder, keep the tube mouth away from people, and never breathe the fumes.",
+   aim:"To observe what happens when lead nitrate is heated.",
+   steps:["Take lead nitrate powder","Heat the boiling tube","Look at the residue","Stop heating"],
+   stepTasks:["Tap the lead nitrate powder. Put about 2 g into the boiling tube.",
+     "Tap the burner. Heat the boiling tube.",
+     "Tap the boiling tube. Look closely at the solid left behind.",
+     "Tap the burner again. Stop heating."],
+   conc:{w1:"On heating, the powder crackled and brown fumes came out of the tube. A yellow solid was left behind.",
+     eq:"2Pb(NO₃)₂ → 2PbO + 4NO₂ + O₂",
+     w2:"One compound broke down into three simpler substances: lead oxide (yellow solid), nitrogen dioxide (brown gas) and oxygen. Heat broke it down, so this is a thermal decomposition reaction."},
+   quiz:[
+    {q:"What colour were the fumes?",a:"Brown",t:["White","Green","Colourless"],w:"Nitrogen dioxide (NO₂) is a brown gas."},
+    {q:"The brown gas is",a:"Nitrogen dioxide (NO₂)",t:["Oxygen (O₂)","Carbon dioxide (CO₂)","Hydrogen (H₂)"],w:"Two products are gases: NO₂ (brown) and O₂ (colourless)."},
+    {q:"The yellow solid left behind is",a:"Lead oxide (PbO)",t:["Lead iodide","Lead nitrate","Lead metal"],w:"PbO is the residue left in the boiling tube."},
+    {q:"What type of reaction is this?",a:"Thermal decomposition",t:["Combination","Double displacement","Neutralisation"],w:"Heat breaks one compound into simpler substances."},
+    {q:"Why must we not breathe the brown fumes?",a:"Nitrogen dioxide is poisonous",t:["They smell sweet","They are too hot","They are only steam"],w:"Always heat lead nitrate in a well-ventilated place.",lay:"col"}]}
   ];
-  let qi=0,right=0;
-  const card=$("card"),ov=$("ov");
-  const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=(Math.random()*(i+1))|0;[a[i],a[j]]=[a[j],a[i]];}return a;};
-  function showQ(){
-    const Q=QZ[qi];card.classList.remove("resc");const opts=shuf(Q.o.map((t,i)=>({t,ok:i===0})));
-    card.innerHTML=`<span class="tag">📝 Check yourself: ${qi+1} of ${QZ.length}</span><div class="q"></div><div class="opts"></div><div class="foot"><div class="msg"></div></div>`;
-    card.querySelector(".q").textContent=Q.q;Say.say(Q.s||Q.q);
-    const box=card.querySelector(".opts"),msg=card.querySelector(".msg"),foot=card.querySelector(".foot");
-    opts.forEach(o=>{const b=document.createElement("button");b.className="btn";b.textContent=o.t;box.appendChild(b);
-      b.addEventListener("click",()=>{
-        [...box.children].forEach((x,i)=>{x.disabled=true;if(opts[i].ok)x.classList.add("ok");});
-        if(o.ok){right++;Snd.ok();msg.className="msg ok";msg.textContent="✅ "+Q.r;Say.say("Correct! "+Q.r);}
-        else{b.classList.add("bad");Snd.bad();msg.className="msg bad";msg.textContent="❌ "+Q.r;Say.say("Not correct. "+Q.r);}
-        $("pill").textContent=`Score ${right} / ${QZ.length}`;
-        const n=document.createElement("button");n.className="next";n.textContent=qi<QZ.length-1?"Next ▶":"See result";foot.appendChild(n);n.focus();
-        n.addEventListener("click",()=>{qi++;qi<QZ.length?showQ():endQuiz();});
-      });});
+
+  const BYKEY={};EXPS.forEach(e=>BYKEY[e.key]=e);
+
+  // ======================= state & record =======================
+  let EXP=null,step=0,done=false,busy=false;
+  function setPill(){const n=EXP?EXP.stepTasks.length:0;$("pill").textContent=done?"Done ✓":`Step ${Math.min(step+1,n)} / ${n}`;}
+  function setTask(){if(done)return;$("tn").textContent=step+1;$("tt").textContent=EXP.stepTasks[step];}
+  function markStep(){$$("#steps li").forEach((li,i)=>{li.className=i<step?"ok":(i===step?"now":"");});}
+  function buildRecord(){
+    $("aim").innerHTML="<b>Aim:</b> "+EXP.aim;
+    $("steps").innerHTML=EXP.steps.map((s,i)=>`<li class="${i===0?"now":""}">${s}</li>`).join("");
+    $("obs").innerHTML='<li class="empty">Your observations will appear here.</li>';
+    $("concl").hidden=true;
   }
-  function endQuiz(){
-    const good=right>=3;
-    card.innerHTML=`<h2>🎉 Experiment complete!</h2><p class="q">You scored ${right} out of ${QZ.length}.</p>
-      <p>${good?"Great work! You know how zinc reacts with dilute acid.":"Good try! Do the experiment once more and read the lab record."}</p>
-      <p class="sub" style="white-space:nowrap">Zn + 2HCl → ZnCl₂ + H₂↑</p>
-      <button class="next big" id="again">↺ Do the experiment again</button>`;
-    $("again").addEventListener("click",()=>{ov.hidden=true;resetAll("Let us do the experiment again. ");});
-    Snd.fan();celebrate();
-    Say.say(`You scored ${right} out of ${QZ.length}. `+(good?"Great work! You know how zinc reacts with dilute acid.":"Good try! Do the experiment once more and read the lab record."));
+  function useScene(k){
+    ["P","N"].forEach(x=>{const g=$("sc"+x);if(!g)return;
+      if(x===k){g.style.display="";g.setAttribute("opacity",1);}else{g.style.display="none";g.setAttribute("opacity",0);}});
   }
-  $("chk").addEventListener("click",()=>{qi=0;right=0;$("pill").textContent=`Score 0 / ${QZ.length}`;ov.hidden=false;showQ();Snd.fizzStop();});
-  function celebrate(){
+
+  // ======================= resets =======================
+  let pLevel=452,blobs=[],pAnim=0,pMode="",nFl=null,nSt=null,nSpeckT=0;
+  function setLevel(y){pLevel=y;["pLiq","pTint"].forEach(id=>{$(id).setAttribute("y",y.toFixed(1));$(id).setAttribute("height",(472-y).toFixed(1));});
+    $("pSurf").setAttribute("cy",y.toFixed(1));setOp($("pSurf"),y<448?.55:0);}
+  function resetP(){blobs=[];$("pSwirl").innerHTML="";$("pDyn").innerHTML="";setLevel(452);setOp($("pTint"),0);$("pSet").setAttribute("y",452);$("pSet").setAttribute("height",0);
+    $("pTint").setAttribute("fill","#FACC15");pMode="";setOp($("pBoard"),0);}
+  function resetN(){if(nFl){nFl.stop();nFl=null;}if(nSt){nSt.stop();nSt=null;}$("nFlame").innerHTML="";setOp($("nFlame"),0);$("nDyn").innerHTML="";$("nSpecks").innerHTML="";
+    setOp($("nPow"),0);$("nPow").setAttribute("fill","#F8FAFC");$("nGas").setAttribute("y",380);$("nGas").setAttribute("height",0);setOp($("nBoard"),0);}
+  const RESET={P:resetP,N:resetN,Z:()=>{}};
+  // ======================= drawing helpers =======================
+  const AMB="#F59E0B",RED="#DC2626",PUR="#7C3AED";
+  const ln=(g,x1,y1,x2,y2,o)=>mk("line",Object.assign({x1,y1,x2,y2,stroke:AMB,"stroke-width":3.2,"stroke-linecap":"round"},o||{}),g);
+  const dash=(g,x1,y1,x2,y2,c)=>ln(g,x1,y1,x2,y2,{"stroke-dasharray":"7 6",stroke:c||AMB,"stroke-width":2.6,opacity:.9});
+  function arrowOn(g,x1,y1,x2,y2,c){const mx=(x1+x2)/2,my=(y1+y2)/2,a=Math.atan2(y2-y1,x2-x1),cs=Math.cos(a),sn=Math.sin(a);
+    mk("path",{d:`M${mx+9*cs} ${my+9*sn} L${mx-7*cs+6*sn} ${my-7*sn-6*cs} L${mx-7*cs-6*sn} ${my-7*sn+6*cs}Z`,fill:c||AMB},g);}
+  function ray(g,x1,y1,x2,y2,c){ln(g,x1,y1,x2,y2,c?{stroke:c}:null);arrowOn(g,x1,y1,x2,y2,c);}
+  function wbeam(g,x1,y1,x2,y2,w){ln(g,x1,y1,x2,y2,{stroke:"#94A3B8","stroke-width":(w||6)+4});ln(g,x1,y1,x2,y2,{stroke:"#FFFFFF","stroke-width":w||6});}
+  function txt(g,x,y,t,o){const e=mk("text",Object.assign({x,y,class:"lblD","text-anchor":"middle"},o||{}),g);e.textContent=t;return e;}
+  function board(p,t1,t2,tone){const r=$(p+"BR"),W=r?+r.getAttribute("width")-24:400;
+    [[p+"B1",t1,19],[p+"B2",t2||" ",16]].forEach(([id,t,fs])=>{const e=$(id);e.textContent=t;e.style.fontSize=fs+"px";
+      try{let k=0;while(e.getComputedTextLength()>W&&fs>11&&k<20){fs-=1;e.style.fontSize=fs+"px";k++;}}catch(x){}});
+    if(r)r.setAttribute("stroke",tone==="ok"?"#16A34A":tone==="bad"?"#DC2626":"#CBD5E1");if(r)r.setAttribute("stroke-width",tone?5:3);setOp($(p+"Board"),1);}
+  async function fadeIn(G,ms){setOp(G,0);await tween(RM?60:ms||600,t=>setOp(G,t));}
+  const tell=t=>Say.say(t);
+  const unit=v=>{const L=Math.hypot(v[0],v[1]);return [v[0]/L,v[1]/L];};
+  const along=(p,d,k)=>[p[0]+d[0]*k,p[1]+d[1]*k];
+
+  const ZIG=(g,x1,x2,y,c)=>{const n=6,w=(x2-x1)/n;let d=`M${x1} ${y}`;for(let k=0;k<n;k++)d+=` L${(x1+w*(k+.5)).toFixed(1)} ${y+(k%2?12:-12)}`;d+=` L${x2} ${y}`;
+    return mk("path",{d,fill:"none",stroke:c||"#B45309","stroke-width":4,"stroke-linejoin":"round"},g);};
+  const W=(g,d,id)=>mk("path",Object.assign({d,fill:"none",stroke:"var(--muted)","stroke-width":4,"stroke-linejoin":"round","stroke-linecap":"round"},id?{id}:{}),g);
+  const T=(g,x,y,s,c,fs,anc)=>{const e=mk("text",{x,y,"text-anchor":anc||"middle",style:`font:700 ${fs||14}px 'Baloo 2',sans-serif;fill:${c||"var(--ink)"}`},g);e.textContent=s;return e;};
+  async function count(id,from,to,dp,unit,ms){await tween(RM?60:ms||700,t=>$(id).textContent=(from+(to-from)*t).toFixed(dp)+" "+unit);}
+  const num=id=>parseFloat($(id).textContent)||0;
+
+  // ======================= camera zoom =======================
+  async function zoomTo(box,ms){const v=svg.getAttribute("viewBox").split(/[ ,]+/).map(Number);
+    await tween(RM?60:ms||1100,t=>{const e=t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;svg.setAttribute("viewBox",v.map((a,i)=>(a+(box[i]-a)*e).toFixed(1)).join(" "));});}
+  async function zoomBack(ms){const v=svg.getAttribute("viewBox").split(/[ ,]+/).map(Number);fitView();const w=svg.getAttribute("viewBox").split(/[ ,]+/).map(Number);
+    svg.setAttribute("viewBox",v.join(" "));await zoomTo(w,ms||900);fitView();}
+  // ======================= P: yellow precipitate =======================
+  function addBlob(x,y,big){const c=mk("circle",{cx:x,cy:y,r:2,fill:"url(#g3Yel)"},$("pSwirl"));
+    blobs.push({c,x,y,r:2,r1:(big?9:6)+Math.random()*(big?9:6),age:0,ph:Math.random()*6.28,op:0,sink:0});}
+  function pLoop(t0){let last=performance.now();pMode=pMode||"swirl";
+    const step=now=>{if(!$("pSwirl").isConnected||!blobs.length&&pMode!=="settle"){pAnim=0;return;}
+      const dt=Math.min(.05,(now-last)/1000);last=now;const T=now/1000;let sett=+$("pSet").getAttribute("height");
+      for(let i=blobs.length-1;i>=0;i--){const b=blobs[i];b.age+=dt;
+        const calm=pMode==="settle"?.25:1;
+        const u=Math.sin(b.y*.07+T*1.9+b.ph)*26*calm+Math.sin(T*.8+b.ph*2)*10*calm,v=Math.cos(b.x*.09+T*1.4+b.ph)*24*calm+(pMode==="settle"?34:4);
+        b.x=Math.max(326,Math.min(374,b.x+u*dt));b.y=Math.max(pLevel+4,Math.min(452-sett,b.y+v*dt));
+        b.r+=(b.r1-b.r)*Math.min(1,dt*1.6);b.op=Math.min(1,b.op+dt*1.5);
+        if(pMode==="settle"&&b.y>=452-sett-2){b.op-=dt*1.6;if(b.op<=0){b.c.remove();blobs.splice(i,1);sett=Math.min(26,sett+.45);continue;}}
+        b.c.setAttribute("cx",b.x.toFixed(1));b.c.setAttribute("cy",b.y.toFixed(1));b.c.setAttribute("r",b.r.toFixed(1));b.c.setAttribute("opacity",b.op.toFixed(2));}
+      if(pMode==="settle"){$("pSet").setAttribute("height",sett.toFixed(1));$("pSet").setAttribute("y",(452-sett+2).toFixed(1));}
+      pAnim=requestAnimationFrame(step);};
+    if(!pAnim)pAnim=requestAnimationFrame(step);}
+  function dropper(){const g=mk("g",{},$("pDyn"));
+    mk("rect",{x:343,y:146,width:14,height:62,rx:3,fill:"rgba(255,255,255,.85)",stroke:"#94A3B8","stroke-width":2},g);
+    mk("path",{d:"M343 206 L350 222 L357 206Z",fill:"rgba(255,255,255,.85)",stroke:"#94A3B8","stroke-width":2},g);
+    mk("rect",{x:345,y:170,width:10,height:36,fill:"rgba(219,234,254,.9)"},g);mk("ellipse",{cx:350,cy:142,rx:12,ry:11,fill:"#DC2626"},g);return g;}
+  async function drops(n,big){const D=dropper();await fadeIn(D,400);
+    for(let k=0;k<n;k++){const d=mk("ellipse",{cx:350,cy:224,rx:3.5,ry:5,fill:"rgba(191,219,254,.95)",stroke:"#93C5FD"},$("pDyn"));
+      await tween(RM?40:380,t=>d.setAttribute("cy",(224+(pLevel-224)*t*t).toFixed(1)));d.remove();try{Snd.clink();}catch(e){}
+      for(let j=0;j<(big?9:6);j++)addBlob(344+Math.random()*12,pLevel+4+Math.random()*6,big);pLoop();
+      await wait(RM?60:big?260:420);}
+    await tween(RM?60:400,t=>setOp(D,1-t));D.remove();}
+  async function P_pour(){await hideItem("pPb");const g=mk("g",{},$("pDyn"));
+    const B=mk("g",{transform:"translate(420 150) rotate(-60)"},g);mk("rect",{x:-28,y:-26,width:56,height:52,rx:8,fill:"rgba(219,234,254,.85)",stroke:"#94A3B8","stroke-width":2.5},B);mk("rect",{x:-28,y:-36,width:22,height:12,rx:3,fill:"#E2E8F0",stroke:"#94A3B8"},B);
+    await fadeIn(g,400);const st=mk("path",{d:"M372 182 Q356 196 352 236 L352 236",stroke:"rgba(191,219,254,.95)","stroke-width":5,fill:"none","stroke-linecap":"round"},g);
+    await tween(RM?80:1600,t=>{setLevel(452-122*t);st.setAttribute("d",`M372 182 Q356 196 352 236 L352 ${(236+(pLevel-236)*Math.min(1,t*3)).toFixed(1)}`);});
+    await tween(RM?60:400,t=>setOp(g,1-t));g.remove();
+    board("p","Colourless lead nitrate solution","About 2 mL in the test tube");
+    obs("About 2 mL of lead nitrate solution was taken in a test tube. It is colourless.");}
+  async function P_drops(){zoomTo([214,176,272,300],1200);await drops(3,false);await tween(RM?60:900,t=>setOp($("pTint"),.25*t));await wait(RM?60:1200);await zoomBack(900);
+    board("p","A yellow cloud appears!","Each drop makes a bright yellow solid","ok");
+    obs("As soon as potassium iodide drops were added, a bright yellow cloud formed and swirled in the liquid.");}
+  async function P_more(){zoomTo([214,176,272,300],1000);await drops(6,true);await tween(RM?60:900,t=>setOp($("pTint"),.25+.3*t));await wait(RM?60:1200);await zoomBack(900);
+    board("p","The whole liquid turns yellow","A yellow precipitate forms","ok");
+    obs("With more potassium iodide, the whole liquid became thick and yellow.");}
+  async function P_stand(){pMode="settle";pLoop();await zoomTo([200,190,300,290],900);
+    await tween(RM?100:5200,t=>{setOp($("pTint"),.55-.45*t);$("pTint").setAttribute("fill",t>.5?"#FEF9C3":"#FACC15");});
+    blobs.slice().forEach(b=>{b.c.remove();});blobs=[];$("pSet").setAttribute("height",26);$("pSet").setAttribute("y",428);
+    await zoomBack(900);board("p","Pb(NO₃)₂ + 2KI → PbI₂↓ + 2KNO₃","The yellow lead iodide settled at the bottom","ok");
+    obs("On standing, the yellow solid (lead iodide) slowly settled at the bottom. The liquid above became almost clear.");}
+  // ======================= N: heating lead nitrate =======================
+  async function N_powder(){await hideItem("nPb");const g=mk("g",{},$("nDyn"));
+    const sp=mk("g",{},g);mk("rect",{x:300,y:186,width:110,height:7,rx:3,fill:"#94A3B8",transform:"rotate(28 350 190)"},sp);mk("path",{d:"M332 176 Q345 168 358 178 Z",fill:"#FFFFFF",stroke:"#CBD5E1"},sp);
+    await fadeIn(g,400);await tween(RM?60:900,t=>setOp($("nPow"),t));await tween(RM?60:300,t=>setOp(g,1-t));g.remove();
+    board("n","White lead nitrate powder","About 2 g in a boiling tube");
+    obs("About 2 g of white lead nitrate powder was taken in a boiling tube.");}
+  function speck(){const s=mk("circle",{cx:333+Math.random()*34,cy:372,r:1.6+Math.random()*1.6,fill:"#FFFFFF",stroke:"#CBD5E1","stroke-width":.6},$("nSpecks"));
+    const vx=(Math.random()-.5)*60,vy=-90-Math.random()*90;let x=+s.getAttribute("cx"),y=372,t0=performance.now();
+    const f=now=>{const t=(now-t0)/1000;if(t>.9||!s.isConnected){s.remove();return;}s.setAttribute("cx",(x+vx*t).toFixed(1));s.setAttribute("cy",Math.min(376,y+vy*t+220*t*t).toFixed(1));requestAnimationFrame(f);};requestAnimationFrame(f);}
+  async function N_heat(){const f=$("nFlame");if(!nFl)nFl=FXP.flame(f,350,438,{type:"burner",w:15,h:64});await tween(RM?60:400,t=>setOp(f,t));
+    zoomTo([226,150,250,300],1300);
+    for(let k=0;k<(RM?3:16);k++){speck();if(k%3===0)try{Snd.strike();}catch(e){}await wait(RM?40:130);}
+
+    await tween(RM?100:2000,t=>{const h=150*t;$("nGas").setAttribute("y",(380-h).toFixed(1));$("nGas").setAttribute("height",h.toFixed(1));});
+    nSt=FXP.stream($("nDyn"),350,200,{color:"brown",size:22,rise:130,drift:30,wind:150,w:24,every:.14,life:2.6});
+    await wait(RM?100:1600);await zoomBack(900);
+    board("n","Brown fumes come out!","Nitrogen dioxide (NO₂) gas","ok");
+    obs("On heating, the powder crackled and brown fumes came out of the boiling tube.");}
+  async function N_look(){await zoomTo([250,250,200,170],1000);
+    await tween(RM?80:1600,t=>{const c=[[248,250,252],[250,204,21]].reduce((a,b)=>a.map((v,i)=>v+(b[i]-v)*t));$("nPow").setAttribute("fill",`rgb(${c.map(v=>v|0).join(",")})`);});
+    await wait(RM?60:900);await zoomBack(800);
+    board("n","A yellow solid is left behind","This is lead oxide (PbO)","ok");
+    obs("The white powder changed into a yellow solid. This residue is lead oxide.");}
+  async function N_off(){if(nSt){nSt.stop();nSt=null;}await tween(RM?60:500,t=>setOp($("nFlame"),1-t));
+    await tween(RM?80:2200,t=>setOp($("nGas"),1-t));$("nGas").setAttribute("height",0);setOp($("nGas"),1);
+    board("n","2Pb(NO₃)₂ → 2PbO + 4NO₂ + O₂","Heat broke one compound into three substances","ok");
+    obs("The burner was turned off. The brown fumes slowly stopped. Products: lead oxide, nitrogen dioxide and oxygen.");}
+
+  const ACTS={
+    Z:[],
+    P:[{keys:["pb"],fn:P_pour,cue:"pPb"},{keys:["ki"],fn:P_drops,cue:"pKI"},{keys:["ki"],fn:P_more,cue:"pKI"},{keys:["tube"],fn:P_stand,cue:"pTube"}],
+    N:[{keys:["powder"],fn:N_powder,cue:"nPb"},{keys:["burner"],fn:N_heat,cue:"nBurner"},{keys:["tube"],fn:N_look,cue:"nTube"},{keys:["burner"],fn:N_off,cue:"nBurner"}]
+  };
+
+  async function act(key){
+    if(!EXP||done||busy)return;
+    const cur=ACTS[EXP.key][step];if(!cur)return;
+    if(cur.bad&&cur.bad[key]){busy=true;clearHalos();
+      try{await cur.bad[key]();}catch(e){if(e!=="reset")console.error(e);}
+      busy=false;if(EXP&&!done)cue();return;}
+    if(!cur.keys.includes(key)){wrong();return;}
+    busy=true;clearHalos();
+    try{await cur.fn();step++;markStep();
+      if(step>=ACTS[EXP.key].length)finish();else{setTask();setPill();cue();}
+    }catch(e){if(e!=="reset")console.error(e);}
+    busy=false;
+  }
+  function wrong(){say("Not yet — "+EXP.stepTasks[step]);Snd.bad&&Snd.bad();}
+  function cue(){clearHalos();const c=ACTS[EXP.key][step];if(c)[].concat(c.cue).forEach(id=>halo($(id)));}
+
+  // ======================= finish, result, quiz =======================
+  function finish(){
+    done=true;setPill();clearHalos();
+    $("tt").textContent="Experiment complete. Read your lab record, then check yourself.";$("tn").textContent="✓";
+    $("chk").hidden=false;
+    $("cw1").textContent=EXP.conc.w1;$("ceq").textContent=EXP.conc.eq;$("cw2").textContent=EXP.conc.w2;
+    $("concl").hidden=false;markStep();fitText($("ceq"));
+    const g0=gen;setTimeout(()=>{if(g0===gen&&done&&$("ov").hidden)resultCard();},RM?600:5000);
+  }
+  function resultCard(){
+    const c=$("card");c.className="card res resc";
+    c.innerHTML=`<span class="tag">${EXP.tag}</span>
+      <h2>🎉 Experiment complete!</h2>
+      <div class="eqbig">${EXP.conc.eq}</div>
+      <p>${EXP.conc.w1}</p><p class="sub">${EXP.conc.w2}</p>
+      <div class="row"><button class="next big" id="toQuiz">📝 Check yourself</button>
+      <button class="next ghost" id="again">↺ Do it again</button>
+      <button class="next ghost" id="other">⇄ Other experiment</button></div>`;
+    $("ov").hidden=false;fitText(c.querySelector(".eqbig"));
+    celebrate();Snd.fan&&Snd.fan();Say.say(EXP.conc.w1);
+    $("toQuiz").onclick=startQuiz;$("again").onclick=()=>begin(EXP);$("other").onclick=chooser;
+  }
+  let qi=0,qScore=0;
+  function startQuiz(){qi=0;qScore=0;askQ();}
+  function askQ(){
+    if(qi>=EXP.quiz.length){quizEnd();return;}
+    const it=EXP.quiz[qi],opts=shuffle([it.a,...it.t]);
+    const c=$("card");c.className="card";
+    c.innerHTML=`<span class="tag">Question ${qi+1} of ${EXP.quiz.length}</span><h2>${it.q}</h2><div class="opts" id="qo"></div><div class="why" id="why" hidden></div>`;
+    const box=$("qo");
+    opts.forEach(o=>{const b=document.createElement("button");b.className="btn";b.type="button";b.textContent=o;
+      b.onclick=()=>{if(box.dataset.done)return;box.dataset.done="1";const ok=o===it.a;
+        [...box.children].forEach(x=>{x.disabled=true;if(x.textContent===it.a)x.classList.add("ok");else if(x===b)x.classList.add("bad");});
+        if(ok){qScore++;Snd.ok&&Snd.ok();}
+        const w=$("why");w.hidden=false;
+        w.innerHTML=`<b>${ok?"✔ Correct.":"✘ Not quite."}</b> ${it.w} <button class="next" id="nq">${qi+1<EXP.quiz.length?"Next ▸":"See my score"}</button>`;
+        $("nq").onclick=()=>{qi++;askQ();};};
+      box.appendChild(b);});
+    $("ov").hidden=false;
+  }
+  function quizEnd(){
+    const good=qScore>=4,c=$("card");c.className="card res";
+    c.innerHTML=`<h2>🌟 You scored ${qScore} / ${EXP.quiz.length}</h2>
+      <p>${good?"Great work! You understand this experiment.":"Good try. Read your lab record once more and try again."}</p>
+      <div class="row"><button class="next big" id="rq">↺ Try the questions again</button><button class="next ghost" id="other2">⇄ Other experiment</button></div>`;
+    if(good){celebrate();Snd.fan&&Snd.fan();}
+    $("rq").onclick=startQuiz;$("other2").onclick=chooser;
+  }
+
+  // ======================= chooser, intro, begin =======================
+  function chooser(){
+    gen++;busy=false;Snd.fizzStop&&Snd.fizzStop();
+    const c=$("card");c.className="card";
+    c.innerHTML=`<h2>🔬 Choose an experiment</h2><p class="sub">Chapter 1 — Chemical Reactions and Equations. Tap a card to begin.</p>
+      <div class="pickwrap"><div class="exps">${EXPS.map(e=>`<button class="exp" type="button" data-k="${e.key}" id="pick${e.key}"><span class="ic">${e.ic}</span><span class="tg">${e.tag}</span><b>${e.name}</b><small>${e.blurb}</small></button>`).join("")}</div></div>`;
+    $("ov").hidden=false;
+    c.querySelectorAll(".exp").forEach(b=>b.onclick=()=>intro(BYKEY[b.dataset.k]));
+  }
+  function intro(E){
+    const c=$("card");c.className="card";
+    c.innerHTML=`<span class="tag">${E.tag}</span><h2>${E.name}</h2><p class="sub"><b>Aim:</b> ${E.aim}</p><p>${E.intro}</p>
+      <p class="safe">${E.safe}</p>
+      <div class="row"><button class="next big" id="go">▶ Start experiment</button><button class="next ghost" id="back">◂ Back</button></div>`;
+    $("ov").hidden=false;$("go").onclick=()=>begin(E);$("back").onclick=chooser;
+  }
+  function begin(E){
+    gen++;busy=false;Snd.fizzStop&&Snd.fizzStop();
+    if(E.link){location.href=E.link;return;}EXP=E;step=0;done=false;useScene(E.key);RESET[E.key]();fitView();
+    $("hsub").textContent=E.sub;buildRecord();setTask();setPill();markStep();
+    $("chk").hidden=true;$("ov").hidden=true;cue();Say.say(E.stepTasks[0]);
+    if(innerHeight>innerWidth&&innerWidth<700)setTimeout(()=>say("Tip: turn your phone sideways for a bigger view.",3600),400);
+  }
+
+  // ======================= wiring =======================
+  svg.addEventListener("click",e=>{const g=e.target.closest("[data-t]");if(g)act(g.dataset.t);});
+  svg.addEventListener("keydown",e=>{if(e.key!=="Enter"&&e.key!==" ")return;const g=e.target.closest("[data-t]");if(g){e.preventDefault();act(g.dataset.t);}});
+  $("chk").onclick=startQuiz;
+  $("rst").onclick=()=>{if(EXP)begin(EXP);else chooser();};
+  $("swap").onclick=chooser;
+
+  function celebrate(){return;/*no confetti in labs*/
     const box=document.createElement("div");box.className="cf";
     const cols=["#F97316","#2563EB","#DB2777","#16A34A","#FACC15","#7C3AED","#DC2626","#0D9488"];
-    for(let k=0;k<90;k++){const p=document.createElement("i"),w=16+Math.random()*12;
+    for(let k=0;k<80;k++){const p=document.createElement("i"),w=14+Math.random()*12;
       p.style.left=(Math.random()*100)+"%";p.style.width=w+"px";p.style.height=(w*(Math.random()<.5?1:1.8))+"px";p.style.background=cols[k%cols.length];
       p.style.setProperty("--d",(4+Math.random()*1.5).toFixed(2)+"s");p.style.setProperty("--dl",(Math.random()*1.2).toFixed(2)+"s");
-      p.style.setProperty("--sx",((Math.random()-.5)*10).toFixed(1)+"vw");p.style.setProperty("--r",((Math.random()<.5?-1:1)*(360+Math.random()*540)|0)+"deg");box.appendChild(p);}
+      p.style.setProperty("--sx",((Math.random()-.5)*10).toFixed(1)+"vw");p.style.setProperty("--r",((Math.random()<.5?-1:1)*(360+Math.random()*540)|0)+"deg");
+      box.appendChild(p);}
     document.body.appendChild(box);setTimeout(()=>box.remove(),7000);
   }
-
-  /* ---------- start and reset ---------- */
-  function resetAll(pre){
-    gen++;Snd.fizzStop();Say.stop();reacting=false;lit=false;drag=null;
-    bubs.forEach(b=>b.c.remove());bubs.length=0;$("fx").innerHTML="";
-    for(const k in M){const m=M[k];m.pose={...m.home};setPose(m);lower(m);}
-    zinc.setAttribute("opacity",1);tgEls.forEach(g=>{g.setAttribute("opacity",0);g.removeAttribute("transform");});
-    setLevel(405);setTemp(30);$("bliq").setAttribute("y",-80);
-    $("stream").setAttribute("opacity",0);$("stopper").setAttribute("opacity",1);$("stopper").removeAttribute("transform");
-    $("flame").setAttribute("opacity",0);$("char").setAttribute("opacity",0);
-    $("obs").innerHTML='<li class="empty">Your observations will appear here.</li>';$("concl").hidden=true;
-    $("task").classList.remove("done");$("chk").hidden=true;
-    started=true;setStep(1,pre||"");busy=false;
-  }
-  $("start").addEventListener("click",()=>{Snd.init();if(musOn)Snd.music(true);ov.hidden=true;resetAll("Welcome to the Digital Lab. Today we will see how zinc reacts with dilute hydrochloric acid. ");});
-  $("rst").addEventListener("click",()=>{ov.hidden=true;resetAll("Let us start again. ");toast("New experiment. Start with the zinc granules.",true);});
-  setStep(1);setTemp(30);
+  const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+  function fitView(){const r=$("scene").getBoundingClientRect();const tall=r.height/r.width>1.05;svg.setAttribute("viewBox",tall?"14 140 680 440":"0 86 700 534");}
+  addEventListener("resize",()=>{fitView();fitText($("ceq"));});fitView();
+  chooser();
 })();

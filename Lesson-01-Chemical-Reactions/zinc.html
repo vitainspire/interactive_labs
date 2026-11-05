@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Digital Lab – Zinc and Dilute HCl</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/theme.css">
+<link rel="stylesheet" href="zinc.css">
+</head>
+<body>
+<div class="app">
+  <header>
+    <div>
+      <div class="school"><a href="index.html" class="homeL">🏠 Home</a>🏫 ZPHS, Gurajanapalli</div>
+      <h1>🔬 Digital Lab<span>Zinc + dilute HCl</span></h1>
+    </div>
+    <div class="hr">
+      <div class="pill" id="pill">Step 1 / 5</div>
+      <button class="ib" id="voice" aria-pressed="true" title="Voice on/off" aria-label="Voice on or off">🗣️</button>
+      <button class="ib" id="mus" aria-pressed="false" title="Music on/off" aria-label="Music on or off">🎵</button>
+      <button class="ib" id="snd" aria-pressed="true" title="Sound on/off" aria-label="Sound on or off">🔊</button>
+      <button class="ib" id="rst" title="Start again" aria-label="Start again">↺</button>
+    </div>
+  </header>
+
+  <div class="lab" id="lab">
+    <div class="stage">
+      <div class="task" id="task"><span class="n" id="tn">1</span><span class="t" id="tt">Drag the zinc granules into the test tube.</span><button class="go" id="chk" hidden>📝 Check yourself</button></div>
+      <div class="scene" id="scene">
+        <svg id="sc" viewBox="0 0 700 620" preserveAspectRatio="xMidYMid meet" aria-label="Lab table with a test tube, zinc granules, dilute hydrochloric acid, a thermometer, a matchbox and a splinter">
+          <defs>
+            <pattern id="tiles" width="46" height="46" patternUnits="userSpaceOnUse"><rect width="46" height="46" fill="none" class="tile" stroke-width="1.5"/></pattern>
+            <linearGradient id="gBench" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5B6572"/><stop offset=".12" stop-color="#47505C"/><stop offset="1" stop-color="#262C35"/></linearGradient>
+            <linearGradient id="gGlass" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity=".6"/><stop offset=".22" stop-color="#fff" stop-opacity=".1"/><stop offset=".7" stop-color="#fff" stop-opacity=".04"/><stop offset="1" stop-color="#fff" stop-opacity=".45"/></linearGradient>
+            <linearGradient id="gLiq" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#BFE3F5" stop-opacity=".55"/><stop offset="1" stop-color="#8CC4E3" stop-opacity=".72"/></linearGradient>
+            <linearGradient id="gMetal" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6B7280"/><stop offset=".4" stop-color="#E5E7EB"/><stop offset="1" stop-color="#4B5563"/></linearGradient>
+            <linearGradient id="gMetalD" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4B5563"/><stop offset="1" stop-color="#1F2937"/></linearGradient>
+            <linearGradient id="gZn" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F1F4F6"/><stop offset=".45" stop-color="#B4BCC3"/><stop offset="1" stop-color="#6E7780"/></linearGradient>
+            <linearGradient id="gWood" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F3D9A4"/><stop offset="1" stop-color="#C9995A"/></linearGradient>
+            <radialGradient id="gFlame" cx=".5" cy=".75" r=".6"><stop offset="0" stop-color="#FFFBEB"/><stop offset=".35" stop-color="#FDE047"/><stop offset=".75" stop-color="#F97316"/><stop offset="1" stop-color="#DC2626" stop-opacity=".2"/></radialGradient>
+            <radialGradient id="gGlow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#FDBA74" stop-opacity=".6"/><stop offset="1" stop-color="#FDBA74" stop-opacity="0"/></radialGradient>
+            <radialGradient id="gFlash" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fff"/><stop offset=".35" stop-color="#FEF08A"/><stop offset=".7" stop-color="#FB923C" stop-opacity=".6"/><stop offset="1" stop-color="#FB923C" stop-opacity="0"/></radialGradient>
+            <radialGradient id="gShadow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#000" stop-opacity=".45"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+            <clipPath id="tubeClip"><path d="M311,141 L311,383 A19,19 0 0 0 349,383 L349,141 Z"/></clipPath>
+            <clipPath id="botClip"><path d="M-37,-8 Q-37,-3 -31,-3 L31,-3 Q37,-3 37,-8 L37,-95 Q37,-108 23,-114 L-23,-114 Q-37,-108 -37,-95 Z"/></clipPath>
+          </defs>
+
+          <g id="bg">
+            <rect class="wall" x="-1200" y="-900" width="3100" height="1301"/>
+            <rect x="-1200" y="-900" width="3100" height="1301" fill="url(#tiles)"/>
+            <g class="decor" transform="translate(28 36)">
+              <rect width="158" height="96" rx="8" fill="#FEF3C7" stroke="#F59E0B" stroke-width="2.5"/>
+              <text x="79" y="28" text-anchor="middle" font-family="Baloo 2,sans-serif" font-weight="800" font-size="19" fill="#92400E">Safety first</text>
+              <text x="79" y="54" text-anchor="middle" font-family="Baloo 2,sans-serif" font-weight="700" font-size="14" fill="#78350F">🥽 Wear goggles</text>
+              <text x="79" y="78" text-anchor="middle" font-family="Baloo 2,sans-serif" font-weight="700" font-size="14" fill="#78350F">Work with your teacher</text>
+            </g>
+            <g class="decor" opacity=".9">
+              <rect x="478" y="70" width="12" height="38" rx="3" fill="#B45309"/><rect x="481" y="62" width="6" height="9" fill="#78350F"/>
+              <rect x="505" y="78" width="20" height="30" rx="4" fill="#15803D" opacity=".85"/><rect x="511" y="70" width="8" height="9" fill="#14532D"/>
+              <rect x="540" y="66" width="16" height="42" rx="4" fill="#1D4ED8" opacity=".8"/><rect x="544" y="58" width="8" height="9" fill="#1E3A8A"/>
+              <rect x="572" y="74" width="24" height="34" rx="5" fill="#E2E8F0" opacity=".75" stroke="#94A3B8"/><rect x="579" y="66" width="10" height="9" fill="#64748B"/>
+              <rect x="611" y="80" width="14" height="28" rx="3" fill="#BE123C" opacity=".8"/><rect x="614" y="73" width="8" height="8" fill="#881337"/>
+              <rect x="640" y="70" width="18" height="38" rx="4" fill="#B45309" opacity=".85"/><rect x="645" y="62" width="8" height="9" fill="#78350F"/>
+              <rect x="466" y="108" width="210" height="9" rx="2" fill="#A47148"/>
+              <rect x="480" y="117" width="6" height="16" fill="#7C5434"/><rect x="656" y="117" width="6" height="16" fill="#7C5434"/>
+            </g>
+            <rect x="-1200" y="400" width="3100" height="900" fill="url(#gBench)"/>
+            <rect x="-1200" y="400" width="3100" height="3" fill="#fff" opacity=".14"/>
+            <ellipse cx="230" cy="436" rx="86" ry="9" fill="url(#gShadow)"/>
+            <ellipse cx="445" cy="433" rx="40" ry="7" fill="url(#gShadow)"/>
+            <ellipse id="botSh" cx="560" cy="432" rx="50" ry="8" fill="url(#gShadow)"/>
+            <text class="lbl" x="445" y="455">Thermometer</text>
+            <text class="lbl" x="560" y="455">Dilute HCl</text>
+            <text class="lbl" x="330" y="455">Test tube</text>
+          </g>
+
+          <g id="stand">
+            <rect x="150" y="418" width="160" height="16" rx="4" fill="url(#gMetalD)"/>
+            <rect x="216" y="66" width="9" height="354" rx="3" fill="url(#gMetal)"/>
+            <rect x="209" y="196" width="24" height="22" rx="4" fill="url(#gMetalD)"/>
+            <rect x="230" y="202" width="78" height="9" rx="3" fill="url(#gMetal)"/>
+          </g>
+
+          <g id="Lthermo">
+            <g id="thermo" data-m="thermo" tabindex="0" role="button" aria-label="Thermometer">
+              <circle class="halo" cx="0" cy="-140" r="30"/>
+              <rect x="-6.5" y="-238" width="13" height="236" rx="6.5" fill="url(#gGlass)" class="gl" stroke-width="1.6"/>
+              <circle cx="0" cy="0" r="8" fill="#DC2626" class="gl" stroke-width="1.6"/>
+              <rect id="tcol" x="-2" y="-80" width="4" height="80" fill="#DC2626"/>
+              <g id="ticks" stroke="#64748B" stroke-width="1"></g>
+              <g id="tlab" transform="translate(0 -262)">
+                <rect x="-36" y="-17" width="72" height="32" rx="12" fill="#FFFFFF" stroke="#DC2626" stroke-width="2"/>
+                <text id="tread" x="0" y="7" text-anchor="middle" font-family="Baloo 2,sans-serif" font-weight="800" font-size="20" fill="#B91C1C">30 °C</text>
+              </g>
+              <rect x="-24" y="-250" width="48" height="262" fill="transparent"/>
+            </g>
+          </g>
+
+          <g id="Ltube">
+            <g clip-path="url(#tubeClip)">
+              <rect id="liq" x="300" y="405" width="60" height="20" fill="url(#gLiq)" opacity="0"/>
+              <ellipse id="surf" cx="330" cy="405" rx="19" ry="3" fill="#fff" opacity="0"/>
+              <g id="tgran"></g>
+              <g id="bubs"></g>
+            </g>
+            <path id="stream" d="M345,130 Q341,250 337,400" fill="none" stroke="#A5D4EE" stroke-width="5" stroke-linecap="round" class="flow" opacity="0"/>
+            <path d="M308,140 L308,383 A22,22 0 0 0 352,383 L352,140" fill="url(#gGlass)" class="gl" stroke-width="2.2"/>
+            <rect x="314" y="152" width="4" height="226" rx="2" fill="#fff" opacity=".55"/>
+            <ellipse cx="330" cy="140" rx="25" ry="5" fill="none" class="gl" stroke-width="2.6"/>
+            <rect x="304" y="198" width="9" height="22" rx="3" fill="url(#gMetalD)"/>
+            <rect x="347" y="198" width="9" height="22" rx="3" fill="url(#gMetalD)"/>
+            <rect x="304" y="204" width="52" height="7" rx="3" fill="#374151" opacity=".85"/>
+            <circle class="tubeHalo" cx="330" cy="140" r="34" fill="none" stroke="#22C55E" stroke-width="3" stroke-dasharray="6 6" opacity="0"/>
+          </g>
+
+          <g id="Lbeaker">
+            <path d="M414,370 L416,426 Q416,432 422,432 L468,432 Q474,432 474,426 L476,370" fill="url(#gGlass)" class="gl" stroke-width="2"/>
+            <path d="M410,368 L480,368" class="gl" stroke-width="3" stroke-linecap="round"/>
+            <rect x="420" y="378" width="3" height="46" rx="1.5" fill="#fff" opacity=".5"/>
+          </g>
+
+          <g id="Lbottle">
+            <g id="bottle" data-m="bottle" tabindex="0" role="button" aria-label="Bottle of dilute hydrochloric acid">
+              <circle class="halo" cx="0" cy="-72" r="76"/>
+              <g clip-path="url(#botClip)"><rect id="bliq" x="-40" y="-80" width="80" height="80" fill="url(#gLiq)"/></g>
+              <path d="M-40,-8 Q-40,0 -32,0 L32,0 Q40,0 40,-8 L40,-96 Q40,-112 24,-118 L14,-122 L14,-138 L-14,-138 L-14,-122 L-24,-118 Q-40,-112 -40,-96 Z" fill="url(#gGlass)" class="gl" stroke-width="2.2"/>
+              <rect x="-17" y="-146" width="34" height="9" rx="3" fill="url(#gGlass)" class="gl" stroke-width="2"/>
+              <g id="stopper"><rect x="-10" y="-160" width="20" height="16" rx="3" fill="#CBD5E1" stroke="#64748B" stroke-width="1.5"/><ellipse cx="0" cy="-161" rx="16" ry="6" fill="#E2E8F0" stroke="#64748B" stroke-width="1.5"/></g>
+              <rect x="-31" y="-94" width="62" height="56" rx="5" fill="#FFFDF5" stroke="#CBD5E1" stroke-width="1.5"/>
+              <text x="0" y="-77" text-anchor="middle" font-family="Baloo 2,sans-serif" font-weight="700" font-size="12" fill="#334155">Dilute</text>
+              <text x="0" y="-55" text-anchor="middle" font-family="Baloo 2,sans-serif" font-weight="800" font-size="22" fill="#B91C1C">HCl</text>
+              <path d="M22,-50 l6,6 -6,6 -6,-6z" fill="#F97316"/>
+              <rect x="-29" y="-104" width="4" height="92" rx="2" fill="#fff" opacity=".5"/>
+            </g>
+          </g>
+
+          <g id="Lfront">
+            <g id="fDish">
+              <ellipse cx="120" cy="558" rx="88" ry="14" fill="url(#gShadow)"/>
+              <ellipse cx="120" cy="548" rx="80" ry="20" fill="url(#gGlass)" class="gl" stroke-width="2"/>
+              <ellipse cx="120" cy="544" rx="80" ry="18" fill="none" class="gl" stroke-width="2.2"/>
+              <text class="lbl" x="120" y="600">Zinc granules</text>
+            </g>
+            <text class="lbl" id="splLbl" x="500" y="592">Splinter</text>
+            <g id="fMatch"><ellipse cx="625" cy="574" rx="48" ry="8" fill="url(#gShadow)"/><text class="lbl" x="625" y="600">Matchbox</text>
+            <g id="match" data-t="match" tabindex="0" role="button" aria-label="Matchbox">
+              <circle class="halo" cx="625" cy="552" r="52"/>
+              <path d="M585,540 L657,540 L667,530 L595,530 Z" fill="#FDBA74"/>
+              <rect x="585" y="540" width="72" height="30" rx="2" fill="#C2410C"/>
+              <path d="M657,540 L667,530 L667,560 L657,570 Z" fill="#7C2D12"/>
+              <rect x="593" y="546" width="56" height="18" rx="2" fill="#FACC15"/>
+              <text x="621" y="560" text-anchor="middle" font-family="Baloo 2,sans-serif" font-weight="800" font-size="12" fill="#7C2D12">SAFETY</text>
+              <rect x="575" y="520" width="100" height="60" fill="transparent"/>
+            </g></g>
+          </g>
+
+          <g id="Lzinc"><g id="zinc" data-m="zinc" tabindex="0" role="button" aria-label="Zinc granules"><circle class="halo" cx="0" cy="-4" r="54"/><rect x="-55" y="-30" width="110" height="50" fill="transparent"/></g></g>
+
+          <g id="Lspl">
+            <g id="spl" data-m="spl" tabindex="0" role="button" aria-label="Wooden splinter">
+              <circle class="halo" cx="10" cy="-6" r="28"/>
+              <rect x="0" y="-3.5" width="150" height="7" rx="3.5" fill="url(#gWood)" stroke="#A16207" stroke-width="1"/>
+              <circle id="char" cx="2" cy="0" r="3.4" fill="#292524" opacity="0"/>
+              <g id="flame" opacity="0">
+                <circle cx="0" cy="-14" r="26" fill="url(#gGlow)"/>
+                <g class="flick"><path d="M0,-40 C11,-24 12,-8 0,0 C-12,-8 -11,-24 0,-40 Z" fill="url(#gFlame)"/><path d="M0,-22 C5,-14 5,-5 0,-1 C-5,-5 -5,-14 0,-22 Z" fill="#FFFBEB"/></g>
+              </g>
+              <rect x="-20" y="-25" width="180" height="40" fill="transparent"/>
+            </g>
+          </g>
+
+          <g id="fx"></g>
+          <g id="Ltop"></g>
+        </svg>
+        <div class="toast" id="toast"></div>
+      </div>
+    </div>
+
+    <aside class="note" id="note">
+      <h2>📒 My lab record</h2>
+      <p class="aim"><b>Aim:</b> To see what happens when zinc reacts with dilute hydrochloric acid.</p>
+      <ol class="steps" id="steps">
+        <li class="now">Add zinc granules</li>
+        <li>Pour dilute HCl</li>
+        <li>Check the temperature</li>
+        <li>Light the splinter</li>
+        <li>Test the gas</li>
+      </ol>
+      <h3>What I saw</h3>
+      <ul class="obs" id="obs"><li class="empty">Your observations will appear here.</li></ul>
+      <div class="concl" id="concl" hidden>
+        <div class="w">Zinc + Hydrochloric acid → Zinc chloride + Hydrogen</div>
+        <div class="eq">Zn + 2HCl → ZnCl₂ + H₂↑</div>
+        <div class="w">Displacement reaction. Heat is given out (exothermic).</div>
+      </div>
+    </aside>
+
+    <div class="ov" id="ov">
+      <div class="card" id="card">
+        <span class="tag">📘 Textbook Activity 1.3</span>
+        <h2>Zinc and dilute hydrochloric acid</h2>
+        <p class="sub"><b>Aim:</b> To see what happens when zinc reacts with dilute hydrochloric acid.</p>
+        <p>You will use zinc granules, dilute HCl, a test tube, a thermometer, a matchbox and a splinter. Drag each thing, or just tap it.</p>
+        <p class="safe">🥽 In a real lab, wear goggles. Handle acid with care. Do this only with your teacher.</p>
+        <button class="next big" id="start">▶ Start experiment</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="../shared/fx.js"></script>
+<script src="zinc.js"></script>
+<script src="../shared/deeplink.js"></script>
+<script src="../shared/compat.js"></script>
+</body>
+</html>

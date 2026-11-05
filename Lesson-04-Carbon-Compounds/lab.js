@@ -97,13 +97,15 @@
     const ss=window.speechSynthesis;let on=true,v=null,dT=null;
     try{on=localStorage.getItem("zphsLabVoice")!=="off";}catch(e){}
     function pick(){if(!ss)return;const vs=ss.getVoices().filter(x=>/^en/i.test(x.lang));
-      v=vs.find(x=>/en[-_]IN/i.test(x.lang))||vs.find(x=>/google/i.test(x.name)&&/en[-_](GB|US)/i.test(x.lang))||vs.find(x=>/en[-_](GB|US)/i.test(x.lang))||vs[0]||null;}
+      const sc=x=>{let s=0;const n=x.name||"",l=x.lang||"";if(/en[-_]IN/i.test(l))s+=6;if(/natural|neural|online|premium|enhanced/i.test(n))s+=5;if(/google/i.test(n))s+=4;
+        if(/neerja|heera|veena|raveena|aditi|kajal|swara|female|zira|samantha|sonia|libby|aria|jenny/i.test(n))s+=2;if(/en[-_](GB|US)/i.test(l))s+=1;if(/espeak|robot|compact/i.test(n))s-=6;if(x.localService===false)s+=1;return s;};
+      v=vs.slice().sort((a,b)=>sc(b)-sc(a))[0]||null;}
     if(ss){pick();try{ss.addEventListener("voiceschanged",pick);}catch(e){ss.onvoiceschanged=pick;}}
     function stop(){if(ss)ss.cancel();Snd.duck(false);}
     function say(text,queue){
       if(!ss||!on||!text)return;if(!queue)ss.cancel();
       text.split(/(?<=[.!?])\s+/).forEach(s=>{if(!s.trim())return;
-        const u=new SpeechSynthesisUtterance(s);u.lang=v?v.lang:"en-IN";if(v)u.voice=v;u.rate=.9;u.pitch=1.05;
+        const u=new SpeechSynthesisUtterance(s);u.lang=v?v.lang:"en-IN";if(v)u.voice=v;u.rate=.86;u.pitch=1;u.volume=.95;
         u.onstart=()=>{clearTimeout(dT);Snd.duck(true);};
         u.onend=u.onerror=()=>{clearTimeout(dT);dT=setTimeout(()=>{if(!ss.speaking)Snd.duck(false);},300);};
         ss.speak(u);});
@@ -124,23 +126,25 @@
   const toast=$("toast");let toastT=null;
   function say(t,ms=2400){toast.textContent=t;toast.classList.add("on");clearTimeout(toastT);toastT=setTimeout(()=>toast.classList.remove("on"),ms);}
   function obs(t){const ul=$("obs"),e=ul.querySelector(".empty");if(e)e.remove();
-    const li=document.createElement("li");li.textContent=t;li.className="new";ul.appendChild(li);setTimeout(()=>li.classList.remove("new"),900);}
+    const li=document.createElement("li");li.textContent=t;li.className="new";ul.appendChild(li);if(window.Say&&Say.say)0;try{Say.say(t);}catch(e){}/*SAYSTEP*/setTimeout(()=>li.classList.remove("new"),900);}
   function halo(el){if(el)el.classList.add("cueG");}
   function clearHalos(){$$(".cueG").forEach(e=>e.classList.remove("cueG"));}
   async function hideItem(id){const e=$(id);if(!e)return;await tween(360,t=>setOp(e,1-t));e.style.display="none";}
   function showItem(id){const e=$(id);if(e){e.style.display="";setOp(e,1);}}
   // rising bubbles / steam, drawn with CSS animation
   function startBub(gid,x,w,y,h,n,r,col){
-    const g=$(gid);if(!g)return;g.innerHTML="";
-    for(let i=0;i<n;i++){
-      const c=mk("circle",{cx:(x-w/2+Math.random()*w).toFixed(1),cy:y,r:(r*(.6+Math.random()*.8)).toFixed(1),
-        fill:col||"rgba(255,255,255,.85)",stroke:col?"none":"rgba(100,116,139,.6)","stroke-width":1,class:"bb"},g);
-      c.style.setProperty("--d",(0.9+Math.random()*0.9).toFixed(2)+"s");
+    const g=$(gid);if(!g)return;stopBub(gid);FXP.init(g.ownerSVGElement);
+    if(col){g.__st=FXP.stream(g,x,y,{size:r*2.6,rise:-h*1.9,w:w*.7,drift:40,every:.17,life:2});return;}
+    const N=Math.round(n*1.6);
+    for(let i=0;i<N;i++){
+      const c=mk("circle",{cx:(x-w/2+Math.random()*w).toFixed(1),cy:y,r:(r*(.5+Math.random()*.9)).toFixed(1),
+        fill:"url(#fxpBub)",stroke:"rgba(255,255,255,.9)","stroke-width":.9,class:"bb"},g);
+      c.style.setProperty("--d",(0.8+Math.random()*0.9).toFixed(2)+"s");
       c.style.setProperty("--dl",(Math.random()*1.2).toFixed(2)+"s");
       c.style.setProperty("--h",h+"px");
     }
   }
-  function stopBub(gid){const g=$(gid);if(g)g.innerHTML="";}
+  function stopBub(gid){const g=$(gid);if(!g)return;if(g.__st){g.__st.stop();g.__st=null;}g.innerHTML="";}
   async function dropInto(id,y0,y1,n=3){
     const d=$(id);
     for(let i=0;i<n;i++){
@@ -239,7 +243,7 @@
   // ======================= state & record =======================
   let EXP=null,step=0,done=false,busy=false;
   function setPill(){const n=EXP?EXP.stepTasks.length:0;$("pill").textContent=done?"Done ✓":`Step ${Math.min(step+1,n)} / ${n}`;}
-  function setTask(){if(done)return;$("tn").textContent=step+1;$("tt").textContent=EXP.stepTasks[step];}
+  function setTask(){if(done)return;$("tn").textContent=step+1;$("tt").textContent=EXP.stepTasks[step];if(step>0)try{Say.say(EXP.stepTasks[step],true);}catch(e){}}
   function markStep(){$$("#steps li").forEach((li,i)=>{li.className=i<step?"ok":(i===step?"now":"");});}
   function buildRecord(){
     $("aim").innerHTML="<b>Aim:</b> "+EXP.aim;
@@ -499,7 +503,7 @@
   $("rst").onclick=()=>{if(EXP)begin(EXP);else chooser();};
   $("swap").onclick=chooser;
 
-  function celebrate(){
+  function celebrate(){return;/*no confetti in labs*/
     const box=document.createElement("div");box.className="cf";
     const cols=["#F97316","#2563EB","#DB2777","#16A34A","#FACC15","#7C3AED","#DC2626","#0D9488"];
     for(let k=0;k<80;k++){const p=document.createElement("i"),w=14+Math.random()*12;

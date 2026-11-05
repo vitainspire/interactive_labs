@@ -96,13 +96,15 @@
     const ss=window.speechSynthesis;let on=true,v=null,dT=null;
     try{on=localStorage.getItem("zphsLabVoice")!=="off";}catch(e){}
     function pick(){if(!ss)return;const vs=ss.getVoices().filter(x=>/^en/i.test(x.lang));
-      v=vs.find(x=>/en[-_]IN/i.test(x.lang))||vs.find(x=>/google/i.test(x.name)&&/en[-_](GB|US)/i.test(x.lang))||vs.find(x=>/en[-_](GB|US)/i.test(x.lang))||vs[0]||null;}
+      const sc=x=>{let s=0;const n=x.name||"",l=x.lang||"";if(/en[-_]IN/i.test(l))s+=6;if(/natural|neural|online|premium|enhanced/i.test(n))s+=5;if(/google/i.test(n))s+=4;
+        if(/neerja|heera|veena|raveena|aditi|kajal|swara|female|zira|samantha|sonia|libby|aria|jenny/i.test(n))s+=2;if(/en[-_](GB|US)/i.test(l))s+=1;if(/espeak|robot|compact/i.test(n))s-=6;if(x.localService===false)s+=1;return s;};
+      v=vs.slice().sort((a,b)=>sc(b)-sc(a))[0]||null;}
     if(ss){pick();try{ss.addEventListener("voiceschanged",pick);}catch(e){ss.onvoiceschanged=pick;}}
     function stop(){if(ss)ss.cancel();Snd.duck(false);}
     function say(text,queue){
       if(!ss||!on||!text)return;if(!queue)ss.cancel();
       text.split(/(?<=[.!?])\s+/).forEach(s=>{if(!s.trim())return;
-        const u=new SpeechSynthesisUtterance(s);u.lang=v?v.lang:"en-IN";if(v)u.voice=v;u.rate=.9;u.pitch=1.05;
+        const u=new SpeechSynthesisUtterance(s);u.lang=v?v.lang:"en-IN";if(v)u.voice=v;u.rate=.86;u.pitch=1;u.volume=.95;
         u.onstart=()=>{clearTimeout(dT);Snd.duck(true);};
         u.onend=u.onerror=()=>{clearTimeout(dT);dT=setTimeout(()=>{if(!ss.speaking)Snd.duck(false);},300);};
         ss.speak(u);});
@@ -212,13 +214,8 @@
   }
   function steamPuff(){
     const g=$("steam");
-    for(let i=0;i<6;i++){
-      const x=322+Math.random()*16;
-      const c=mk("circle",{cx:x,cy:312,r:5,fill:"#E2E8F0",opacity:0},g);
-      setTimeout(()=>tween(1500,t=>{
-        c.setAttribute("cy",312-t*150);c.setAttribute("r",5+t*9);c.setAttribute("opacity",.5*(1-t));
-      },x=>x).then(()=>c.remove()),i*160);
-    }
+    FXP.smoke(g,330,318,{color:"steam",n:8,size:9,rise:170,drift:6,spread:10,gap:130,life:1.8,op:1});
+    setTimeout(()=>FXP.smoke($("fx"),330,126,{color:"steam",n:5,size:24,rise:120,drift:60,spread:12,gap:200,life:2.4,op:1}),900);
   }
 
   /* ---------- the four steps ---------- */
@@ -244,7 +241,7 @@
 
   async function doHeat(){
     busy=true;hint();
-    lit=true;$("flame").setAttribute("opacity",1);
+    lit=true;{const f=$("flame");if(!f.__fx)f.__fx=FXP.flame(f,330,408,{type:"burner",w:18,h:92});f.setAttribute("opacity",1);}
     Snd.strike();Snd.fizzStart();Snd.fizzLevel(.03);
     toast("The tube is getting hot…",true);
     Say.say("The crystals are being heated.");
@@ -392,7 +389,7 @@
     const c=mk("circle",{cx:x,cy:y,r:6,fill:"url(#gFlash)"},fx);
     tween(600,t=>{c.setAttribute("r",6+t*80);c.setAttribute("opacity",1-t);},easeOut).then(()=>c.remove());
   }
-  function confetti(){
+  function confetti(){return;/*no confetti in labs*/
     if(RM)return;
     const box=document.createElement("div");box.className="cf";document.body.appendChild(box);
     const cols=["#1E6FD9","#60A5FA","#FDE047","#F97316","#10B981","#DB2777"];
